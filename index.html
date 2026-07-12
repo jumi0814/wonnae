@@ -274,6 +274,12 @@ td.fullcell.is-holi{background:#2E3A34}
 .rtable{width:100%;border-collapse:collapse;font-size:12.5px}
 .rtable td,.rtable th{padding:7px 6px;border-bottom:1px dashed var(--line);vertical-align:top;text-align:left;overflow-wrap:anywhere;word-break:break-word}
 .rtable td:first-child{font-weight:800;white-space:nowrap}
+/* OCS 진료행 — 과별 테이블 열폭 통일: 시간|환자|내역|주치의가 모든 과에서 같은 위치 */
+.otbl{table-layout:fixed}
+.otbl td{padding:3.5px 4px}
+.otbl td:nth-child(1){width:40px}
+.otbl td:nth-child(2){width:58px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.otbl td:nth-child(4){width:50px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .rtable th{font-size:11px;color:var(--sub)}
 .pen{color:var(--red);font-weight:800;white-space:nowrap}
 .copybox{background:#F7FAF8;border:1.5px solid var(--line);border-radius:11px;padding:10px 11px;font-size:12.5px;margin:7px 0;display:flex;gap:8px;align-items:center;cursor:pointer}
@@ -3487,7 +3493,7 @@ function renderOcsGold(){
       html+=L.map(x=>{const u=x.u;const m=hm2min(u.t||"12:00");const busy=slotBusyEvents(ds,m,m+30).length;const mine=MSg.has(u);const c=DEPT_COLOR[u.dep]||"#666";
         return `<div onclick="hvJump(${slotIdxOf(u)})" title="${esc(u.cat||"")}" style="display:flex;gap:6px;align-items:center;padding:2.5px 4px;border-radius:7px;cursor:pointer;font-size:11.5px;line-height:1.3;${mine?"background:var(--purple-soft);":""}${busy?"opacity:.45;":""}">
           <b style="width:38px;flex:0 0 auto">${u.t||"?"}</b>
-          <span class="dept-tag${txtOn(c)==="#fff"?"":" lt"}" style="background:${c};color:${txtOn(c)};font-size:9.5px;flex:0 0 auto">${u.dep}</span>
+          <span class="dept-tag${txtOn(c)==="#fff"?"":" lt"}" style="background:${c};color:${txtOn(c)};font-size:9.5px;flex:0 0 auto;width:34px;display:inline-flex;justify-content:center;box-sizing:border-box;padding-left:0;padding-right:0">${u.dep}</span>
           <span style="font-size:10px;font-weight:800;color:${c};flex:0 0 auto">💎${x.lb}</span>
           <span style="color:var(--amber);font-size:10px;flex:0 0 auto">${hvStars(x.w)}</span>
           <b style="flex:0 0 auto">${esc(u.pt)}</b>${mine?'<b style="color:var(--purple)">◇</b>':""}
@@ -3538,7 +3544,7 @@ function renderOcsGold(){
           const hvN=R.filter(u=>hvMap.has(u)).length;
           return `<details style="margin:4px 0 4px 2px">
             <summary style="font-size:12.5px;font-weight:800;cursor:pointer"><span class="dept-tag" style="background:${DEPT_COLOR[dep]||"#666"};color:${txtOn(DEPT_COLOR[dep]||"#666")}">${dep}</span> ${R.length}명${hvN?` · 💎${hvN}`:""}${mineN?` · <b style="color:var(--purple)">◇${mineN}</b>`:""}</summary>
-            <table class="rtable" style="font-size:11.5px;margin-top:2px">${R.map(u=>{const hv=hvMap.get(u);const mine=MSg.has(u);
+            <table class="rtable otbl" style="font-size:11.5px;margin-top:2px">${R.map(u=>{const hv=hvMap.get(u);const mine=MSg.has(u);
               return `<tr style="${mine?"background:var(--purple-soft)":hv?"":"opacity:.75"}"><td>${u.t}</td><td>${esc(u.pt)}${mine?' <b style="color:var(--purple)">◇</b>':""}</td><td>${hv?`<span style="font-size:9.5px;font-weight:800;color:${DEPT_COLOR[dep]||"#666"};border:1px solid ${DEPT_COLOR[dep]||"#666"};border-radius:999px;padding:0 5px;white-space:nowrap">💎${hv.lb}</span> <span style="color:var(--amber);font-size:10px">${hvStars(hv.w)}</span> `:""}${esc(u.cat||"—")}</td><td style="color:var(--sub)">${esc(u.dr||"")}</td></tr>`;}).join("")}</table>
           </details>`;}).join(""):'<p class="hint" style="margin:2px 0 0 4px">이 시간대 전공의 진료 없음</p>'}
         </div></details>`;
@@ -3578,7 +3584,7 @@ function renderOcsDay(){
         const lockN=L.length-okL.length;
         const tag=dep==="외과"?` · <b style="color:var(--red)">전부 달신 — 참고만</b>`:dep==="원진실"?` · <b style="color:var(--purple)">동기 프랙 — 참고</b>`:dep==="기타"?` · <b style="color:var(--red)">🔒예약제</b>`:dep==="교정"?` · <b style="color:var(--brand)">가능(교수포함) ${okL.length}</b>${lockN?` <span style="color:var(--sub)">🔒${lockN}</span>`:""}`:` · <b style="color:var(--brand)">레지 가능 ${okL.length}</b>${lockN?` <span style="color:var(--sub)">🔒${lockN}</span>`:""}`;
         return `<details style="margin-top:6px"${mineN?" open":""}><summary style="font-size:12.5px;font-weight:800;cursor:pointer"><span class="dept-tag" style="background:${DEPT_COLOR[dep]||"#666"};color:${txtOn(DEPT_COLOR[dep]||"#666")}">${dep}</span> ${(dep==="외과"||dep==="기타")?L.length:okL.length}건 <span style="font-weight:600;color:var(--sub)">(${(dep==="외과"||dep==="기타")?"참여불가":`가능 오전 ${am}·오후 ${pm}`})</span>${tag}${hotN?` · <span style="color:var(--brand)">케이스성 ${hotN}</span>`:""}${mineN?` · <b style="color:var(--purple)">◇내토탈 ${mineN}</b>`:""}</summary>
-        <div style="max-height:300px;overflow-y:auto"><table class="rtable" style="font-size:11.5px">${L.map(row).join("")}</table></div></details>`;}).join("")}
+        <div style="max-height:300px;overflow-y:auto"><table class="rtable otbl" style="font-size:11.5px">${L.map(row).join("")}</table></div></details>`;}).join("")}
     </div>`;
   }else{
     bd=`<div class="card"><h2>이 날 실제 OCS 예약</h2><p class="hint">이 날짜 OCS 데이터가 아직 없어요 — <b>OCS를 저에게 주시면</b> 여기가 채워진 새 버전을 드립니다.</p></div>`;
