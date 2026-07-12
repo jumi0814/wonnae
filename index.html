@@ -325,7 +325,12 @@ td.fullcell.is-holi{background:#2E3A34}
 .lad-res{border-radius:13px;padding:12px;margin-top:8px;font-size:13px}
 .lad-res.hi{background:var(--brand-soft)}.lad-res.mid{background:var(--amber-soft)}.lad-res.lo{background:var(--red-soft)}
 .lad-res .big{font-size:19px;font-weight:800}
-dialog{border:none;border-radius:18px;padding:0;width:min(calc(100vw - 20px),420px);max-height:86vh;box-shadow:0 24px 70px rgba(0,0,0,.28)}
+/* ★전역 *{margin:0} 리셋이 브라우저 기본 margin:auto를 지워 다이얼로그가 좌측 상단에 붙던 문제 —
+   inset:0 + margin:auto로 중앙 고정(사파리 포함 전 브라우저), fixed 폴백까지 이중 보장 */
+dialog{position:fixed;inset:0;margin:auto!important;border:none;border-radius:18px;padding:0;width:min(calc(100vw - 20px),420px);max-height:86vh;box-shadow:0 24px 70px rgba(0,0,0,.28)}
+dialog:not([open]){display:none}
+dialog[open]{display:block}
+@supports not (inset:0){dialog[open]{top:50%;left:50%;transform:translate(-50%,-50%)}}
 dialog::backdrop{background:rgba(12,40,30,.5)}
 .dlg-in{padding:18px 16px;max-height:calc(86vh - 4px);overflow:auto;-webkit-overflow-scrolling:touch}
 .dlg-in h3{font-size:15px;font-weight:800;margin-bottom:12px}
