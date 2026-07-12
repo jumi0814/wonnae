@@ -22,7 +22,7 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
 body{font-family:"Apple SD Gothic Neo","Noto Sans KR","Pretendard",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.55;padding-bottom:78px}
-header{background:linear-gradient(135deg,var(--brand-deep),var(--brand-2) 70%);color:#fff;padding:16px 18px 12px;display:flex;align-items:center;gap:10px}
+header{background:linear-gradient(135deg,var(--brand-deep),var(--brand-2) 70%);color:#fff;padding:calc(16px + env(safe-area-inset-top)) 18px 12px;display:flex;align-items:center;gap:10px}
 header h1{font-size:18.5px;font-weight:800;letter-spacing:-.02em}
 header .sub{font-size:11px;opacity:.72;margin-top:1px}
 #sem-btn{margin-left:auto;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:99px;padding:5px 13px;font-size:12px;font-weight:700;backdrop-filter:blur(4px)}
@@ -36,7 +36,7 @@ header .sub{font-size:11px;opacity:.72;margin-top:1px}
 .tl-item.past{opacity:.32}
 #now-line{color:#fff;font-size:12px;margin:9px 2px 9px;display:flex;justify-content:space-between}
 #now-clock{font-weight:800;font-variant-numeric:tabular-nums}
-main{padding:14px 6px 8px;max-width:1100px;margin:0 auto;width:97%}
+main{padding:14px 6px calc(86px + env(safe-area-inset-bottom));max-width:1100px;margin:0 auto;width:97%}
 @media(min-width:860px){main{max-width:96vw}}
 .tabpage{display:none}.tabpage.active{display:block;animation:fadein .18s ease}
 @keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1}}
@@ -61,7 +61,9 @@ nav button.on{color:var(--brand)}
 nav button.on::after{content:"";position:absolute;top:0;width:26px;height:3px;border-radius:0 0 4px 4px;background:var(--brand)}
 input,select,textarea{font-family:inherit;font-size:14px;border:1.5px solid var(--line);border-radius:11px;padding:10px 11px;width:100%;background:#fff;color:var(--ink)}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:8px}
+input,select,textarea{min-width:0;max-width:100%;box-sizing:border-box}
+input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;background:#fff;min-height:40px}
 .full{grid-column:1/-1}
 .slotpick{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
 .slotpick button{border:1.5px solid var(--line);border-radius:99px;padding:6px 13px;font-size:12.5px;font-weight:700;color:var(--sub);background:#fff}
@@ -110,7 +112,7 @@ td.is-sun .mdate .dn{color:var(--red)}td.is-sat .mdate .dn{color:var(--blue)}
 td.dcell,td.zcell,td.fullcell{cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:rgba(23,116,87,.18)}
 td.dcell:active,td.zcell:active,td.fullcell:active{background:var(--brand-soft)}
 .mcal td.fullcell .fdwrap{min-height:46px}
-.mcal tr.wk-date td.dcell{padding:3px 0}   /* 탭 영역 살짝 키움 */
+.mcal tr.wk-date td.dcell{padding:7px 0 6px}   /* 탭 영역 확대(모바일 명중률) */
 .mzone{padding:2px 3px;min-height:46px;height:100%;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:2px}
 .chip{display:block;border-radius:5px;padding:2px 4px 2px 5px;font-size:9.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.35;color:#243029;border-left:3px solid;flex:0 0 auto}
 .chip .tm2{font-weight:800;opacity:.75;margin-right:2px;font-size:9px}
@@ -317,11 +319,11 @@ td.fullcell.is-holi{background:#2E3A34}
 .lad-res{border-radius:13px;padding:12px;margin-top:8px;font-size:13px}
 .lad-res.hi{background:var(--brand-soft)}.lad-res.mid{background:var(--amber-soft)}.lad-res.lo{background:var(--red-soft)}
 .lad-res .big{font-size:19px;font-weight:800}
-dialog{border:none;border-radius:18px;padding:0;width:min(92vw,420px);box-shadow:0 24px 70px rgba(0,0,0,.28)}
+dialog{border:none;border-radius:18px;padding:0;width:min(calc(100vw - 20px),420px);max-height:86vh;box-shadow:0 24px 70px rgba(0,0,0,.28)}
 dialog::backdrop{background:rgba(12,40,30,.5)}
-.dlg-in{padding:18px 16px}
+.dlg-in{padding:18px 16px;max-height:calc(86vh - 4px);overflow:auto;-webkit-overflow-scrolling:touch}
 .dlg-in h3{font-size:15px;font-weight:800;margin-bottom:12px}
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 17px;border-radius:99px;font-size:13px;z-index:99;opacity:0;transition:opacity .25s;pointer-events:none;max-width:88vw;text-align:center}
+.toast{position:fixed;bottom:calc(90px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 17px;border-radius:99px;font-size:13px;z-index:99;opacity:0;transition:opacity .25s;pointer-events:none;max-width:88vw;text-align:center}
 .toast.show{opacity:1}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -1808,10 +1810,35 @@ function chipHtml(e){
   const tm=e.time?`<span class="tm2">${e.time.replace(":","")}</span>`:"";
   const st=e.status&&e.status!=="plan"?" st-"+e.status:"";
   const un=(e.time||sess)?"":" untimed";
-  return `<span class="chip${st}${un}${sess?" sess":""}" style="background:${c}1A;border-color:${c}" title="[${e.dept}] ${esc(e.title)}${sess?" (나절)":""}" onclick="event.stopPropagation();openChip(${e.id})">${tm}${esc(e.title)}</span>`;
+  return `<span class="chip${st}${un}${sess?" sess":""}" style="background:${c}1A;border-color:${c}" title="[${e.dept}] ${esc(e.title)}${sess?" (나절)":""}" onclick="event.stopPropagation();openChip('${e.id}')">${tm}${esc(e.title)}</span>`;
 }
-function openChip(id){const e=S.events.find(x=>x.id===id);if(!e)return;selDate=e.date;renderCalendar();renderDayDetail();
+function openChip(id){const e=S.events.find(x=>String(x.id)===String(id));if(!e)return;selDate=e.date;renderCalendar();renderDayDetail();
   document.getElementById("day-detail").scrollIntoView({behavior:"smooth",block:"start"});}
+/* 📱 달력 탭 엔진 — iOS가 가로스크롤 표 안의 탭을 스크롤로 오판해 click을 삼키는 문제를
+   위임(click) + 터치 폴백(touchend, 이동<12px·600ms 내면 탭 판정)으로 이중 보장.
+   칩·버튼 등 자체 onclick 보유 요소는 건드리지 않음(제스처 충돌 방지) */
+(function(){
+  const root=document.getElementById("mcal");if(!root||root.__tapEngine)return;root.__tapEngine=1;
+  const hit=t=>{
+    if(!t||!t.closest)return null;
+    if(t.closest("[onclick],button"))return null;          /* 칩·버튼은 원래 핸들러에 양보 */
+    return t.closest("td.dcell[data-ds],td.fullcell[data-ds],.mzone[data-ds]");
+  };
+  const fire=el=>{
+    if(el.classList.contains("mzone"))zoneTap(el.dataset.ds,el.dataset.z);
+    else dayTap(el.dataset.ds);
+  };
+  root.addEventListener("click",e=>{const el=hit(e.target);if(el)fire(el);});
+  let tx=0,ty=0,tt=0;
+  root.addEventListener("touchstart",e=>{const t=e.touches&&e.touches[0];if(!t)return;tx=t.clientX;ty=t.clientY;tt=Date.now();},{passive:true});
+  root.addEventListener("touchend",e=>{
+    const el=hit(e.target);if(!el)return;
+    const t=e.changedTouches&&e.changedTouches[0];if(!t)return;
+    if(Math.abs(t.clientX-tx)>12||Math.abs(t.clientY-ty)>12||Date.now()-tt>600)return;  /* 스크롤·롱프레스 통과 */
+    e.preventDefault();                                     /* 합성 click 이중발화 차단 */
+    fire(el);
+  },{passive:false});
+})();
 function dayTap(ds){
   selDate=ds;renderCalendar();renderDayDetail();
   /* 모바일: 달력이 화면을 다 채워서 아래 상세가 안 보이던 문제 — 상세로 부드럽게 이동 */
@@ -1869,9 +1896,9 @@ function renderCalendar(){
       const pm=rest.filter(e=>e.span==="pm"||(!e.span&&e.time&&hm2min(e.time)>=720));
       const amU=ups.filter(u=>!u.t||hm2min(u.t)<720), pmU=ups.filter(u=>u.t&&hm2min(u.t)>=720);
       const zone=(list,gh,z)=>{
-        return `<div class="mzone ${z}" onclick="zoneTap('${ds}','${z}')">${list.map(chipHtml).join("")}${gh.map(ghostChip).join("")}</div>`;};
+        return `<div class="mzone ${z}" data-ds="${ds}" data-z="${z}">${list.map(chipHtml).join("")}${gh.map(ghostChip).join("")}</div>`;};
       /* 날짜 셀: 숫자만 (배너 없음) */
-      rowD+=`<td class="dcell${sc}" onclick="dayTap('${ds}')"><div class="mdate"><span class="dn">${d.getDate()}</span></div></td>`;
+      rowD+=`<td class="dcell${sc}" data-ds="${ds}"><div class="mdate"><span class="dn">${d.getDate()}</span></div></td>`;
       if(fulls.length){
         /* 하루종일: 오전·오후를 합친 하나의 블록 (rowspan=2). 공휴일은 어두운 색 */
         const isHoli=fulls.some(e=>/공휴일|절$|성탄|신정|설날|추석|어린이날|부처님|현충일|개천절|한글날/.test(e.title));
@@ -1879,12 +1906,12 @@ function renderCalendar(){
         const fullItems=fulls.map(e=>{
           const holi=/공휴일|절$|성탄|신정|설날|추석|어린이날|부처님|현충일|개천절|한글날/.test(e.title);
           const stcls=e.status==="cancel"?" fd-cancel":e.status==="moved"?" fd-moved":"";
-          return {sk:skOf(e),full:1,html:`<div class="mfull2 ${holi?"holi":"treat"}${stcls}" style="${holi?"":`background:${DEPT_COLOR[e.dept]||"#666"}`}" onclick="event.stopPropagation();openChip(${e.id})">${e.time?`<span class="fd-t">${e.time.replace(":","")}</span>`:""}${e.status==="cancel"?"✕ ":e.status==="moved"?"⤳ ":""}${esc(e.title)}</div>`};
+          return {sk:skOf(e),full:1,html:`<div class="mfull2 ${holi?"holi":"treat"}${stcls}" style="${holi?"":`background:${DEPT_COLOR[e.dept]||"#666"}`}" onclick="event.stopPropagation();openChip('${e.id}')">${e.time?`<span class="fd-t">${e.time.replace(":","")}</span>`:""}${e.status==="cancel"?"✕ ":e.status==="moved"?"⤳ ":""}${esc(e.title)}</div>`};
         });
         const exAll=[...am,...pm].sort((a,b)=>skOf(a)-skOf(b));
         const extraItems=exAll.map(e=>({sk:skOf(e),full:0,html:`<div class="fd-1">${chipHtml(e)}</div>`}));
         const items=[...fullItems,...extraItems].sort((a,b)=>a.sk-b.sk);
-        rowAM+=`<td class="fullcell${sc}${isHoli?" is-holi":""}" rowspan="2" onclick="dayTap('${ds}')"><div class="fdwrap">${items.map(x=>x.html).join("")}</div></td>`;
+        rowAM+=`<td class="fullcell${sc}${isHoli?" is-holi":""}" rowspan="2" data-ds="${ds}"><div class="fdwrap">${items.map(x=>x.html).join("")}</div></td>`;
         /* rowPM: 이 날짜 칸은 rowspan이 덮으므로 생략 */
       }else{
         rowAM+=`<td class="zcell${sc}">${zone(am,amU,"am")}</td>`;
@@ -1931,25 +1958,25 @@ function renderDayDetail(){
       <div class="dt" style="background:${DEPT_COLOR[e.dept]}1A"><div class="d" style="color:${DEPT_COLOR[e.dept]}">${e.span==="full"?"하루":e.span==="am"?"오전":e.span==="pm"?"오후":(e.time||"미정")}</div><div class="t" style="color:${DEPT_COLOR[e.dept]}">${e.span?"통짜":e.dept}</div></div>
       <div class="body"><div class="title">[${e.dept}] ${esc(e.title)}</div>${e.memo?`<div class="memo">${esc(e.memo)}</div>`:""}
         <div class="st-row">
-          <button class="${e.status==="moved"?"on moved":""}" onclick="movedEvent(${e.id})">예변</button>
-          <button onclick="editEvent(${e.id})">수정</button>
-          <button class="${e.status==="cancel"?"on cancel":""}" onclick="setStatus(${e.id},'cancel')">취소</button>
-          <button onclick="delEvent(${e.id})" style="margin-left:auto;font-size:11px;color:var(--red)">🗑 삭제</button>
+          <button class="${e.status==="moved"?"on moved":""}" onclick="movedEvent('${e.id}')">예변</button>
+          <button onclick="editEvent('${e.id}')">수정</button>
+          <button class="${e.status==="cancel"?"on cancel":""}" onclick="setStatus('${e.id}','cancel')">취소</button>
+          <button onclick="delEvent('${e.id}')" style="margin-left:auto;font-size:11px;color:var(--red)">🗑 삭제</button>
         </div></div></div>`).join("")
     :`<div class="empty">일정 없음 — 위 빠른추가 또는 캘린더 칸 탭</div>`;
   const upsAll=upOn(ds);const upsM=(m=>upsAll.filter(u=>m.has(u)))(matchSet());
   if(upsAll.length)document.getElementById("day-events").innerHTML+=`<div style="margin-top:8px;padding:8px 10px;border:1.5px dashed var(--line);border-radius:11px;font-size:12px;color:#4A5B53"><b style="color:var(--purple)">◇ OCS 예약 ${upsAll.length}건</b> — 자세히는 OCS 탭 ‘오늘 뭐 열리나’${upsM.length?`<br><b style="color:var(--purple)">내 토탈 환자 발견:</b> ${upsM.map(u=>`${u.t||"?"} [${u.dep}] ${esc(u.pt)}${u.cat?" · "+esc(u.cat):""}`).join(" / ")}`:""}</div>`;
   document.getElementById("day-gaps").innerHTML=gapsHtml(ds,evs);
 }
-function setStatus(id,st){const e=S.events.find(x=>x.id===id);if(!e)return;e.status=e.status===st?"plan":st;e.u=Date.now();
+function setStatus(id,st){const e=S.events.find(x=>String(x.id)===String(id));if(!e)return;e.status=e.status===st?"plan":st;e.u=Date.now();
   save();renderCalendar();renderDayDetail();renderToday();}
-function movedEvent(id){const e=S.events.find(x=>x.id===id);if(!e)return;
+function movedEvent(id){const e=S.events.find(x=>String(x.id)===String(id));if(!e)return;
   if(e.status==="moved"){ e.status="plan"; e.title=e.title.replace(/^\[예변\]\s*/,""); e.u=Date.now(); save(); renderCalendar(); renderDayDetail(); renderToday(); return; }
   e.status="moved"; if(!/^\[예변\]/.test(e.title))e.title="[예변] "+e.title; e.u=Date.now(); save();
   editEvent(id); renderCalendar(); renderToday();
   toast("예변 표시됨 — 아래에서 날짜·시간 바꾸고 저장");
 }
-function editEvent(id){const e=S.events.find(x=>x.id===id);if(!e){toast("일정을 찾을 수 없어요");return;}
+function editEvent(id){const e=S.events.find(x=>String(x.id)===String(id));if(!e){toast("일정을 찾을 수 없어요");return;}
   document.querySelector("details.adv").open=true;
   document.getElementById("ev-editing").value=id;
   document.getElementById("ev-date").value=e.date;document.getElementById("ev-time").value=e.time||"";
@@ -2041,7 +2068,7 @@ function applyBase(){
   return n;
 }
 function delEvent(id){
-  const e=S.events.find(x=>x.id===id);
+  const e=S.events.find(x=>String(x.id)===String(id));
   const isBase=e&&e.bid!=null;
   askConfirm(`"${e?e.title:""}" 일정을 삭제할까요?${isBase?" (기본판 일정 — 지우면 새 버전에서도 안 살아나요)":" 되돌릴 수 없어요."}`,()=>{
     if(isBase){S.baseDel=S.baseDel||[];if(!S.baseDel.includes(e.bid))S.baseDel.push(e.bid);}
