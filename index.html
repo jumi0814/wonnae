@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="원내생">
+<meta name="theme-color" content="#177457">
 <title>원내생 커맨드센터</title>
 <style>
 :root{
@@ -102,6 +106,11 @@ tr.pm-row td.zcell.is-sel{box-shadow:inset 2px 0 0 var(--brand),inset -2px -2px 
 .mdate{font-size:10.5px;font-weight:800;padding:2px 5px 2px;display:flex;justify-content:space-between;align-items:center;line-height:1.2}
 td.is-sun .mdate .dn{color:var(--red)}td.is-sat .mdate .dn{color:var(--blue)}
 .dcell{min-height:20px}
+/* ★모바일(iOS 사파리) 탭 활성화: cursor:pointer 없는 td엔 click 이벤트가 안 옴 */
+td.dcell,td.zcell,td.fullcell{cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:rgba(23,116,87,.18)}
+td.dcell:active,td.zcell:active,td.fullcell:active{background:var(--brand-soft)}
+.mcal td.fullcell .fdwrap{min-height:46px}
+.mcal tr.wk-date td.dcell{padding:3px 0}   /* 탭 영역 살짝 키움 */
 .mzone{padding:2px 3px;min-height:46px;height:100%;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:2px}
 .chip{display:block;border-radius:5px;padding:2px 4px 2px 5px;font-size:9.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.35;color:#243029;border-left:3px solid;flex:0 0 auto}
 .chip .tm2{font-weight:800;opacity:.75;margin-right:2px;font-size:9px}
@@ -596,6 +605,7 @@ dialog::backdrop{background:rgba(12,40,30,.5)}
       <input type="password" id="gh-token" placeholder="Fine-grained token (github_pat_…)" style="width:100%;margin-top:6px" autocomplete="off">
       <div style="display:flex;gap:8px;margin-top:8px">
         <button class="btn" style="flex:2;background:var(--purple);border-color:var(--purple);color:#fff;font-weight:800" onclick="ghTest()">☁️ 연결 테스트 & 동기화 시작</button>
+        <button class="btn small ghost" style="flex:1" onclick="pullLatest('manual');toast('🔄 동기화 확인 중…')">지금 동기화</button>
         <button class="btn small ghost" style="flex:1" onclick="ghDisconnect()">해제</button>
       </div>
       <p class="hint" id="gh-status" style="margin-top:6px"></p>
@@ -1802,8 +1812,18 @@ function chipHtml(e){
 }
 function openChip(id){const e=S.events.find(x=>x.id===id);if(!e)return;selDate=e.date;renderCalendar();renderDayDetail();
   document.getElementById("day-detail").scrollIntoView({behavior:"smooth",block:"start"});}
-function zoneTap(ds,z){
+function dayTap(ds){
   selDate=ds;renderCalendar();renderDayDetail();
+  /* 모바일: 달력이 화면을 다 채워서 아래 상세가 안 보이던 문제 — 상세로 부드럽게 이동 */
+  try{
+    if(window.innerWidth<=760){
+      const el=document.getElementById("day-title");
+      if(el&&el.scrollIntoView)setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"start"}),60);
+    }
+  }catch(e){}
+}
+function zoneTap(ds,z){
+  dayTap(ds);
   const d=new Date(ds+"T00:00");
   document.getElementById("quick-in").value=`${d.getMonth()+1}/${d.getDate()} ${z==="am"?"오전":"오후"} `;
   quickPreview();
@@ -1851,7 +1871,7 @@ function renderCalendar(){
       const zone=(list,gh,z)=>{
         return `<div class="mzone ${z}" onclick="zoneTap('${ds}','${z}')">${list.map(chipHtml).join("")}${gh.map(ghostChip).join("")}</div>`;};
       /* 날짜 셀: 숫자만 (배너 없음) */
-      rowD+=`<td class="dcell${sc}" onclick="selDate='${ds}';renderCalendar();renderDayDetail()"><div class="mdate"><span class="dn">${d.getDate()}</span></div></td>`;
+      rowD+=`<td class="dcell${sc}" onclick="dayTap('${ds}')"><div class="mdate"><span class="dn">${d.getDate()}</span></div></td>`;
       if(fulls.length){
         /* 하루종일: 오전·오후를 합친 하나의 블록 (rowspan=2). 공휴일은 어두운 색 */
         const isHoli=fulls.some(e=>/공휴일|절$|성탄|신정|설날|추석|어린이날|부처님|현충일|개천절|한글날/.test(e.title));
@@ -1864,7 +1884,7 @@ function renderCalendar(){
         const exAll=[...am,...pm].sort((a,b)=>skOf(a)-skOf(b));
         const extraItems=exAll.map(e=>({sk:skOf(e),full:0,html:`<div class="fd-1">${chipHtml(e)}</div>`}));
         const items=[...fullItems,...extraItems].sort((a,b)=>a.sk-b.sk);
-        rowAM+=`<td class="fullcell${sc}${isHoli?" is-holi":""}" rowspan="2"><div class="fdwrap">${items.map(x=>x.html).join("")}</div></td>`;
+        rowAM+=`<td class="fullcell${sc}${isHoli?" is-holi":""}" rowspan="2" onclick="dayTap('${ds}')"><div class="fdwrap">${items.map(x=>x.html).join("")}</div></td>`;
         /* rowPM: 이 날짜 칸은 rowspan이 덮으므로 생략 */
       }else{
         rowAM+=`<td class="zcell${sc}">${zone(am,amU,"am")}</td>`;
@@ -3420,7 +3440,13 @@ function renderOcsGold(){
       <button class="${goldSub==="time"?"on":""}" onclick="goldPick('time')">⏱ 시간대별 전체</button>
     </div>`;
   if(!raw.length){
-    html+=`<p class="hint">이 날짜 OCS 데이터가 아직 없어요 — 새 OCS를 주시면 채워집니다.</p></div>`;
+    {
+    /* 데이터가 있는 가장 가까운 날짜(앞뒤) 계산 → 원탭 점프 */
+    const days=[...new Set(UPCOMING.map(u=>u.d).concat(HIST.map(r=>"2026-"+r.slice(0,2)+"-"+r.slice(2,4))))].sort();
+    const nx=days.find(x=>x>ds), pv=[...days].reverse().find(x=>x<ds);
+    const jb=x=>`<button class="btn small" style="background:var(--brand);color:#fff;margin:2px 3px 0 0" onclick="ocsDate='${x}';renderOcsDay();renderOcsGold&&renderOcsGold()">${+x.slice(5,7)}/${+x.slice(8,10)}로 이동 ▸</button>`;
+    html+=`<p class="hint">이 날짜 OCS 데이터가 아직 없어요 — 새 OCS를 주시면 채워집니다.</p><div style="margin-top:4px">${pv?jb(pv).replace("▸","◂"):""}${nx?jb(nx):""}</div></div>`;
+  }
     document.getElementById("gold-body").innerHTML=html;return;
   }
   if(goldSub==="hv"){
