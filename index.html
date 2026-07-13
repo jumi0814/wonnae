@@ -623,7 +623,7 @@ dialog::backdrop{background:rgba(12,40,30,.5)}
       <input type="password" id="gh-token" placeholder="Fine-grained token (github_pat_…)" style="width:100%;margin-top:6px" autocomplete="off">
       <div style="display:flex;gap:8px;margin-top:8px">
         <button class="btn" style="flex:2;background:var(--purple);border-color:var(--purple);color:#fff;font-weight:800" onclick="ghTest()">☁️ 연결 테스트 & 동기화 시작</button>
-        <button class="btn small ghost" style="flex:1" onclick="pullLatest('manual');toast('🔄 동기화 확인 중…')">지금 동기화</button>
+        <button class="btn small ghost" style="flex:1" onclick="manualSync()">지금 동기화</button>
         <button class="btn small ghost" style="flex:1" onclick="ghDisconnect()">해제</button>
       </div>
       <p class="hint" id="gh-status" style="margin-top:6px"></p>
@@ -1193,6 +1193,17 @@ function showFreshBanner(nb){
   document.body.appendChild(b);
 }
 function freshReload(){try{location.href=location.pathname+"?v="+Date.now();}catch(e){try{location.reload();}catch(_){}}}
+/* 수동 동기화 — 강제 재병합(ghLastSha 리셋) + 결과를 숨기지 않고 보고 */
+async function manualSync(){
+  if(!ghOn()){toast("⚠ 먼저 위 ☁️ 카드에 repo·토큰 입력 → [연결 테스트]부터!");return;}
+  toast("🔄 동기화 중…");
+  ghLast.err="";ghLastSha=null;              /* sha 리셋 → 무조건 원격과 대조 */
+  await pullLatest("manual");
+  await ghPushNow();
+  if(ghLast.err)toast("⚠ 동기화 실패: "+ghLast.err+" (토큰·repo 확인)");
+  else toast("✅ 동기화 완료 — 일정 "+((S.events||[]).length)+" · 토탈 "+((S.totals||[]).length));
+  ghStatus();
+}
 function ghUrlPath(p){return "https://api.github.com/repos/"+ghCfg.repo+"/contents/"+p;}
 function deployPick(){
   if(!ghOn()){toast("먼저 위 ☁️ 카드에서 GitHub을 연결해주세요");return;}
@@ -1369,11 +1380,13 @@ function save(now,sys){if(!loadDone)return;
 let syncing=false, lastPulledAt=0;
 async function pullLatest(reason){
   if(!loadDone||syncing)return;
-  if(dataOrigin==="fresh"&&!userTouched)return;      /* 빈손 세션은 pull 안 함(시드 오염 방지) */
+  if(dataOrigin==="fresh"&&!userTouched&&!ghOn())return; /* 빈손 세션은 pull 안 함 — 단 ☁️연결 기기는 클라우드 수신이 목적이므로 통과 */
   const dlg=document.querySelector("dialog[open]");
   if(dlg)return;                                      /* 편집 다이얼로그 열려있으면 건드리지 않음 */
   const tin=document.getElementById("quick-in");
-  if(tin&&tin.value.trim())return;                    /* 입력 중이면 미룸 */
+  if(tin&&tin.value.trim()&&reason==="poll")return;   /* 입력 중이면 자동폴만 미룸 — 수동/복귀 동기화는 진행(입력값 보존·복원) */
+  const _qv=tin?tin.value:null;
+  const _qRestore=()=>{try{const t2=document.getElementById("quick-in");if(t2&&_qv!=null)t2.value=_qv;}catch(e){}};
   syncing=true;
   try{
     const localAt=Number(S&&S.savedAt||0);
@@ -1395,7 +1408,8 @@ async function pullLatest(reason){
               if(!S.mini)S.mini=defaultMini();
               S.totals=S.totals||[];S.events=S.events||[];S.routine=S.routine||{};S.roadmap=S.roadmap||{};S.protoDone=S.protoDone||{};
               ghLastSha=g.sha;
-              if(changedLocal){renderAll();updateSvDot&&updateSvDot();toast("☁️ 다른 기기와 동기화했어요");}
+              if(dataOrigin==="fresh")dataOrigin="stored";   /* 클라우드 수신 = 실데이터 보유 */
+              if(changedLocal){renderAll();_qRestore();updateSvDot&&updateSvDot();toast("☁️ 다른 기기와 동기화했어요");}
               if(differsRemote){S.savedAt=Date.now();await flushSave();}   /* 병합본을 GitHub에도 전파 */
               else{try{localStorage.setItem(KEY,JSON.stringify(S));localStorage.setItem(KEY+"-snap",JSON.stringify(S));}catch(e){}}
               svlog("gh↓병합");
@@ -1430,7 +1444,7 @@ async function pullLatest(reason){
         S=merged;
         if(!S.mini)S.mini=defaultMini();
         S.totals=S.totals||[];S.events=S.events||[];S.routine=S.routine||{};S.roadmap=S.roadmap||{};S.protoDone=S.protoDone||{};
-        renderAll();updateSvDot();
+        renderAll();_qRestore();updateSvDot();
         /* 병합 결과가 원격과 다르면(= 내 로컬 고유분 존재) 즉시 재저장해 다른 기기에도 전파 */
         const remoteSig=sig(remote)+"|"+JSON.stringify((remote.events||[]).map(e=>e.id).sort());
         if(remoteSig!==afterSig){ S.savedAt=Date.now(); await flushSave(); }
