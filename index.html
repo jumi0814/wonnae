@@ -460,14 +460,16 @@ dialog::backdrop{background:rgba(12,40,30,.5)}
 <!-- ══ 플랜 ══ -->
 <section class="tabpage" id="page-plan">
   <div class="slotpick" id="plan-pills">
-    <button data-p="tmr" class="on">내일</button>
+    <button data-p="dalsin" class="on">🗓️ 달신</button>
+    <button data-p="tmr">내일</button>
     <button data-p="mini">미니달성</button>
     <button data-p="week">주간</button>
     <button data-p="month">월간</button>
     <button data-p="sem">학기</button>
     <button data-p="year">1년</button>
   </div>
-  <div class="psec" id="p-tmr"></div>
+  <div class="psec" id="p-dalsin"></div>
+  <div class="psec" id="p-tmr" style="display:none"></div>
   <div class="psec" id="p-mini" style="display:none">
     <p class="hint" style="margin-bottom:10px"><b>미니 = 학기/연 최소 요구량 채우기.</b> <span class="scope sem" style="font-size:10px;padding:2px 6px">학기</span>=이번 학기 / <span class="scope yr" style="font-size:10px;padding:2px 6px">연</span>=1년 · 숫자 탭=수정 · 주황선=오늘 기대 페이스</p>
     <div id="mini-list"></div>
@@ -891,7 +893,7 @@ const VAC_AGG={"days":[{"d":"2026-07-06","tot":1081,"ok":295,"hv":89,"byDep":{"�
 const NAIL_AGG={"n":18,"upd":"2026-07-27","drs":[{"dep":"치주","dr":"고은서","days":17,"runs":27,"maxLen":9,"hv":16,"big":5},{"dep":"치주","dr":"황재혁","days":17,"runs":30,"maxLen":8,"hv":10,"big":3},{"dep":"치주","dr":"한만진","days":16,"runs":25,"maxLen":9,"hv":35,"big":25},{"dep":"치주","dr":"수련의","days":14,"runs":23,"maxLen":11,"hv":1,"big":0},{"dep":"보철","dr":"이가영","days":13,"runs":20,"maxLen":6,"hv":20,"big":7},{"dep":"치주","dr":"김세연","days":12,"runs":15,"maxLen":8,"hv":14,"big":3},{"dep":"치주","dr":"박진영","days":11,"runs":15,"maxLen":12,"hv":3,"big":2},{"dep":"보철","dr":"김형준","days":11,"runs":17,"maxLen":7,"hv":24,"big":4},{"dep":"치주","dr":"안성락","days":10,"runs":16,"maxLen":8,"hv":4,"big":2},{"dep":"치주","dr":"강예진","days":10,"runs":12,"maxLen":6,"hv":15,"big":0},{"dep":"보철","dr":"안세홍","days":10,"runs":13,"maxLen":5,"hv":12,"big":4},{"dep":"치주","dr":"김수아","days":10,"runs":10,"maxLen":4,"hv":2,"big":1},{"dep":"치주","dr":"임지해","days":10,"runs":13,"maxLen":4,"hv":2,"big":2},{"dep":"치주","dr":"이요섭","days":9,"runs":19,"maxLen":10,"hv":20,"big":13},{"dep":"보철","dr":"정택준","days":9,"runs":13,"maxLen":5,"hv":30,"big":4},{"dep":"치주","dr":"김현경","days":9,"runs":12,"maxLen":3,"hv":6,"big":4},{"dep":"치주","dr":"강소연","days":8,"runs":14,"maxLen":6,"hv":25,"big":4},{"dep":"치주","dr":"박승진","days":7,"runs":9,"maxLen":8,"hv":7,"big":1},{"dep":"보철","dr":"이지훈","days":7,"runs":12,"maxLen":5,"hv":11,"big":3},{"dep":"보철","dr":"최병훈","days":7,"runs":7,"maxLen":4,"hv":7,"big":2},{"dep":"보철","dr":"송창열","days":7,"runs":7,"maxLen":4,"hv":3,"big":1},{"dep":"보철","dr":"김승완","days":6,"runs":6,"maxLen":4,"hv":7,"big":4},{"dep":"보철","dr":"김하람","days":6,"runs":6,"maxLen":3,"hv":4,"big":2},{"dep":"보철","dr":"김상헌","days":5,"runs":5,"maxLen":4,"hv":10,"big":0},{"dep":"보철","dr":"차채령","days":5,"runs":7,"maxLen":4,"hv":3,"big":0},{"dep":"보철","dr":"안유진","days":5,"runs":5,"maxLen":2,"hv":3,"big":1},{"dep":"치주","dr":"노관휘","days":4,"runs":5,"maxLen":6,"hv":1,"big":1},{"dep":"보철","dr":"김민경","days":4,"runs":6,"maxLen":4,"hv":5,"big":0},{"dep":"보철","dr":"차영석","days":4,"runs":5,"maxLen":3,"hv":5,"big":1},{"dep":"보철","dr":"이영빈","days":4,"runs":5,"maxLen":3,"hv":4,"big":2},{"dep":"보철","dr":"김동학","days":2,"runs":2,"maxLen":2,"hv":1,"big":0}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260727-56";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260727-58";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화), 
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -2472,11 +2474,13 @@ function exportICS(scope){
     evs=S.events.filter(e=>e.status!=="cancel"&&(scope==="all"||e.date.startsWith(ym))).concat(_virtEvs());
     if(!evs.length){toast("내보낼 일정 없음");return;}
   }
-  let ics="BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//wonnae//KR\r\nCALSCALE:GREGORIAN\r\n";
+  let ics="BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//wonnae//dashboard//KR\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\n";
+  /* iOS 캘린더가 로컬시각을 정확히 잡도록 서울 타임존 정의 (KST 고정, DST 없음) */
+  ics+="BEGIN:VTIMEZONE\r\nTZID:Asia/Seoul\r\nBEGIN:STANDARD\r\nDTSTART:19700101T000000\r\nTZOFFSETFROM:+0900\r\nTZOFFSETTO:+0900\r\nTZNAME:KST\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\n";
   const stamp=new Date().toISOString().replace(/[-:]/g,"").slice(0,15)+"Z";
   evs.forEach(e=>{
     const d=e.date.replace(/-/g,"");
-    ics+="BEGIN:VEVENT\r\nUID:"+e.id+"@wonnae\r\nDTSTAMP:"+stamp+"\r\n";
+    ics+="BEGIN:VEVENT\r\nUID:"+(e._virt?"v":"e")+String(e.id)+"-"+e.date.replace(/-/g,"")+"@wonnae\r\nDTSTAMP:"+stamp+"\r\n";
     const isHoli=/공휴일|절$|성탄|신정|설날|추석|어린이날|부처님|현충일|개천절|한글날/.test(e.title);
     let startM=null,endM=null,allDay=false;
     if(e.span==="full"){ if(isHoli)allDay=true; else{startM=540;endM=1020;} } /* 하루종일 진료 09~17 */
@@ -2489,7 +2493,7 @@ function exportICS(scope){
       ics+=`DTSTART;VALUE=DATE:${d}\r\nDTEND;VALUE=DATE:${ymd(nd).replace(/-/g,"")}\r\n`;
     }else{
       const fmt=m=>String(Math.floor(m/60)).padStart(2,"0")+String(m%60).padStart(2,"0")+"00";
-      ics+=`DTSTART:${d}T${fmt(startM)}\r\nDTEND:${d}T${fmt(endM)}\r\n`;
+      ics+=`DTSTART;TZID=Asia/Seoul:${d}T${fmt(startM)}\r\nDTEND;TZID=Asia/Seoul:${d}T${fmt(endM)}\r\n`;
     }
     /* 제목: 앞에 쓴 시간 그대로 유지 (예: 1400 소치 토탈) */
     const tpref=e.time?e.time.replace(":","")+" ":"";
@@ -2498,6 +2502,17 @@ function exportICS(scope){
     ics+="END:VEVENT\r\n";
   });
   ics+="END:VCALENDAR\r\n";
+  /* RFC5545 라인 폴딩 — 75옥텟(UTF-8 바이트) 초과 줄은 접어야 iOS 파서가 안전하게 읽음 */
+  ics=ics.split("\r\n").map(line=>{
+    if(new Blob([line]).size<=74)return line;
+    let out="",cur="",bytes=0;
+    for(const ch of line){
+      const b=new Blob([ch]).size;
+      if(bytes+b>73){out+=(out?"\r\n ":"")+cur;cur=ch;bytes=b;}
+      else{cur+=ch;bytes+=b;}
+    }
+    out+=(out?"\r\n ":"")+cur;return out;
+  }).join("\r\n");
   /* 저장(조용히) + 다운로드 다이얼로그 */
   S.lastExport=Date.now();save();
   const fname=`원내생일정_${scope==="all"?"전체":scope==="delta"?"변경분":scope==="future"?ym+"부터":ym}.ics`;
@@ -3045,16 +3060,206 @@ function delTotal(id){const t=findT(id);
     S.totals=S.totals.filter(x=>String(x.id)!==String(id));save();syncTotals();toast("삭제됨");},"삭제");}
 
 /* ═════════ 플랜 ═════════ */
-function curPill(){const b=document.querySelector("#plan-pills button.on");return b?b.dataset.p:"tmr";}
+function curPill(){const b=document.querySelector("#plan-pills button.on");return b?b.dataset.p:"dalsin";}
 function renderPlan(){
   const p=curPill();
-  if(p==="tmr")renderPlanTmr();
+  if(p==="dalsin")renderDalsin();
+  else if(p==="tmr")renderPlanTmr();
   else if(p==="mini"){renderMini();renderSummary();}
   else if(p==="week")renderPlanWeek();
   else if(p==="month")renderPlanMonth();
   else if(p==="sem")renderPlanSem();
   else{renderRoadmap();renderYrMini();}
 }
+/* ══════════════ 🗓️ 달력신청(달신) 도우미 ══════════════ */
+/* 8월 달력신청 순서표 (26.08 공지 기준) — 20:00부터 과별 순차 진행 */
+const DALSIN_ORDER=[
+  {no:1,dep:"외과",name:"외과 메이저",t:"20:00-20:02",lim:1,note:"1인 1개·블라인드"},
+  {no:2,dep:"외과",name:"외과 메이저 예비",t:"20:04-20:06",lim:1,note:"말리컨·양악 맥스자 제외"},
+  {no:3,dep:"외과",name:"외과 마이너/통진",t:"20:08-20:10",lim:2,note:"1인 2개·통진 학기1회·블라인드"},
+  {no:4,dep:"외과",name:"외과 외래",t:"20:12-20:14",lim:1,note:"환자수140-(신+재)미만만·끝나고 타케이스 가능"},
+  {no:5,dep:"내과",name:"내과 교픽",t:"20:16-20:21",lim:1,note:"최대1개·필수교픽 취소불가·최종 월2개까지"},
+  {no:6,dep:"소치",name:"소치 교픽",t:"20:23-20:28",lim:2,note:"맥스2·환자5명이하 우선권X"},
+  {no:7,dep:"소치",name:"소치 GSP",t:"20:30-20:32",lim:1,note:"누적맥스2·총대우선권시 달신불가"},
+  {no:8,dep:"보존",name:"보존 수술",t:"20:34-20:36",lim:1,note:"첫1분:0점만·이후:3점이하만"},
+  {no:9,dep:"외과",name:"외과 라바지",t:"20:38-20:40",lim:1,note:"맥스5·순위밀리면 타케이스 가능"},
+  {no:10,dep:"치주",name:"치주 교픽",t:"20:42-20:47",lim:99,note:"무제한·취소불가·7월 사다리면제"},
+  {no:11,dep:"보철",name:"보철 교픽",t:"20:49-20:54",lim:99,note:"무제한·취소불가·사다리면제"},
+  {no:12,dep:"영상",name:"영상 대촬",t:"20:56-20:58",lim:1,note:"오전1·오후1"},
+  {no:13,dep:"내과",name:"내과 물치실",t:"21:00-21:05",lim:1,note:"월~금 오전+오후·토 오전2"},
+  {no:14,dep:"영상",name:"영상 픽스",t:"21:07-21:12",lim:1,note:"공지방 시간표 참고"},
+  {no:15,dep:"치주",name:"치주 장부",t:"당일 공지",lim:1,note:"미충족자 우선"},
+  {no:16,dep:"보철",name:"보철 장부",t:"당일 공지",lim:1,note:"치주 장부 이후 역순"}
+];
+function dalsinState(){
+  if(!S.dalsin)S.dalsin={cands:[],won:[],lost:[],openStep:0};
+  if(!S.dalsin.cands)S.dalsin.cands=[];
+  if(!S.dalsin.won)S.dalsin.won=[];
+  if(!S.dalsin.lost)S.dalsin.lost=[];
+  return S.dalsin;
+}
+/* 후보/성공이 시간 겹치는지 (같은 날짜 + 시간대 겹침) */
+function dalsinOverlap(a,b){
+  if(!a.date||!b.date||a.date!==b.date)return false;
+  const span2min=x=>{
+    if(x.span==="full")return[540,1020];
+    if(x.span==="am")return[540,720];
+    if(x.span==="pm")return[780,1020];
+    if(x.t){const m=hm2min(x.t);return[m,m+120];}
+    return[540,1020]; /* 시간 미정은 하루 전체로 간주 */
+  };
+  const[s1,e1]=span2min(a),[s2,e2]=span2min(b);
+  return s1<e2&&s2<e1;
+}
+/* 이 후보가 이미 성공한 진료와 겹치는지 → 겹치면 신청 불가(회색) */
+function dalsinBlocked(cand){
+  const D=dalsinState();
+  return D.won.some(w=>dalsinOverlap(cand,w));
+}
+function addDalsinCand(){
+  const D=dalsinState();
+  askInput("달신 후보 추가",[
+    {label:"과",type:"pick",opts:["외과","내과","소치","보존","치주","보철","영상"],val:"외과"},
+    {label:"진료명 (예: 메이저 말리컨 / 교픽 김정욱 / 라바지)",type:"text",val:""},
+    {label:"📅 날짜",type:"date",val:""},
+    {label:"⏰ 시간 (선택·비우면 나절)",type:"time",val:""},
+    {label:"나절 (시간 없을 때)",type:"pick",opts:["오전","오후","종일"],val:"오전"},
+    {label:"우선순위 메모 (선택)",type:"text",val:""}
+  ],vals=>{
+    if(!vals[1]){toast("진료명을 입력하세요");return;}
+    const span=vals[3]?"":(vals[4]==="오전"?"am":vals[4]==="오후"?"pm":"full");
+    D.cands.push({id:Date.now(),dep:vals[0],name:vals[1].trim(),date:vals[2]||"",t:vals[3]||"",span:span,memo:vals[5]||"",pri:D.cands.filter(c=>c.dep===vals[0]).length+1});
+    save(true);renderDalsin();
+    toast(`${vals[0]} 후보 추가 — ${vals[1]}`);
+  });
+}
+/* 후보 → 성공 (일정 반영) */
+function dalsinWin(id){
+  const D=dalsinState();const c=D.cands.find(x=>x.id===id);if(!c)return;
+  /* 실제 일정 이벤트 생성 (달신 성공 = 확정 진료) */
+  const ev={id:"ds"+c.id,date:c.date,dept:c.dep,title:`${c.name}`,time:c.t||"",span:c.span||"",memo:"🗓️달신 성공",status:"plan",kind:"dalsin",manual:true,u:"ds"+c.id,_dalsin:true};
+  S.events=S.events||[];
+  if(!S.events.some(e=>e.id===ev.id))S.events.push(ev);
+  D.won.push({...c});
+  D.cands=D.cands.filter(x=>x.id!==id);
+  /* 겹치는 다른 후보는 자동으로 blocked 처리됨(렌더시) — 삭제는 안 함(정보 유지) */
+  save(true);refreshAfterEventChange&&refreshAfterEventChange();renderDalsin();
+  toast(`✅ ${c.name} 신청 성공 → 일정 반영!`);
+}
+/* 후보 → 실패 (달력에서 빼기·후보에서 제거) */
+function dalsinLose(id){
+  const D=dalsinState();const c=D.cands.find(x=>x.id===id);if(!c)return;
+  D.lost.push({...c});
+  D.cands=D.cands.filter(x=>x.id!==id);
+  save(true);renderDalsin();
+  toast(`❌ ${c.name} 신청 실패 — 후보에서 제외`);
+}
+/* 성공 취소 (되돌리기) */
+function dalsinUndo(id){
+  const D=dalsinState();const w=D.won.find(x=>x.id===id);if(!w)return;
+  askConfirm(`${esc(w.name)} 성공을 취소할까요?\\n일정에서 빠지고 다시 후보로 돌아가요.`,()=>{
+    S.events=(S.events||[]).filter(e=>e.id!=="ds"+w.id);
+    D.cands.push({...w});
+    D.won=D.won.filter(x=>x.id!==id);
+    save(true);refreshAfterEventChange&&refreshAfterEventChange();renderDalsin();
+    toast("성공 취소 — 후보로 복귀");
+  },"취소");
+}
+function delDalsinCand(id){
+  const D=dalsinState();
+  D.cands=D.cands.filter(x=>x.id!==id);
+  D.lost=D.lost.filter(x=>x.id!==id);
+  save(true);renderDalsin();
+}
+function dalsinChipSpan(c){
+  if(c.t)return c.t;
+  if(c.span==="am")return"오전";
+  if(c.span==="pm")return"오후";
+  if(c.span==="full")return"종일";
+  return"";
+}
+function renderDalsin(){
+  const el=document.getElementById("p-dalsin");if(!el)return;
+  const D=dalsinState();
+  /* 신청 시각 카운트다운 (7/27 20:00) */
+  const now=new Date();
+  const openT=new Date(2026,6,27,20,0,0);  /* 로컬(사용자 기기=KST) 기준 7/27 20:00 */
+  const diff=openT-now;
+  let cd="";
+  if(diff>0){
+    const hh=Math.floor(diff/3600000),mm=Math.floor(diff%3600000/60000);
+    cd=`<div style="background:linear-gradient(135deg,#0F4A36,#0B4230);color:#fff;border-radius:14px;padding:12px 14px;margin-bottom:12px">
+      <div style="font-size:12px;opacity:.8">⏰ 8월 달력신청 시작까지</div>
+      <div style="font-size:22px;font-weight:900;letter-spacing:-.02em">${hh>0?hh+"시간 ":""}${mm}분 남음</div>
+      <div style="font-size:11px;opacity:.7;margin-top:2px">7/27(월) 20:00 · dalsin.site</div></div>`;
+  }else{
+    cd=`<div style="background:linear-gradient(135deg,#B23A2F,#8f2d24);color:#fff;border-radius:14px;padding:12px 14px;margin-bottom:12px">
+      <div style="font-size:15px;font-weight:900">🔴 달력신청 진행 중 / 종료</div>
+      <div style="font-size:11px;opacity:.8;margin-top:2px">순서표 보고 내 차례에 신청하세요</div></div>`;
+  }
+  /* 달신 바로가기 */
+  const link=`<a href="https://dalsin.site" target="_blank" rel="noopener" style="display:block;text-align:center;background:#4caf50;color:#fff;font-weight:800;padding:10px;border-radius:12px;margin-bottom:14px;text-decoration:none">🗓️ dalsin.site 열기 →</a>`;
+  /* 신청 순서표 — 현재 차례 하이라이트 */
+  const nowMin=now.getHours()*60+now.getMinutes();
+  const orderRows=DALSIN_ORDER.map(o=>{
+    const c=DEPT_COLOR[o.dep]||"#666";
+    let live=false;
+    const mt=o.t.match(/(\d{2}):(\d{2})-(\d{2}):(\d{2})/);
+    if(mt&&diff<=0){const s=+mt[1]*60+ +mt[2],e=+mt[3]*60+ +mt[4];live=nowMin>=s&&nowMin<e;}
+    const myCands=D.cands.filter(x=>x.dep===o.dep).length;
+    return `<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:9px;background:${live?"#FFF3B0":"transparent"};border-left:3px solid ${c}">
+      <b style="flex:0 0 20px;color:var(--sub);font-size:11px">${o.no}</b>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:800;font-size:12.5px">${esc(o.name)} ${live?'<span style="color:#B23A2F">● 지금!</span>':""}</div>
+        <div style="font-size:10px;color:var(--sub)">${o.t} · ${esc(o.note)}</div>
+      </div>
+      <div style="flex:0 0 auto;font-size:10px;color:${c};font-weight:800">${o.lim===99?"무제한":o.lim+"개"}${myCands?` · 후보${myCands}`:""}</div>
+    </div>`;
+  }).join("");
+  /* 과별 후보 리스트 (겹침 자동 제외 표시) */
+  const deps=[...new Set(D.cands.map(c=>c.dep))];
+  let candHtml="";
+  if(D.cands.length){
+    candHtml=deps.map(dep=>{
+      const c=DEPT_COLOR[dep]||"#666";
+      const list=D.cands.filter(x=>x.dep===dep).sort((a,b)=>(a.pri||0)-(b.pri||0));
+      const rows=list.map(cand=>{
+        const blocked=dalsinBlocked(cand);
+        const when=`${cand.date?fmtD(cand.date):"날짜?"}${dalsinChipSpan(cand)?" "+dalsinChipSpan(cand):""}`;
+        return `<div style="display:flex;align-items:center;gap:6px;padding:7px 8px;border-radius:10px;background:${blocked?"#F0F0F0":"#F5FAF7"};opacity:${blocked?.5:1};margin-bottom:5px">
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:800;font-size:12.5px;${blocked?"text-decoration:line-through":""}">${esc(cand.name)} ${blocked?'<span style="font-size:9px;color:#B23A2F">⛔앞 진료와 겹침</span>':""}</div>
+            <div style="font-size:10px;color:var(--sub)">${esc(when)}${cand.memo?" · "+esc(cand.memo):""}</div>
+          </div>
+          ${blocked?"":`<button onclick="dalsinWin(${cand.id})" style="flex:0 0 auto;border:none;background:#2E9E44;color:#fff;border-radius:8px;padding:4px 9px;font-size:11px;font-weight:800;cursor:pointer">성공</button>`}
+          <button onclick="dalsinLose(${cand.id})" style="flex:0 0 auto;border:1.5px solid var(--line);background:#fff;color:#B23A2F;border-radius:8px;padding:4px 8px;font-size:11px;font-weight:800;cursor:pointer">실패</button>
+          <button onclick="delDalsinCand(${cand.id})" style="flex:0 0 auto;border:none;background:transparent;color:var(--sub);cursor:pointer;font-size:13px">🗑</button>
+        </div>`;
+      }).join("");
+      return `<div class="card" style="margin-bottom:10px"><h2 style="color:${c}">${dep} 후보 <span class="badge">${list.length}</span></h2>${rows}</div>`;
+    }).join("");
+  }else{
+    candHtml=`<div class="card"><p class="hint">아직 후보가 없어요. 아래 <b>+ 후보 추가</b>로 신청하고 싶은 진료를 미리 담아두세요.<br>달신 시작 전에 과별로 정리해두면, 내 차례에 바로 신청할 수 있어요.</p></div>`;
+  }
+  /* 성공한 진료 */
+  let wonHtml="";
+  if(D.won.length){
+    wonHtml=`<div class="card"><h2>✅ 신청 성공 <span class="badge">${D.won.length}</span></h2>`+
+      D.won.map(w=>{
+        const c=DEPT_COLOR[w.dep]||"#666";
+        const when=`${w.date?fmtD(w.date):"?"}${dalsinChipSpan(w)?" "+dalsinChipSpan(w):""}`;
+        return `<div style="display:flex;align-items:center;gap:6px;padding:7px 8px;border-radius:10px;background:${c}12;border-left:3px solid ${c};margin-bottom:5px">
+          <div style="flex:1;min-width:0"><div style="font-weight:800;font-size:12.5px">${esc(w.name)}</div><div style="font-size:10px;color:var(--sub)">${esc(when)} · 일정 반영됨</div></div>
+          <button onclick="dalsinUndo(${w.id})" style="flex:0 0 auto;border:1.5px solid var(--line);background:#fff;color:var(--sub);border-radius:8px;padding:4px 8px;font-size:11px;cursor:pointer">취소</button>
+        </div>`;
+      }).join("")+`</div>`;
+  }
+  el.innerHTML=cd+link
+    +`<div class="card" style="margin-bottom:10px"><h2>📋 신청 순서표 <span class="badge">8월</span></h2><div style="display:flex;flex-direction:column;gap:2px">${orderRows}</div></div>`
+    +`<button onclick="addDalsinCand()" style="width:100%;border:2px dashed var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:11px;font-size:13px;font-weight:800;cursor:pointer;margin-bottom:14px">+ 후보 추가</button>`
+    +candHtml+wonHtml;
+}
+
 function renderPlanTmr(){
   const d=new Date();d.setDate(d.getDate()+1);
   const ds=ymd(d);const day=d.getDay();
