@@ -402,8 +402,14 @@ dialog::backdrop{background:rgba(12,40,30,.5)}
     </div>
     <div id="legend"></div>
     <div id="dept-filter"></div>
-    <div class="mcal-wrap"><table class="mcal" id="mcal"></table></div>
-    <p class="hint" style="margin-top:7px">오전/오후 칸 탭=그 나절 빠른추가 · 날짜 탭=상세보기 · 칩 탭=수정 · 좌우 스크롤</p>
+    <div id="cal-zoombar" style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+      <button class="btn small ghost" onclick="calZoom(-1)" style="padding:3px 10px;font-size:15px;line-height:1;font-weight:900">−</button>
+      <button class="btn small ghost" onclick="calZoomReset()" id="cal-zoom-lbl" style="padding:3px 10px;font-size:11px;font-weight:800;min-width:70px">맞춤</button>
+      <button class="btn small ghost" onclick="calZoom(1)" style="padding:3px 10px;font-size:15px;line-height:1;font-weight:900">＋</button>
+      <span class="hint" style="font-size:10px;margin-left:2px">두 손가락으로 확대도 돼요</span>
+    </div>
+    <div class="mcal-wrap" id="mcal-wrap"><div id="mcal-zoom" style="transform-origin:0 0;width:100%"><table class="mcal" id="mcal"></table></div></div>
+    <p class="hint" style="margin-top:7px">오전/오후 칸 탭=그 나절 빠른추가 · 날짜 탭=상세 · 칩 탭=수정 · ➕➖·핀치로 확대</p>
     <div class="cal-actions">
       <button class="btn small" style="background:var(--amber);border-color:var(--amber);color:#fff" onclick="copyBake()">🔥 굽기코드</button>
       <button class="btn small ghost" onclick="exportICS('month')">이번달 .ics</button>
@@ -892,7 +898,7 @@ const VAC_AGG={"days":[{"d":"2026-07-06","tot":1081,"ok":295,"hv":89,"byDep":{"�
 const NAIL_AGG={"n":22,"upd":"2026-07-31","drs":[{"dep":"치주","dr":"한만진","days":20,"runs":30,"maxLen":9,"hv":40,"big":30},{"dep":"치주","dr":"고은서","days":20,"runs":33,"maxLen":9,"hv":20,"big":8},{"dep":"치주","dr":"황재혁","days":18,"runs":31,"maxLen":8,"hv":11,"big":3},{"dep":"치주","dr":"수련의","days":17,"runs":27,"maxLen":11,"hv":2,"big":1},{"dep":"치주","dr":"박진영","days":15,"runs":20,"maxLen":12,"hv":6,"big":5},{"dep":"치주","dr":"김세연","days":15,"runs":18,"maxLen":8,"hv":17,"big":3},{"dep":"보철","dr":"김형준","days":13,"runs":20,"maxLen":7,"hv":28,"big":4},{"dep":"보철","dr":"이가영","days":13,"runs":20,"maxLen":6,"hv":20,"big":7},{"dep":"보철","dr":"안세홍","days":13,"runs":17,"maxLen":5,"hv":14,"big":5},{"dep":"치주","dr":"이요섭","days":12,"runs":25,"maxLen":10,"hv":26,"big":17},{"dep":"치주","dr":"강예진","days":12,"runs":15,"maxLen":6,"hv":19,"big":1},{"dep":"치주","dr":"임지해","days":12,"runs":16,"maxLen":4,"hv":2,"big":2},{"dep":"치주","dr":"김현경","days":12,"runs":15,"maxLen":3,"hv":9,"big":4},{"dep":"치주","dr":"안성락","days":11,"runs":17,"maxLen":8,"hv":5,"big":3},{"dep":"치주","dr":"강소연","days":11,"runs":17,"maxLen":6,"hv":29,"big":4},{"dep":"보철","dr":"이지훈","days":11,"runs":16,"maxLen":6,"hv":27,"big":19},{"dep":"치주","dr":"박승진","days":10,"runs":12,"maxLen":8,"hv":11,"big":2},{"dep":"보철","dr":"최병훈","days":10,"runs":10,"maxLen":4,"hv":11,"big":3},{"dep":"치주","dr":"김수아","days":10,"runs":10,"maxLen":4,"hv":2,"big":1},{"dep":"보철","dr":"정택준","days":9,"runs":13,"maxLen":5,"hv":30,"big":4},{"dep":"보철","dr":"김하람","days":8,"runs":8,"maxLen":3,"hv":5,"big":2},{"dep":"보철","dr":"김민경","days":7,"runs":9,"maxLen":4,"hv":12,"big":0},{"dep":"보철","dr":"송창열","days":7,"runs":7,"maxLen":4,"hv":3,"big":1},{"dep":"치주","dr":"노관휘","days":6,"runs":7,"maxLen":6,"hv":2,"big":2},{"dep":"보철","dr":"김승완","days":6,"runs":6,"maxLen":4,"hv":7,"big":4},{"dep":"보철","dr":"김상헌","days":5,"runs":5,"maxLen":4,"hv":10,"big":0},{"dep":"보철","dr":"차채령","days":5,"runs":7,"maxLen":4,"hv":3,"big":0},{"dep":"보철","dr":"안유진","days":5,"runs":5,"maxLen":2,"hv":3,"big":1},{"dep":"보철","dr":"차영석","days":4,"runs":5,"maxLen":3,"hv":5,"big":1},{"dep":"보철","dr":"이영빈","days":4,"runs":5,"maxLen":3,"hv":4,"big":2},{"dep":"보철","dr":"김동학","days":2,"runs":2,"maxLen":2,"hv":1,"big":0}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260731-64";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260731-68";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화), 
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -1225,6 +1231,8 @@ async function load(){
   /* ═ 뷰 모드 적용 + 헤더 더블탭 전환 바인딩 ═ */
   S.viewMode=S.viewMode||"personal";
   applyViewMode();
+  bindCalPinch&&bindCalPinch();
+  setTimeout(()=>{applyCalZoom&&applyCalZoom();},300);
   (function(){
     const hd=document.querySelector("header");
     if(!hd)return;
@@ -1544,7 +1552,13 @@ function save(now,sys){if(!loadDone)return;
 }
 /* 모바일: 앱 전환·화면 끄기 직전 마지막 변경 확실히 저장 */
 ["visibilitychange","pagehide","freeze"].forEach(ev=>{
-  document.addEventListener(ev,()=>{if(document.visibilityState!=="visible"||ev!=="visibilitychange")flushSave();},{capture:true});
+  document.addEventListener(ev,()=>{
+    if(document.visibilityState!=="visible"||ev!=="visibilitychange"){
+      flushSave();
+      /* 앱 전환·종료 직전엔 디바운스 기다리지 말고 즉시 GitHub 전파 (push 유실 방지) */
+      try{if(ghOn()&&loadDone&&!(dataOrigin==="fresh"&&!userTouched)){clearTimeout(ghPushTimer);ghPushNow();}}catch(e){}
+    }
+  },{capture:true});
 });
 /* ═══ 자동 동기화(pull): 앱으로 돌아오거나 주기적으로 — 저장소에 더 최신본이 있으면 끌어와 화면 갱신 ═══
    (같은 계정 저장소가 기기 간 공유될 때 PC→폰이 자동 반영됨. 편집 중이거나 내 것이 더 최신이면 건드리지 않음) */
@@ -1562,6 +1576,7 @@ async function pullLatest(reason){
   try{
     const localAt=Number(S&&S.savedAt||0);
     let remote=null;
+    let ghMerged=false;   /* 이번 pull에서 GitHub 병합을 했으면 로컬 스냅샷 재병합 스킵(구 스냅샷이 최신 클라우드를 밀어내는 것 방지) */
     const valsAll=(await Promise.all([KEY,KEY+"-snap"].map(k=>readAll(k).catch(()=>[])))).flat();
     /* ☁️ GitHub: sha(내용 지문)가 지난 확인과 다를 때만 병합 — 기기별 savedAt 경쟁과 무관하게 확실히 감지 */
     if(ghOn()&&(reason!=="poll"||Date.now()-ghLast.pull>25000)){
@@ -1571,7 +1586,7 @@ async function pullLatest(reason){
           if(g.txt&&g.sha&&g.sha!==ghLastSha){
             const o=JSON.parse(g.txt);
             if(o&&o.events!==undefined){
-              const gsig=x=>{try{return JSON.stringify((x.events||[]).map(e=>[e.id,e.status||"",e.time||"",e.title||""]).sort())+"#"+JSON.stringify((x.totals||[]).map(t=>[t.id,(t.visits||[]).length,t.done?1:0,JSON.stringify(t.vmeta||{})]).sort())+"#"+JSON.stringify((x.mini||[]).map(d=>(d.items||[]).map(i=>i.c||0)));}catch(e){return Math.random()+"";}};
+              const gsig=x=>{try{return JSON.stringify((x.events||[]).map(e=>[e.id,e.status||"",e.time||"",e.title||"",e.span||"",e.date||"",e.memo||"",e.dept||""]).sort())+"#"+JSON.stringify((x.totals||[]).map(t=>[t.id,(t.visits||[]).length,t.done?1:0,t.next||"",t.nextT||"",t.nextHidden?1:0,JSON.stringify(t.vmeta||{})]).sort())+"#"+JSON.stringify((x.mini||[]).map(d=>(d.items||[]).map(i=>i.c||0)));}catch(e){return Math.random()+"";}};
               const merged=mergeStates(o,S);
               const changedLocal=gsig(merged)!==gsig(S);
               const differsRemote=gsig(merged)!==gsig(o);
@@ -1579,6 +1594,7 @@ async function pullLatest(reason){
               if(!S.mini)S.mini=defaultMini();
               S.totals=S.totals||[];S.events=S.events||[];S.routine=S.routine||{};S.roadmap=S.roadmap||{};S.protoDone=S.protoDone||{};
               ghLastSha=g.sha;
+              ghMerged=true;
               if(dataOrigin==="fresh")dataOrigin="stored";   /* 클라우드 수신 = 실데이터 보유 */
               if(changedLocal){renderAll();_qRestore();updateSvDot&&updateSvDot();toast("☁️ 다른 기기와 동기화했어요");}
               if(differsRemote){S.savedAt=Date.now();await flushSave();}   /* 병합본을 GitHub에도 전파 */
@@ -1589,7 +1605,7 @@ async function pullLatest(reason){
         }
       }catch(e){}
     }
-    {
+    if(!ghMerged){
       for(const v of valsAll){try{const o=JSON.parse(v);
         if(o&&o.events!==undefined){const at=Number(o.savedAt||0);
           if(at<=Date.now()+172800000&&(!remote||at>Number(remote.savedAt||0)))remote=o;}
@@ -1601,8 +1617,8 @@ async function pullLatest(reason){
       const localEvIds=new Set((S.events||[]).map(e=>e.id));
       const localToIds=new Set((S.totals||[]).map(t=>t.id));
       const remoteHasNew=(remote.events||[]).some(e=>!localEvIds.has(e.id))||(remote.totals||[]).some(t=>!localToIds.has(t.id));
-      const sig=o=>{try{return JSON.stringify((o.events||[]).map(e=>[e.id,e.status||"",e.time||"",(e.visits||[]).length]).sort())
-        +"#"+JSON.stringify((o.totals||[]).map(t=>[t.id,(t.visits||[]).length,t.done?1:0]).sort())
+      const sig=o=>{try{return JSON.stringify((o.events||[]).map(e=>[e.id,e.status||"",e.time||"",e.title||"",e.span||"",e.date||"",e.memo||""]).sort())
+        +"#"+JSON.stringify((o.totals||[]).map(t=>[t.id,(t.visits||[]).length,t.done?1:0,t.next||"",t.nextT||""]).sort())
         +"#"+JSON.stringify((o.mini||[]).map(d=>(d.items||[]).map(i=>i.c||0)));}catch(e){return "";}};
       const contentDiff=sig(remote)!==sig(S);
       if(rAt>localAt+2000 || remoteHasNew || (contentDiff && rAt>=localAt)){
@@ -2159,6 +2175,58 @@ function zoneTap(ds,z){
   document.getElementById("quick-in").focus();
   document.getElementById("quick-in").scrollIntoView({behavior:"smooth",block:"center"});
 }
+/* ══ 📅 달력 줌 (버튼 + 핀치) ══ */
+let calScale=0;   /* 0=맞춤(화면폭에 맞게 자동), >0 = 배율 */
+function calFitScale(){
+  /* 화면 폭에 맞춰 720px 달력을 축소하는 기본 배율 */
+  const wrap=document.getElementById("mcal-wrap");
+  if(!wrap)return 1;
+  const w=wrap.clientWidth||360;
+  return Math.min(1,Math.max(.45, w/720));
+}
+function applyCalZoom(){
+  const z=document.getElementById("mcal-zoom");
+  const wrap=document.getElementById("mcal-wrap");
+  const lbl=document.getElementById("cal-zoom-lbl");
+  if(!z||!wrap)return;
+  const fit=calFitScale();
+  const s=calScale>0?calScale:fit;
+  z.style.transform="scale("+s+")";
+  /* 스케일 후 실제 높이/폭 보정 — 컨테이너가 축소된 만큼만 차지하도록 */
+  z.style.width=(100/s)+"%";
+  const tbl=document.getElementById("mcal");
+  if(tbl){ wrap.style.height=(tbl.offsetHeight*s+2)+"px"; }
+  if(lbl){ lbl.textContent=calScale>0?Math.round(s*100)+"%":"맞춤 "+Math.round(fit*100)+"%"; }
+}
+function calZoom(dir){
+  const fit=calFitScale();
+  let cur=calScale>0?calScale:fit;
+  cur=Math.min(2.0,Math.max(.4,cur+dir*0.15));
+  calScale=cur;
+  applyCalZoom();
+}
+function calZoomReset(){ calScale=0; applyCalZoom(); }
+window.addEventListener("resize",()=>{ if(document.getElementById("mcal-zoom"))applyCalZoom(); });
+/* 핀치 줌 바인딩 (두 손가락) */
+function bindCalPinch(){
+  const wrap=document.getElementById("mcal-wrap");
+  if(!wrap||wrap._pinchBound)return;
+  wrap._pinchBound=true;
+  let startDist=0,startScale=1;
+  const dist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY);
+  wrap.addEventListener("touchstart",e=>{
+    if(e.touches.length===2){startDist=dist(e.touches);startScale=calScale>0?calScale:calFitScale();}
+  },{passive:true});
+  wrap.addEventListener("touchmove",e=>{
+    if(e.touches.length===2&&startDist>0){
+      const r=dist(e.touches)/startDist;
+      calScale=Math.min(2.0,Math.max(.4,startScale*r));
+      applyCalZoom();
+    }
+  },{passive:true});
+  wrap.addEventListener("touchend",e=>{ if(e.touches.length<2)startDist=0; },{passive:true});
+}
+
 function renderCalendar(){
   document.getElementById("cal-title").textContent=`${calYM.y}년 ${calYM.m+1}월`;
   renderDeptFilter();
@@ -2239,6 +2307,7 @@ function renderCalendar(){
     h+=rowD+"</tr>"+rowAM+"</tr>"+rowPM+"</tr>";
   });
   document.getElementById("mcal").innerHTML=h;
+  requestAnimationFrame(()=>{applyCalZoom&&applyCalZoom();bindCalPinch&&bindCalPinch();});
 }
 function busyBlocks(evs){
   return evs.filter(e=>e.status!=="cancel").map(e=>{
@@ -4021,8 +4090,9 @@ function goPill(o){
   const b=[...document.querySelectorAll("#ocs-pills button")].find(x=>x.dataset.o===o);
   if(b)b.click();
 }
-let goldSub="hv";   /* 고밸류 탭 서브: hv=💎전부 · nail=⛺알박기(연속어시) */
+let goldSub="hv";   /* 고밸류 탭 서브: hv=💎전부(기본) · nail=⛺알박기 · dr=👨‍⚕️쌤별 */
 function goldPick(s){goldSub=s;renderOcsGold();}
+function gPickDr(key){window.gDr=(window.gDr===key?null:key);renderOcsGold();}
 function hvJump(i){goPill("day");setTimeout(()=>openSlotAll(i),90);}   /* 시간대 상세는 이제 "오늘 뭐 열리나" 하단 */
 /* ═══ ⏱ 시간대별 전체 — '오늘 뭐 열리나' 최하단에 상주 (gslot 앵커 = hvJump 착지점) ═══ */
 /* 케전 명단 기반 직급 — 알박기 쌤 파악용 (치주·보철) */
@@ -4171,8 +4241,9 @@ function renderOcsGold(){
       <span class="hint" style="margin-left:auto">가능 <b style="color:var(--brand)">${ups.length}</b> · <b style="color:var(--amber)">💎${hvAll.length}</b> / 전체 ${raw.length}</span>
     </div>
     <div class="slotpick" style="margin:2px 0 8px">
-      <button class="${goldSub==="hv"?"on":""}" onclick="goldPick('hv')">💎 오늘의 고밸류 — 전부</button>
-      <button class="${goldSub!=="hv"?"on":""}" onclick="goldPick('nail')">⛺ 알박기 <span style="font-size:10px;opacity:.85">연속어시</span></button>
+      <button class="${goldSub==="hv"?"on":""}" onclick="goldPick('hv')">💎 고밸류 전부</button>
+      <button class="${goldSub==="nail"?"on":""}" onclick="goldPick('nail')">⛺ 알박기 <span style="font-size:10px;opacity:.85">연속어시</span></button>
+      <button class="${goldSub==="dr"?"on":""}" onclick="goldPick('dr')">👨‍⚕️ 쌤별</button>
     </div>`;
   if(!raw.length){
     {
@@ -4184,6 +4255,76 @@ function renderOcsGold(){
   }
     document.getElementById("gold-body").innerHTML=html;return;
   }
+  if(goldSub==="dr"){
+    /* ── 👨‍⚕️ 쌤별: 지정 전공의 선택 → 그 쌤의 오늘 모든 진료(OCS) 시간순 ── */
+    const DR_PICK={
+      "보철":["이지훈","김상헌","안세홍","김형준","김하람","김동학"],
+      "치주":["임지해","한만진","고은서","안성락","강소연","황재혁"],
+      "소치":["박규아","장수진"],
+      "교정":["손승현","정주연","길준홍","권나은","이소윤"]
+    };
+    if(!window.gDr)window.gDr=null;   /* 선택된 쌤: "과|이름" */
+    const cOf=dep=>(typeof DEPT_COLOR!=="undefined"&&DEPT_COLOR[dep])||"#666";
+    /* 이름 정규화(숫자·영문·괄호 제거) — dr 매칭용 */
+    const nrm=s=>(s||"").replace(/\(.*?\)|[0-9A-Za-z]/g,"").trim();
+    /* 이 날짜 raw 예약 전체(교수·전공의 무관) — 쌤 진료를 다 보려면 accessOf 필터 안 씀 */
+    const allDay=raw;
+    /* dr 정보 유무: 과거 날짜는 HIST 복원이라 dr이 비어있음 → 안내 */
+    const hasDr=allDay.some(u=>(u.dr||"").trim());
+    /* 쌤별 진료 수 카운트 (오늘 이 쌤이 몇 건 보나) */
+    const cntOf=(dep,nm)=>allDay.filter(u=>u.dep===dep&&nrm(u.dr)===nm).length;
+    /* 칩 버튼 그리드 */
+    let picker=`<p class="hint" style="margin:2px 0 10px">보고 싶은 <b>선생님</b>을 탭하면 그날 <b>모든 진료</b>를 시간순으로 볼 수 있어요. (내 토탈은 <span style="color:var(--purple)">◇</span>)</p>`;
+    if(!hasDr&&allDay.length){picker+=`<div style="background:#FFF3CD;border:1px solid #FFE08A;border-radius:10px;padding:8px 11px;margin-bottom:10px;font-size:11.5px;color:#7A5C00">📌 <b>${dowN}(${ds.slice(5).replace("-","/")})</b>은 담당쌤 정보가 없는 과거 데이터예요. 쌤별 보기는 <b>최근 OCS가 있는 날</b>(위 날짜 이동 → 오늘·다가오는 날)에서 가장 정확해요.</div>`;}
+    Object.keys(DR_PICK).forEach(dep=>{
+      const c=cOf(dep);
+      picker+=`<div style="margin-bottom:8px"><div style="font-size:11px;font-weight:800;color:${c};margin-bottom:4px">${dep}</div><div style="display:flex;flex-wrap:wrap;gap:5px">`;
+      DR_PICK[dep].forEach(nm=>{
+        const key=dep+"|"+nm;const on=window.gDr===key;const n=cntOf(dep,nm);
+        picker+=`<button onclick="gPickDr('${key}')" style="border:1.5px solid ${on?c:"var(--line)"};background:${on?c:"#fff"};color:${on?"#fff":(n?"var(--ink)":"var(--sub)")};border-radius:99px;padding:4px 11px;font-size:12px;font-weight:${on?800:600};cursor:pointer;opacity:${n?1:.45}">${nm}${n?`<span style="font-size:9.5px;opacity:.8"> ${n}</span>`:`<span style="font-size:9px;opacity:.6"> ·</span>`}</button>`;
+      });
+      picker+=`</div></div>`;
+    });
+    /* 선택된 쌤의 진료 리스트 */
+    let list="";
+    if(window.gDr){
+      const [dep,nm]=window.gDr.split("|");const c=cOf(dep);
+      const mine=allDay.filter(u=>u.dep===dep&&nrm(u.dr)===nm).sort((a,b)=>hm2min(a.t||"23:59")-hm2min(b.t||"23:59"));
+      if(!mine.length){
+        list=`<div class="card"><p class="hint"><b>${nm}</b> 쌤은 이 날(${dowN}) 예약된 진료가 없어요. 다른 날짜(위 날짜 이동)나 다른 쌤을 확인해보세요.</p></div>`;
+      }else{
+        /* 오전/오후 나눔 */
+        const am=mine.filter(u=>!u.t||hm2min(u.t)<720),pm=mine.filter(u=>u.t&&hm2min(u.t)>=720);
+        const hvN=mine.filter(u=>{const r=hvOf&&hvOf(u);return r;}).length;
+        const rowsOf=arr=>arr.map(u=>{
+          const isMine=MSg&&MSg.has&&MSg.has(u);
+          const hv=hvOf&&hvOf(u);
+          const star=hv?(hv.w>=5?"★★★":hv.w>=3.8?"★★":hv.w>=2.4?"★":""):"";
+          return `<div style="display:flex;gap:8px;padding:6px 4px;border-bottom:1px solid var(--line);${isMine?"background:rgba(150,90,210,.06)":""}">
+            <div style="flex:0 0 42px;font-weight:800;font-size:12px;color:${c}">${u.t||"–"}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:12.5px;font-weight:${hv?700:500}">${isMine?'<span style="color:var(--purple);font-weight:800">◇</span>':""}${esc(u.pt)} ${star?`<span style="color:${c};font-size:10px;font-weight:800">${star}</span>`:""}</div>
+              <div style="font-size:10.5px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(u.cat||"—")}</div>
+            </div></div>`;
+        }).join("");
+        list=`<div class="card">
+          <h2 style="color:${c}">${nm} <span style="font-size:12px;color:var(--sub);font-weight:600">${dep}</span> <span class="badge">${mine.length}건</span></h2>
+          <div style="display:flex;gap:6px;margin:4px 0 10px;font-size:11px">
+            <span style="background:${c}15;color:${c};border-radius:6px;padding:2px 8px;font-weight:700">총 ${mine.length}건</span>
+            <span style="background:#B8860B15;color:#B8860B;border-radius:6px;padding:2px 8px;font-weight:700">💎 ${hvN}건</span>
+            <span style="background:var(--bg2,#F2F6F4);border-radius:6px;padding:2px 8px;font-weight:700">AM ${am.length}·PM ${pm.length}</span>
+          </div>
+          ${am.length?`<div style="font-size:10.5px;font-weight:800;color:var(--sub);margin:8px 0 2px">🌅 오전</div>${rowsOf(am)}`:""}
+          ${pm.length?`<div style="font-size:10.5px;font-weight:800;color:var(--sub);margin:12px 0 2px">🌆 오후</div>${rowsOf(pm)}`:""}
+        </div>`;
+      }
+    }else{
+      list=`<div class="card"><p class="hint">👆 위에서 선생님을 선택하세요. 숫자는 <b>오늘 그 쌤의 진료 건수</b>예요 (·는 진료 없음).</p></div>`;
+    }
+    document.getElementById("gold-body").innerHTML=html+picker+list;
+    return;
+  }
+
   if(goldSub==="hv"){
     /* ── 💎 전부: ★등급 그룹 → 그룹 안은 시간순 · 과 태그 표시 ── */
     html+=`<p class="hint" style="margin:0 0 4px">💎+★는 참고용 태그, <b>진료내역은 OCS 원문 그대로</b> · 행 탭 → 그 시간대로 점프 · <span style="color:var(--purple)">◇</span>=내 토탈 · 회색=내 일정 겹침</p>`;
@@ -4193,14 +4334,16 @@ function renderOcsGold(){
       if(!L.length)return;
       html+=`<div style="font-size:11px;font-weight:800;color:${col};margin:9px 0 2px;border-top:1px dashed var(--line);padding-top:6px">${lb} <span style="font-weight:600;color:var(--sub)">${L.length}건 · 시간순</span></div>`;
       html+=L.map(x=>{const u=x.u;const m=hm2min(u.t||"12:00");const busy=slotBusyEvents(ds,m,m+30).length;const mine=MSg.has(u);const c=DEPT_COLOR[u.dep]||"#666";
-        return `<div onclick="hvJump(${slotIdxOf(u)})" title="${esc(u.cat||"")}" style="display:flex;gap:6px;align-items:center;padding:2.5px 4px;border-radius:7px;cursor:pointer;font-size:11.5px;line-height:1.3;${mine?"background:var(--purple-soft);":""}${busy?"opacity:.45;":""}">
-          <b style="width:38px;flex:0 0 auto">${u.t||"?"}</b>
-          <span class="dept-tag${txtOn(c)==="#fff"?"":" lt"}" style="background:${c};color:${txtOn(c)};font-size:9.5px;flex:0 0 auto;width:34px;display:inline-flex;justify-content:center;box-sizing:border-box;padding-left:0;padding-right:0">${u.dep}</span>
-          <span style="font-size:10px;font-weight:800;color:${c};flex:0 0 auto">💎${x.lb}</span>
-          <span style="color:var(--amber);font-size:10px;flex:0 0 auto">${hvStars(x.w)}</span>
-          <b style="flex:0 0 auto">${esc(u.pt)}</b>${mine?'<b style="color:var(--purple)">◇</b>':""}
-          <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#33453E">${esc(u.cat||"—")}</span>
-          <span style="font-size:10px;color:var(--sub);flex:0 0 auto">${esc(u.dr||"")}${tierBadge(u.dep,u.dr)}${busy?" 🔒":""}</span>
+        return `<div onclick="hvJump(${slotIdxOf(u)})" style="padding:4px 5px;border-radius:7px;cursor:pointer;line-height:1.32;border-bottom:1px solid var(--line);${mine?"background:var(--purple-soft);":""}${busy?"opacity:.5;":""}">
+          <div style="display:flex;gap:5px;align-items:center;font-size:11.5px">
+            <b style="flex:0 0 auto;color:${c}">${u.t||"?"}</b>
+            <span style="background:${c};color:${txtOn(c)};font-size:9px;flex:0 0 auto;padding:0 4px;border-radius:4px;font-weight:700">${u.dep}</span>
+            <b style="flex:0 0 auto">${esc(u.pt)}</b>${mine?'<b style="color:var(--purple);flex:0 0 auto">◇</b>':""}
+            <span style="color:var(--amber);font-size:9.5px;flex:0 0 auto">${hvStars(x.w)}</span>
+            <span style="flex:1"></span>
+            <span style="font-size:10px;color:var(--sub);flex:0 0 auto;font-weight:600">${esc(u.dr||"")}${tierBadge(u.dep,u.dr)}${busy?" 🔒":""}</span>
+          </div>
+          <div style="font-size:11px;color:#2E3F38;padding-left:1px;margin-top:1px;word-break:break-word">${esc(u.cat||"—")}</div>
         </div>`;}).join("");
     });
     if(!hvAll.length)html+=`<p class="hint">이 날 💎 고밸류 진료가 없어요.</p>`;
@@ -4637,12 +4780,18 @@ function mergeStates(a,b){
   out.ocsHi=Object.assign({},a.ocsHi||{},b.ocsHi||{});   /* OCS 하이라이트 합집합 보존 */
   out.viewMode=b.viewMode||a.viewMode||"personal";   /* 뷰모드는 이 기기(로컬 b) 화면설정 우선 */
   const score=e=>((e.manual?4:0)+((e.status&&e.status!=="plan")?2:0)+(e.u?1:0));
-  // events: id 맵
+  const mtime=e=>Number(e&&e.u||0);   /* 수정 시각 — 클수록 최신 */
+  /* 이벤트 내용 지문: 내용이 바뀌었는지 판정용 (시간·제목·span·날짜·메모·상태·부서) */
+  const esig=e=>e?[e.date||"",e.time||"",e.span||"",e.title||"",e.memo||"",e.status||"",e.dept||"",e.kind||""].join("\u0001"):"";
+  // events: id 맵 — 같은 id면 (1)내용 다르면 u(수정시각) 최신 우선 (2)내용 같으면 score 높은 쪽
   const em={};out.events.forEach(e=>{em[e.id]=e;});
   (b&&b.events||[]).forEach(e=>{
     const ex=em[e.id];
-    if(!ex){em[e.id]=e;}
-    else if(score(e)>score(ex)){em[e.id]=e;}   /* 더 많이 수정된 쪽 채택 */
+    if(!ex){em[e.id]=e;return;}
+    if(esig(e)!==esig(ex)){                         /* ★내용이 다름 = 누군가 편집함 → 최신 수정시각 승리 */
+      if(mtime(e)>mtime(ex))em[e.id]=e;
+      else if(mtime(e)===mtime(ex)&&score(e)>score(ex))em[e.id]=e;
+    } else if(score(e)>score(ex)){em[e.id]=e;}        /* 내용 같으면 기존대로 score */
   });
   /* 쌍둥이 치유 — 옛 숫자id판·구운 b_판이 합집합에서 만나도 하나로 (패자 id는 묘비로 전파) */
   const dd=dedupeEvents(Object.values(em),out);
