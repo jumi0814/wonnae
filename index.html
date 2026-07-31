@@ -85,7 +85,7 @@ details.adv summary{font-size:12px;color:var(--sub);cursor:pointer;font-weight:7
 #legend{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:9px}
 #legend .lg{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:#3A4A43}
 #legend .lg i{width:9px;height:9px;border-radius:3px}
-.mcal-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:13px;background:#fff}
+.mcal-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:13px;background:#fff;touch-action:pan-x pan-y}
 /* 달력 카드: 표 영역만 좌우 패딩을 없애 카드(=탭) 폭을 꽉 채움 · 표 자체는 원래 넓은 폭으로 가로 스크롤 */
 .cal-card{padding-left:0!important;padding-right:0!important}
 .cal-card>#cal-head,.cal-card>#legend,.cal-card>#dept-filter,.cal-card>p,.cal-card>.cal-actions,.cal-card>details{padding-left:11px!important;padding-right:11px!important}
@@ -898,7 +898,7 @@ const VAC_AGG={"days":[{"d":"2026-07-06","tot":1081,"ok":295,"hv":89,"byDep":{"�
 const NAIL_AGG={"n":22,"upd":"2026-07-31","drs":[{"dep":"치주","dr":"한만진","days":20,"runs":30,"maxLen":9,"hv":40,"big":30},{"dep":"치주","dr":"고은서","days":20,"runs":33,"maxLen":9,"hv":20,"big":8},{"dep":"치주","dr":"황재혁","days":18,"runs":31,"maxLen":8,"hv":11,"big":3},{"dep":"치주","dr":"수련의","days":17,"runs":27,"maxLen":11,"hv":2,"big":1},{"dep":"치주","dr":"박진영","days":15,"runs":20,"maxLen":12,"hv":6,"big":5},{"dep":"치주","dr":"김세연","days":15,"runs":18,"maxLen":8,"hv":17,"big":3},{"dep":"보철","dr":"김형준","days":13,"runs":20,"maxLen":7,"hv":28,"big":4},{"dep":"보철","dr":"이가영","days":13,"runs":20,"maxLen":6,"hv":20,"big":7},{"dep":"보철","dr":"안세홍","days":13,"runs":17,"maxLen":5,"hv":14,"big":5},{"dep":"치주","dr":"이요섭","days":12,"runs":25,"maxLen":10,"hv":26,"big":17},{"dep":"치주","dr":"강예진","days":12,"runs":15,"maxLen":6,"hv":19,"big":1},{"dep":"치주","dr":"임지해","days":12,"runs":16,"maxLen":4,"hv":2,"big":2},{"dep":"치주","dr":"김현경","days":12,"runs":15,"maxLen":3,"hv":9,"big":4},{"dep":"치주","dr":"안성락","days":11,"runs":17,"maxLen":8,"hv":5,"big":3},{"dep":"치주","dr":"강소연","days":11,"runs":17,"maxLen":6,"hv":29,"big":4},{"dep":"보철","dr":"이지훈","days":11,"runs":16,"maxLen":6,"hv":27,"big":19},{"dep":"치주","dr":"박승진","days":10,"runs":12,"maxLen":8,"hv":11,"big":2},{"dep":"보철","dr":"최병훈","days":10,"runs":10,"maxLen":4,"hv":11,"big":3},{"dep":"치주","dr":"김수아","days":10,"runs":10,"maxLen":4,"hv":2,"big":1},{"dep":"보철","dr":"정택준","days":9,"runs":13,"maxLen":5,"hv":30,"big":4},{"dep":"보철","dr":"김하람","days":8,"runs":8,"maxLen":3,"hv":5,"big":2},{"dep":"보철","dr":"김민경","days":7,"runs":9,"maxLen":4,"hv":12,"big":0},{"dep":"보철","dr":"송창열","days":7,"runs":7,"maxLen":4,"hv":3,"big":1},{"dep":"치주","dr":"노관휘","days":6,"runs":7,"maxLen":6,"hv":2,"big":2},{"dep":"보철","dr":"김승완","days":6,"runs":6,"maxLen":4,"hv":7,"big":4},{"dep":"보철","dr":"김상헌","days":5,"runs":5,"maxLen":4,"hv":10,"big":0},{"dep":"보철","dr":"차채령","days":5,"runs":7,"maxLen":4,"hv":3,"big":0},{"dep":"보철","dr":"안유진","days":5,"runs":5,"maxLen":2,"hv":3,"big":1},{"dep":"보철","dr":"차영석","days":4,"runs":5,"maxLen":3,"hv":5,"big":1},{"dep":"보철","dr":"이영빈","days":4,"runs":5,"maxLen":3,"hv":4,"big":2},{"dep":"보철","dr":"김동학","days":2,"runs":2,"maxLen":2,"hv":1,"big":0}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260731-68";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260731-70";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화), 
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -2212,19 +2212,27 @@ function bindCalPinch(){
   const wrap=document.getElementById("mcal-wrap");
   if(!wrap||wrap._pinchBound)return;
   wrap._pinchBound=true;
-  let startDist=0,startScale=1;
+  let startDist=0,startScale=1,pinching=false;
   const dist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY);
+  /* 두 손가락이 달력 위에 놓이면 즉시 브라우저 기본 확대를 막고 우리 줌만 적용 */
   wrap.addEventListener("touchstart",e=>{
-    if(e.touches.length===2){startDist=dist(e.touches);startScale=calScale>0?calScale:calFitScale();}
-  },{passive:true});
+    if(e.touches.length===2){startDist=dist(e.touches);startScale=calScale>0?calScale:calFitScale();pinching=true;
+      if(e.cancelable)e.preventDefault();}
+  },{passive:false});
   wrap.addEventListener("touchmove",e=>{
-    if(e.touches.length===2&&startDist>0){
+    if(e.touches.length===2&&startDist>0&&pinching){
+      if(e.cancelable)e.preventDefault();   /* ★페이지 전체 핀치줌 차단 — 달력만 확대 */
       const r=dist(e.touches)/startDist;
       calScale=Math.min(2.0,Math.max(.4,startScale*r));
       applyCalZoom();
     }
-  },{passive:true});
-  wrap.addEventListener("touchend",e=>{ if(e.touches.length<2)startDist=0; },{passive:true});
+  },{passive:false});
+  wrap.addEventListener("touchend",e=>{ if(e.touches.length<2){startDist=0;pinching=false;} },{passive:true});
+  wrap.addEventListener("touchcancel",()=>{ startDist=0;pinching=false; },{passive:true});
+  /* gesturestart/change (iOS Safari 전용 핀치 이벤트)도 달력 위에선 차단 */
+  ["gesturestart","gesturechange","gestureend"].forEach(ev=>{
+    wrap.addEventListener(ev,e=>{ if(e.cancelable)e.preventDefault(); },{passive:false});
+  });
 }
 
 function renderCalendar(){
@@ -3048,6 +3056,30 @@ function syncTotals(){
 }
 function findT(id){return S.totals.find(t=>t.id===id);}
 let tcDeptFilter=null;   /* null=전체 · Set(선택된 과들) */
+window.tcShowDone=window.tcShowDone||false;   /* ✅완료 항목 표시 토글 */
+let tcSortMode="deadline";   /* deadline=다음내원 임박순 · item=항목별 */
+let tcItemFilter=null;       /* null=전체 · 선택된 항목명(item) */
+function setTcSort(m){tcSortMode=m;renderTotals();}
+function toggleTcShowDone(){window.tcShowDone=!window.tcShowDone;renderTotals();}
+function setTcItem(it){tcItemFilter=(tcItemFilter===it)?null:it;renderTotals();}
+/* 다음 내원(또는 마감) 임박 정렬용 — 작을수록 급함, 없으면 큰 값 */
+function tcUrgency(t){
+  const today0=ymd(new Date());const vs=(t.visits||[]).filter(Boolean).slice().sort();
+  const lastV=vs.length?vs[vs.length-1]:null;
+  /* 마감(유폴/레포트) 우선 반영 */
+  if((t.visits||[]).length>=t.need&&lastV){
+    let best=9999;
+    if(!t.ufol){const u=daysFrom(lastV,7);best=Math.min(best,dLeft(u));}
+    if(!t.report){const r=daysFrom(lastV,14);best=Math.min(best,dLeft(r));}
+    if(best<9999)return best;
+  }
+  /* 다음 내원 */
+  let nx=t.next||"";
+  if(nx&&(vs.includes(nx)||nx<today0))nx="";
+  if(!nx){const um=upMatch(t);if(um&&um.length)nx=um[0].d;}
+  if(nx)return dLeft(new Date(nx+"T00:00"));
+  return 100000;   /* 예정 없음 → 맨 뒤 */
+}
 function tcDeptList(){
   const order=["소치","내과","교정","치주","보존","보철","외과","영상","병리","원진실","기타"];
   const present=new Set((S.totals||[]).map(t=>t.dept).filter(Boolean));
@@ -3067,21 +3099,59 @@ function renderTotals(){
   /* 서브탭: 전체/과별 + 완료 보기 토글 */
   const deps=tcDeptList();
   const doneN=S.totals.filter(t=>t.done).length;
+  /* 과 필터 후보 집합 (항목 세부탭·정렬에 쓰임) */
+  let scoped=(!tcDeptFilter||tcDeptFilter.size===0)?S.totals.slice():S.totals.filter(t=>tcDeptFilter.has(t.dept));
+  /* 현재 스코프의 항목(item) 목록 */
+  const itemList=[...new Set(scoped.map(t=>(t.item||"").trim()).filter(Boolean))];
+  if(tcItemFilter&&!itemList.includes(tcItemFilter))tcItemFilter=null;
   let filterHtml="";
   {
     const active=tcDeptFilter&&tcDeptFilter.size>0;
-    filterHtml=`<div style="display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin:0 0 10px">
+    filterHtml=`<div style="display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin:0 0 7px">
       <button onclick="clearTcDept()" style="border:1.5px solid ${active?"var(--line)":"var(--brand)"};background:${active?"transparent":"var(--brand)"};color:${active?"var(--sub)":"#fff"};border-radius:999px;padding:2px 11px;font-size:11px;font-weight:800;cursor:pointer">전체 ${S.totals.length}</button>
       ${deps.map(dep=>{const on=active&&tcDeptFilter.has(dep);const col=DEPT_COLOR[dep]||"#666";const n=S.totals.filter(t=>t.dept===dep).length;
         return `<button onclick="toggleTcDept('${dep}')" style="border:1.5px solid ${col};background:${on?col:col+"14"};color:${on?"#fff":col};border-radius:999px;padding:2px 11px;font-size:11px;font-weight:800;cursor:pointer">${dep} ${n}</button>`;}).join("")}
-      ${doneN?`<button onclick="tcShowDone=!tcShowDone;renderTotals()" style="margin-left:auto;border:1.5px solid var(--line);background:${window.tcShowDone?"var(--ink)":"transparent"};color:${window.tcShowDone?"#fff":"var(--sub)"};border-radius:999px;padding:2px 11px;font-size:10.5px;font-weight:700;cursor:pointer">✅완료 ${doneN} ${window.tcShowDone?"숨기기":"보기"}</button>`:""}
+      ${doneN?`<button onclick="toggleTcShowDone()" style="margin-left:auto;border:1.5px solid var(--line);background:${window.tcShowDone?"var(--ink)":"transparent"};color:${window.tcShowDone?"#fff":"var(--sub)"};border-radius:999px;padding:2px 11px;font-size:10.5px;font-weight:700;cursor:pointer">✅완료 ${doneN} ${window.tcShowDone?"숨기기":"보기"}</button>`:""}
+    </div>`;
+    /* 항목별 세부탭 (현재 과 스코프에 항목이 2개 이상일 때만) */
+    if(itemList.length>1){
+      filterHtml+=`<div style="display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin:0 0 7px;padding-left:2px">
+        <span style="font-size:10px;color:var(--sub);font-weight:700;flex:0 0 auto">항목</span>
+        <button onclick="setTcItem(null)" style="border:1px solid ${tcItemFilter?"var(--line)":"var(--ink)"};background:${tcItemFilter?"transparent":"var(--ink)"};color:${tcItemFilter?"var(--sub)":"#fff"};border-radius:999px;padding:1px 9px;font-size:10px;font-weight:700;cursor:pointer">전체</button>
+        ${itemList.map(it=>{const on=tcItemFilter===it;const n=scoped.filter(t=>(t.item||"").trim()===it).length;
+          return `<button onclick="setTcItem('${esc(it).replace(/'/g,"")}')" style="border:1px solid ${on?"var(--ink)":"var(--line)"};background:${on?"var(--ink)":"transparent"};color:${on?"#fff":"var(--sub)"};border-radius:999px;padding:1px 9px;font-size:10px;font-weight:700;cursor:pointer">${esc(it)} ${n}</button>`;}).join("")}
+      </div>`;
+    }
+    /* 정렬 선택 (임박순 / 항목별) */
+    filterHtml+=`<div style="display:flex;gap:5px;align-items:center;margin:0 0 10px;padding-left:2px">
+      <span style="font-size:10px;color:var(--sub);font-weight:700">정렬</span>
+      <button onclick="setTcSort('deadline')" style="border:1.5px solid ${tcSortMode==="deadline"?"var(--brand)":"var(--line)"};background:${tcSortMode==="deadline"?"var(--brand)":"transparent"};color:${tcSortMode==="deadline"?"#fff":"var(--sub)"};border-radius:999px;padding:2px 11px;font-size:10.5px;font-weight:800;cursor:pointer">⏰ 임박순</button>
+      <button onclick="setTcSort('item')" style="border:1.5px solid ${tcSortMode==="item"?"var(--brand)":"var(--line)"};background:${tcSortMode==="item"?"var(--brand)":"transparent"};color:${tcSortMode==="item"?"#fff":"var(--sub)"};border-radius:999px;padding:2px 11px;font-size:10.5px;font-weight:800;cursor:pointer">🗂 항목별</button>
     </div>`;
   }
-  let shown=(!tcDeptFilter||tcDeptFilter.size===0)?S.totals.slice():S.totals.filter(t=>tcDeptFilter.has(t.dept));
+  let shown=scoped;
+  if(tcItemFilter)shown=shown.filter(t=>(t.item||"").trim()===tcItemFilter);
   if(!window.tcShowDone)shown=shown.filter(t=>!t.done);
-  else shown.sort((a,b)=>(a.done?1:0)-(b.done?1:0));
-  if(!shown.length){box.innerHTML=filterHtml+`<div class="card"><div class="empty">선택한 과의 토탈이 없어요</div></div>`;return;}
+  /* 정렬: 완료는 항상 뒤로, 그 안에서 임박순 또는 항목별 */
+  shown=shown.slice().sort((a,b)=>{
+    const ad=a.done?1:0,bd=b.done?1:0;if(ad!==bd)return ad-bd;   /* 미완료 먼저 */
+    if(tcSortMode==="item"){
+      const ai=(a.item||"").trim(),bi=(b.item||"").trim();
+      if(ai!==bi)return ai<bi?-1:1;
+      return tcUrgency(a)-tcUrgency(b);   /* 같은 항목이면 임박순 */
+    }
+    return tcUrgency(a)-tcUrgency(b);     /* 임박순 */
+  });
+  if(!shown.length){box.innerHTML=filterHtml+`<div class="card"><div class="empty">선택한 조건의 토탈이 없어요</div></div>`;return;}
+  let _prevItem=null;
   box.innerHTML=filterHtml+shown.map(t=>{
+    /* 항목별 정렬일 때 항목이 바뀌는 지점에 그룹 헤더 */
+    let _grpHdr="";
+    if(tcSortMode==="item"&&!tcItemFilter&&!t.done){
+      const it=(t.item||"기타").trim()||"기타";
+      if(it!==_prevItem){_prevItem=it;const col=DEPT_COLOR[t.dept]||"#666";
+        _grpHdr=`<div style="font-size:12px;font-weight:800;color:${col};margin:12px 2px 5px;padding-bottom:3px;border-bottom:2px solid ${col}33">🗂 ${esc(it)}</div>`;}
+    }
     const um=upMatch(t);const up0=um[0];
     const lastV=t.visits.length?t.visits[t.visits.length-1]:null;
     const vs=t.visits.filter(Boolean).slice().sort();
@@ -3113,7 +3183,7 @@ function renderTotals(){
         dl=`<div class="deadline ${nl<=1?"warn":"ok"}">다음 내원 ${fmtD(nx)}${nxT?` <b>${nxT}</b>`:""} (${nl===0?"오늘!":"D-"+nl})${nl===1?" · 오늘 노티!":""}${src==="OCS"?' <span style="font-weight:700;opacity:.75">· OCS</span>':""}</div>`;
       }
     }
-    return `<div class="tc">
+    return _grpHdr+`<div class="tc">
       <div class="top"><span class="dept-tag${txtOn(DEPT_COLOR[t.dept])==="#fff"?"":" lt"}" style="background:${DEPT_COLOR[t.dept]};color:${txtOn(DEPT_COLOR[t.dept])}">${t.dept}</span><span class="pt">${esc(t.pt)}</span>${t.ptno?`<span style="font-size:10.5px;color:var(--sub);font-weight:700">#${esc(t.ptno)}</span>`:""}${t.scope==="all"?`<span class="badge" style="font-size:9.5px;background:#EDE4F7;color:#6A3FA0">타과도 알림</span>`:""}<span style="margin-left:auto">${t.done?"✅":""}</span></div>
       <div class="meta">${esc(t.item||"")} · ${esc(t.dr||"담당쌤?")}${tagSum?` · <span style="color:${dcol};font-weight:800">${esc(tagSum)}</span>`:""}</div>
       ${um.map(u=>`<div class="deadline" style="border:1.5px dashed var(--purple);background:var(--purple-soft);color:var(--purple)">◇ OCS: ${fmtD(u.d)} ${u.t||""}${t.scope==="all"&&u.dep&&u.dep!==t.dept?` <span class="dept-tag" style="background:${DEPT_COLOR[u.dep]||"#666"};color:${txtOn(DEPT_COLOR[u.dep]||"#666")};font-size:9.5px">${u.dep}</span>`:""} ${esc(u.dr||"")}${u.cat?` · ${esc(u.cat)}`:""}${t.next!==u.d?` <button class="btn small" style="margin-left:6px;background:var(--purple);color:#fff" onclick="setNextFromUp(${t.id},'${u.d}','${u.t||""}','${(u.dr||"").replace(/'/g,"")}','${u.no||""}')">이 날짜로 반영</button>`:" · 반영됨 ✓"}</div>`).join("")}
@@ -3931,14 +4001,19 @@ function ocsHiToggle(u){
   S.ocsHi=S.ocsHi||{};
   const k=ocsKey(u);
   if(S.ocsHi[k])delete S.ocsHi[k];else S.ocsHi[k]=1;
-  save();renderOcsDay();
+  save();ocsRefreshAll();
+}
+/* 하이라이트 변경 → OCS의 모든 뷰(과별·시간대별·고밸류 서브탭) 일괄 갱신해 연동 */
+function ocsRefreshAll(){
+  try{renderOcsDay();}catch(e){}
+  try{if(typeof renderOcsGold==="function")renderOcsGold();}catch(e){}
 }
 function ocsToggleResv(){ocsHideResv=!ocsHideResv;renderOcsDay();}
 /* 이벤트 위임용: 버튼 클릭 → 키로 원본 u 찾아 토글 */
 function ocsHiByKey(k){
   S.ocsHi=S.ocsHi||{};
   if(S.ocsHi[k])delete S.ocsHi[k];else S.ocsHi[k]=1;
-  save();renderOcsDay();
+  save();ocsRefreshAll();
 }
 function ocsMove(d){const b=ocsDate?new Date(ocsDate+"T00:00"):new Date();b.setDate(b.getDate()+d);ocsDate=ymd(b);renderOcs();}
 function ocsReset(){ocsDate=null;renderOcs();}
@@ -4223,6 +4298,33 @@ function timeViewHtml(ds){
   return html;
 }
 /* ═══ ⚡ 고밸류 탭 — 서브탭: 💎 전부 / ⛺ 알박기 ═══ */
+/* ── 고밸류/쌤별/하이라이트 공용 진료 행 (분류태그·🖍️·연동) ── */
+function hvRow(x,ds,MSg,slotIdxOf){
+  const u=x.u;const m=hm2min(u.t||"12:00");
+  const busy=slotBusyEvents(ds,m,m+30).length;
+  const mine=MSg?MSg.has(u):false;
+  const c=DEPT_COLOR[u.dep]||"#666";
+  const hi=ocsHiHas(u);const k=ocsKey(u);
+  const idx=slotIdxOf?slotIdxOf(u):0;
+  const lb=x.lb?`<span style="background:${c}22;color:${c};font-size:8.5px;font-weight:800;flex:0 0 auto;padding:0 4px;border-radius:4px;line-height:1.5">${esc(x.lb)}</span>`:"";
+  const star=(x.w!=null)?`<span style="color:var(--amber);font-size:9px;flex:0 0 auto">${hvStars(x.w)}</span>`:"";
+  return `<div style="padding:4px 4px;border-radius:7px;line-height:1.3;border-bottom:1px solid var(--line);${hi?"background:#FFF6C7;":(mine?"background:var(--purple-soft);":"")}${busy&&!hi?"opacity:.55;":""}">
+    <div style="display:flex;gap:4px;align-items:center;font-size:11px">
+      <button type="button" onclick="ocsHiByKey('${k}')" title="하이라이트" style="border:none;background:transparent;cursor:pointer;font-size:12px;padding:0;flex:0 0 auto;opacity:${hi?"1":".3"}">🖍️</button>
+      <b onclick="hvJump(${idx})" style="flex:0 0 auto;color:${c};cursor:pointer">${u.t||"?"}</b>
+      <span style="background:${c};color:${txtOn(c)};font-size:8.5px;flex:0 0 auto;padding:0 4px;border-radius:4px;font-weight:700">${u.dep}</span>
+      ${lb}
+      ${star}
+      <span style="flex:1"></span>
+      <b style="flex:0 0 auto;max-width:38%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(u.pt)}</b>${mine?'<b style="color:var(--purple);flex:0 0 auto">◇</b>':""}
+    </div>
+    <div onclick="hvJump(${idx})" style="display:flex;gap:5px;align-items:flex-start;margin-top:1px;cursor:pointer">
+      <div style="flex:1;min-width:0;font-size:11px;color:#2E3F38;word-break:break-word">${esc(u.cat||"—")}</div>
+      <div style="flex:0 0 auto;font-size:10px;color:var(--sub);font-weight:700;text-align:right;max-width:34%;word-break:break-word">${esc(u.dr||"")}${tierBadge(u.dep,u.dr)}${busy?" 🔒":""}</div>
+    </div>
+  </div>`;
+}
+
 function renderOcsGold(){
   const ds=ocsDate||ymd(new Date());
   const dd=new Date(ds+"T00:00");const dowN=["일","월","화","수","목","금","토"][dd.getDay()];
@@ -4244,6 +4346,7 @@ function renderOcsGold(){
       <button class="${goldSub==="hv"?"on":""}" onclick="goldPick('hv')">💎 고밸류 전부</button>
       <button class="${goldSub==="nail"?"on":""}" onclick="goldPick('nail')">⛺ 알박기 <span style="font-size:10px;opacity:.85">연속어시</span></button>
       <button class="${goldSub==="dr"?"on":""}" onclick="goldPick('dr')">👨‍⚕️ 쌤별</button>
+      <button class="${goldSub==="hl"?"on":""}" onclick="goldPick('hl')">🖍️ 하이라이트만</button>
     </div>`;
   if(!raw.length){
     {
@@ -4253,6 +4356,21 @@ function renderOcsGold(){
     const jb=x=>`<button class="btn small" style="background:var(--brand);color:#fff;margin:2px 3px 0 0" onclick="ocsDate='${x}';renderOcsDay();renderOcsGold&&renderOcsGold()">${+x.slice(5,7)}/${+x.slice(8,10)}로 이동 ▸</button>`;
     html+=`<p class="hint">이 날짜 OCS 데이터가 아직 없어요 — 새 OCS를 주시면 채워집니다.</p><div style="margin-top:4px">${pv?jb(pv).replace("▸","◂"):""}${nx?jb(nx):""}</div></div>`;
   }
+    document.getElementById("gold-body").innerHTML=html;return;
+  }
+  if(goldSub==="hl"){
+    /* ── 🖍️ 하이라이트만: 이 날 하이라이트한 모든 진료(고밸류 여부 무관)를 시간순으로 ── */
+    const hlList=raw.filter(u=>ocsHiHas(u)).sort((a,b)=>{
+      const ta=(a.t||"99:99"),tb=(b.t||"99:99");return ta<tb?-1:ta>tb?1:0;
+    });
+    if(!hlList.length){
+      html+=`<div class="card"><p class="hint">🖍️ 이 날 하이라이트한 진료가 없어요.<br>다른 서브탭(💎/⛺/👨‍⚕️)이나 아래 <b>과별 예약</b>에서 진료 옆 🖍️를 탭하면 여기에 모여요.</p></div>`;
+    }else{
+      const cnt=hlList.length, myc=hlList.filter(u=>MSg.has(u)).length, dmc=hlList.filter(u=>hvMap.has(u)).length;
+      html+=`<div class="card"><div style="font-size:12px;font-weight:800;margin-bottom:5px">🖍️ 하이라이트 <span class="badge pu">${cnt}건</span> <span style="font-weight:600;color:var(--sub)">· 시간순${dmc?` · 💎${dmc}`:""}${myc?` · ◇내토탈 ${myc}`:""}</span></div>`;
+      html+=hlList.map(u=>{const r=hvMap.get(u);const x=r?{u,w:r.w,lb:r.lb}:{u,w:null,lb:null};return hvRow(x,ds,MSg,slotIdxOf);}).join("");
+      html+=`</div>`;
+    }
     document.getElementById("gold-body").innerHTML=html;return;
   }
   if(goldSub==="dr"){
@@ -4297,15 +4415,9 @@ function renderOcsGold(){
         const am=mine.filter(u=>!u.t||hm2min(u.t)<720),pm=mine.filter(u=>u.t&&hm2min(u.t)>=720);
         const hvN=mine.filter(u=>{const r=hvOf&&hvOf(u);return r;}).length;
         const rowsOf=arr=>arr.map(u=>{
-          const isMine=MSg&&MSg.has&&MSg.has(u);
           const hv=hvOf&&hvOf(u);
-          const star=hv?(hv.w>=5?"★★★":hv.w>=3.8?"★★":hv.w>=2.4?"★":""):"";
-          return `<div style="display:flex;gap:8px;padding:6px 4px;border-bottom:1px solid var(--line);${isMine?"background:rgba(150,90,210,.06)":""}">
-            <div style="flex:0 0 42px;font-weight:800;font-size:12px;color:${c}">${u.t||"–"}</div>
-            <div style="flex:1;min-width:0">
-              <div style="font-size:12.5px;font-weight:${hv?700:500}">${isMine?'<span style="color:var(--purple);font-weight:800">◇</span>':""}${esc(u.pt)} ${star?`<span style="color:${c};font-size:10px;font-weight:800">${star}</span>`:""}</div>
-              <div style="font-size:10.5px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(u.cat||"—")}</div>
-            </div></div>`;
+          const x=hv?{u,w:hv.w,lb:hv.lb}:{u,w:null,lb:null};
+          return hvRow(x,ds,MSg,slotIdxOf);
         }).join("");
         list=`<div class="card">
           <h2 style="color:${c}">${nm} <span style="font-size:12px;color:var(--sub);font-weight:600">${dep}</span> <span class="badge">${mine.length}건</span></h2>
@@ -4333,18 +4445,7 @@ function renderOcsGold(){
       const L=hvAll.filter(fn).sort((a,b)=>((a.u.t||"99")<(b.u.t||"99")?-1:(a.u.t||"99")>(b.u.t||"99")?1:0));
       if(!L.length)return;
       html+=`<div style="font-size:11px;font-weight:800;color:${col};margin:9px 0 2px;border-top:1px dashed var(--line);padding-top:6px">${lb} <span style="font-weight:600;color:var(--sub)">${L.length}건 · 시간순</span></div>`;
-      html+=L.map(x=>{const u=x.u;const m=hm2min(u.t||"12:00");const busy=slotBusyEvents(ds,m,m+30).length;const mine=MSg.has(u);const c=DEPT_COLOR[u.dep]||"#666";
-        return `<div onclick="hvJump(${slotIdxOf(u)})" style="padding:4px 5px;border-radius:7px;cursor:pointer;line-height:1.32;border-bottom:1px solid var(--line);${mine?"background:var(--purple-soft);":""}${busy?"opacity:.5;":""}">
-          <div style="display:flex;gap:5px;align-items:center;font-size:11.5px">
-            <b style="flex:0 0 auto;color:${c}">${u.t||"?"}</b>
-            <span style="background:${c};color:${txtOn(c)};font-size:9px;flex:0 0 auto;padding:0 4px;border-radius:4px;font-weight:700">${u.dep}</span>
-            <b style="flex:0 0 auto">${esc(u.pt)}</b>${mine?'<b style="color:var(--purple);flex:0 0 auto">◇</b>':""}
-            <span style="color:var(--amber);font-size:9.5px;flex:0 0 auto">${hvStars(x.w)}</span>
-            <span style="flex:1"></span>
-            <span style="font-size:10px;color:var(--sub);flex:0 0 auto;font-weight:600">${esc(u.dr||"")}${tierBadge(u.dep,u.dr)}${busy?" 🔒":""}</span>
-          </div>
-          <div style="font-size:11px;color:#2E3F38;padding-left:1px;margin-top:1px;word-break:break-word">${esc(u.cat||"—")}</div>
-        </div>`;}).join("");
+      html+=L.map(x=>hvRow(x,ds,MSg,slotIdxOf)).join("");
     });
     if(!hvAll.length)html+=`<p class="hint">이 날 💎 고밸류 진료가 없어요.</p>`;
     html+=`<p class="hint" style="margin-top:8px">💡 토탈 시작점(진단·본딩·인상·prep·신환) 위주로 저요!</p></div>`;
