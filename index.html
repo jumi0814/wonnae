@@ -286,6 +286,13 @@ td.fullcell.is-holi{background:#2E3A34}
 .otbl td:nth-child(1){width:40px}
 .otbl td:nth-child(2){width:58px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .otbl td:nth-child(4){width:50px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.otbl5{table-layout:fixed}
+.otbl5 td{padding:3.5px 3px;vertical-align:top}
+.otbl5 td:nth-child(1){width:22px;text-align:center;padding-left:0;padding-right:0}
+.otbl5 td:nth-child(2){width:38px;font-weight:800;white-space:nowrap}
+.otbl5 td:nth-child(3){width:62px;font-weight:700;white-space:nowrap;overflow:visible}
+.otbl5 td:nth-child(4){overflow-wrap:anywhere;word-break:break-word}
+.otbl5 td:nth-child(5){width:46px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 /* 📅 날짜별 세션 기록 표 */
 .sesstbl{width:100%;border-collapse:collapse;table-layout:fixed}
 .sesstbl td,.sesstbl th{padding:3px 2px;border-bottom:1px dashed var(--line);text-align:center;font-variant-numeric:tabular-nums}
@@ -898,7 +905,7 @@ const VAC_AGG={"days":[{"d":"2026-07-06","tot":1081,"ok":295,"hv":89,"byDep":{"�
 const NAIL_AGG={"n": 23, "upd": "2026-08-01", "drs": [{"dep": "치주", "dr": "한만진", "days": 21, "runs": 31, "maxLen": 9, "hv": 41, "big": 38}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 18, "runs": 31, "maxLen": 8, "hv": 11, "big": 3}, {"dep": "치주", "dr": "수련의", "days": 18, "runs": 28, "maxLen": 11, "hv": 2, "big": 5}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "이요섭", "days": 13, "runs": 26, "maxLen": 10, "hv": 28, "big": 24}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이가영", "days": 13, "runs": 20, "maxLen": 6, "hv": 20, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 13, "runs": 16, "maxLen": 4, "hv": 3, "big": 3}, {"dep": "치주", "dr": "강소연", "days": 12, "runs": 18, "maxLen": 6, "hv": 30, "big": 6}, {"dep": "보철", "dr": "이지훈", "days": 12, "runs": 17, "maxLen": 6, "hv": 32, "big": 24}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "김현경", "days": 12, "runs": 15, "maxLen": 3, "hv": 9, "big": 4}, {"dep": "치주", "dr": "안성락", "days": 11, "runs": 17, "maxLen": 8, "hv": 5, "big": 3}, {"dep": "치주", "dr": "박승진", "days": 11, "runs": 12, "maxLen": 8, "hv": 12, "big": 3}, {"dep": "보철", "dr": "최병훈", "days": 10, "runs": 10, "maxLen": 4, "hv": 11, "big": 3}, {"dep": "치주", "dr": "김수아", "days": 10, "runs": 10, "maxLen": 4, "hv": 2, "big": 1}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김하람", "days": 8, "runs": 8, "maxLen": 3, "hv": 5, "big": 2}, {"dep": "보철", "dr": "송창열", "days": 8, "runs": 7, "maxLen": 4, "hv": 4, "big": 2}, {"dep": "보철", "dr": "김승완", "days": 7, "runs": 7, "maxLen": 4, "hv": 10, "big": 9}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "안유진", "days": 6, "runs": 5, "maxLen": 2, "hv": 4, "big": 2}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "이영빈", "days": 5, "runs": 6, "maxLen": 3, "hv": 6, "big": 6}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "차영석", "days": 5, "runs": 5, "maxLen": 3, "hv": 7, "big": 3}, {"dep": "보철", "dr": "김동학", "days": 2, "runs": 2, "maxLen": 2, "hv": 1, "big": 0}, {"dep": "보철", "dr": "수련의", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260801-74";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260801-75";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화), 
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -4024,8 +4031,12 @@ function ocsHiToggle(u){
 }
 /* 하이라이트 변경 → OCS의 모든 뷰(과별·시간대별·고밸류 서브탭) 일괄 갱신해 연동 */
 function ocsRefreshAll(){
+  /* 하이라이트 토글 시 펼쳐둔 시간대별 슬롯(gslot)이 닫히지 않도록 open 상태 보존 */
+  let _openSlots=[];
+  try{document.querySelectorAll('details[id^="gslot-"]').forEach(el=>{if(el.open)_openSlots.push(el.id);});}catch(e){}
   try{renderOcsDay();}catch(e){}
   try{if(typeof renderOcsGold==="function")renderOcsGold();}catch(e){}
+  try{_openSlots.forEach(id=>{const el=document.getElementById(id);if(el)el.open=true;});}catch(e){}
 }
 function ocsToggleResv(){ocsHideResv=!ocsHideResv;renderOcsDay();}
 /* 이벤트 위임용: 버튼 클릭 → 키로 원본 u 찾아 토글 */
@@ -4308,8 +4319,8 @@ function timeViewHtml(ds){
           const hvN=R.filter(u=>hvMap.has(u)).length;
           return `<details style="margin:4px 0 4px 2px">
             <summary style="font-size:12.5px;font-weight:800;cursor:pointer"><span class="dept-tag" style="background:${DEPT_COLOR[dep]||"#666"};color:${txtOn(DEPT_COLOR[dep]||"#666")}">${dep}</span> ${R.length}명${hvN?` · 💎${hvN}`:""}${mineN?` · <b style="color:var(--purple)">◇${mineN}</b>`:""}</summary>
-            <table class="rtable otbl" style="font-size:11.5px;margin-top:2px">${R.map(u=>{const hv=hvMap.get(u);const mine=MSg.has(u);const hi=ocsHiHas(u);const kk=ocsKey(u);
-              return `<tr style="${hi?"background:#FFF6C7":mine?"background:var(--purple-soft)":hv?"":"opacity:.75"}"><td style="white-space:nowrap"><button type="button" onclick="ocsHiByKey('${kk}')" title="하이라이트" style="border:none;background:transparent;cursor:pointer;font-size:11px;padding:0 2px 0 0;opacity:${hi?"1":".3"}">🖍️</button>${u.t}</td><td>${esc(u.pt)}${u.no?` <span style="font-size:9px;color:var(--sub);font-weight:600">#${esc(u.no)}</span>`:""}${mine?' <b style="color:var(--purple)">◇</b>':""}</td><td>${hv?`<span style="font-size:9.5px;font-weight:800;color:${DEPT_COLOR[dep]||"#666"};border:1px solid ${DEPT_COLOR[dep]||"#666"};border-radius:999px;padding:0 5px;white-space:nowrap">💎${hv.lb}</span> <span style="color:var(--amber);font-size:10px">${hvStars(hv.w)}</span> `:""}${esc(u.cat||"—")}</td><td style="color:var(--sub)">${esc(u.dr||"")}</td></tr>`;}).join("")}</table>
+            <table class="rtable otbl5" style="font-size:11.5px;margin-top:2px">${R.map(u=>{const hv=hvMap.get(u);const mine=MSg.has(u);const hi=ocsHiHas(u);const kk=ocsKey(u);
+              return `<tr style="${hi?"background:#FFF6C7":mine?"background:var(--purple-soft)":hv?"":"opacity:.75"}"><td style="text-align:center;padding-left:0;padding-right:0"><button type="button" onclick="ocsHiByKey('${kk}')" title="하이라이트" style="border:none;background:transparent;cursor:pointer;font-size:12px;padding:0;opacity:${hi?"1":".3"}">🖍️</button></td><td style="white-space:nowrap">${u.t}</td><td>${esc(u.pt)}${mine?' <b style="color:var(--purple)">◇</b>':""}</td><td>${hv?`<span style="font-size:9.5px;font-weight:800;color:${DEPT_COLOR[dep]||"#666"};border:1px solid ${DEPT_COLOR[dep]||"#666"};border-radius:999px;padding:0 5px;white-space:nowrap">💎${hv.lb}</span> <span style="color:var(--amber);font-size:10px">${hvStars(hv.w)}</span> `:""}${esc(u.cat||"—")}</td><td style="color:var(--sub)">${esc(u.dr||"")}</td></tr>`;}).join("")}</table>
           </details>`;}).join(""):'<p class="hint" style="margin:2px 0 0 4px">이 시간대 전공의 진료 없음</p>'}
         </div></details>`;
     });
@@ -4363,7 +4374,6 @@ function renderOcsGold(){
     </div>
     <div class="slotpick" style="margin:2px 0 8px">
       <button class="${goldSub==="hv"?"on":""}" onclick="goldPick('hv')">💎 고밸류 전부</button>
-      <button class="${goldSub==="nail"?"on":""}" onclick="goldPick('nail')">⛺ 알박기 <span style="font-size:10px;opacity:.85">연속어시</span></button>
       <button class="${goldSub==="dr"?"on":""}" onclick="goldPick('dr')">👨‍⚕️ 쌤별</button>
       <button class="${goldSub==="hl"?"on":""}" onclick="goldPick('hl')">🖍️ 하이라이트만</button>
     </div>`;
@@ -4383,7 +4393,7 @@ function renderOcsGold(){
       const ta=(a.t||"99:99"),tb=(b.t||"99:99");return ta<tb?-1:ta>tb?1:0;
     });
     if(!hlList.length){
-      html+=`<div class="card"><p class="hint">🖍️ 이 날 하이라이트한 진료가 없어요.<br>다른 서브탭(💎/⛺/👨‍⚕️)이나 아래 <b>과별 예약</b>에서 진료 옆 🖍️를 탭하면 여기에 모여요.</p></div>`;
+      html+=`<div class="card"><p class="hint">🖍️ 이 날 하이라이트한 진료가 없어요.<br>다른 탭(💎 고밸류·👨‍⚕️ 쌤별)이나 아래 <b>과별 예약</b>·<b>시간대별</b>에서 진료 옆 🖍️를 탭하면 여기에 모여요.</p></div>`;
     }else{
       const cnt=hlList.length, myc=hlList.filter(u=>MSg.has(u)).length, dmc=hlList.filter(u=>hvMap.has(u)).length;
       html+=`<div class="card"><div style="font-size:12px;font-weight:800;margin-bottom:5px">🖍️ 하이라이트 <span class="badge pu">${cnt}건</span> <span style="font-weight:600;color:var(--sub)">· 시간순${dmc?` · 💎${dmc}`:""}${myc?` · ◇내토탈 ${myc}`:""}</span></div>`;
