@@ -489,6 +489,15 @@ dialog::backdrop{background:rgba(12,40,30,.5)}
     <div id="mini-list"></div>
     <button class="btn ghost" style="width:100%" onclick="addCustomItem()">＋ 항목 직접 추가</button>
     <div class="card" style="margin-top:12px"><h2>진행 요약 <span class="badge" id="sum-badge"></span></h2><div id="summary"></div></div>
+    <div class="card" style="margin-top:12px">
+      <h2>🦷 유폴리오 미니 현황 <span class="badge" id="mff-badge"></span></h2>
+      <p class="hint" style="margin:2px 0 8px">달신 "미니 현황" 기준 공식 미니/맥스. <b id="mff-upd"></b> · 유폴리오에서 다시 긁으면 갱신돼요.</p>
+      <div id="mini-off-list"></div>
+      <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+        <button class="btn small" style="background:var(--brand);color:#fff" onclick="ufolioImportOpen()">📥 유폴리오에서 가져오기</button>
+        <button class="btn small ghost" onclick="ufolioBookmarklet()">🔖 북마클릿 복사</button>
+      </div>
+    </div>
   </div>
   <div class="psec" id="p-week" style="display:none"></div>
   <div class="psec" id="p-month" style="display:none"></div>
@@ -911,7 +920,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-08-11", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260811-108";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260811-110";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화), 
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -1025,6 +1034,77 @@ function defaultMini(){return [
  {dept:"병리",items:[
   {n:"진단 참여",t:1,c:0,s:"yr",note:"3-2 성적 반영이라 실질 학기 1회 · 11월 말까지 완성 · biopsy 후 담주 월 12:00-12:30 병리과 방문 · 최종레포트 다음주 월 12시 기한엄수 · 자필 2 · 개인정보 금지"}]}
 ];}
+
+/* ── 유폴리오 공식 미니/맥스 항목 (달신 "미니 현황" 기준, 2026 임상실습2) ──
+   S.mini(직접 정리본)와 별개. 유폴리오 임포트가 이 값을 갱신함. */
+function officialMini(){return [
+ {dept:"교정",items:[
+  {n:"Total Case(구환)",cat:"Total Case",mini:6,max:8},
+  {n:"Total Case(신환)",cat:"Total Case",mini:3,max:5},
+  {n:"Active plate",cat:"기공",mini:1,max:1},
+  {n:"Fixed retainer",cat:"기공",mini:1,max:1},
+  {n:"Removable retainer",cat:"기공",mini:1,max:1},
+  {n:"Removable space maintainer",cat:"기공",mini:1,max:1},
+  {n:"Analysis & Diagnosis Case",cat:"증례별 임상참여",mini:6,max:8},
+  {n:"Assist case - Bonding",cat:"증례별 임상참여",mini:40,max:null},
+  {n:"Assist case - Etc.",cat:"증례별 임상참여",mini:30,max:null},
+  {n:"Assist case - Finishing",cat:"증례별 임상참여",mini:40,max:null},
+  {n:"Assist case - Leveling and alignment",cat:"증례별 임상참여",mini:50,max:null},
+  {n:"Assist case - Space closure",cat:"증례별 임상참여",mini:50,max:null}]},
+ {dept:"내과",items:[
+  {n:"Soft tissue lesion total case",cat:"Total Case",mini:2,max:null},
+  {n:"TMD total case",cat:"Total Case",mini:2,max:null},
+  {n:"Impression taking & Model fabrication",cat:"기공",mini:2,max:null},
+  {n:"Splint fabrication",cat:"기공",mini:1,max:null},
+  {n:"Charting",cat:"증례별 임상참여",mini:20,max:null},
+  {n:"Halitosis observation",cat:"증례별 임상참여",mini:1,max:null},
+  {n:"Lab reading & Report",cat:"증례별 임상참여",mini:2,max:null},
+  {n:"Medical certificate",cat:"증례별 임상참여",mini:2,max:null},
+  {n:"Orofacial pain & TMD observation",cat:"증례별 임상참여",mini:20,max:null},
+  {n:"Others (REPORTS etc.)",cat:"증례별 임상참여",mini:5,max:null},
+  {n:"Physical therapy",cat:"증례별 임상참여",mini:64,max:null},
+  {n:"Snoring & sleep apnea observation",cat:"증례별 임상참여",mini:1,max:null},
+  {n:"Soft tissue lesion observation",cat:"증례별 임상참여",mini:3,max:null},
+  {n:"Splint delivery observation",cat:"증례별 임상참여",mini:1,max:null},
+  {n:"TMD Charting",cat:"증례별 임상참여",mini:10,max:null}]},
+ {dept:"병리",items:[
+  {n:"육안 검사 및 진단 준비 참여",cat:"증례별 임상참여",mini:1,max:null}]},
+ {dept:"보존",items:[
+  {n:"Observation (Endodontics) case",cat:"증례별 임상참여",mini:20,max:null},
+  {n:"Observation (Operative) case",cat:"증례별 임상참여",mini:20,max:null},
+  {n:"Observation (Surgery) case",cat:"증례별 임상참여",mini:8,max:null}]},
+ {dept:"보철",items:[
+  {n:"Charting and Treatment planning evaluation",cat:"Total Case",mini:2,max:null},
+  {n:"Total case evaluation (Implant)",cat:"Total Case",mini:5,max:null},
+  {n:"Total case evaluation (가철성)",cat:"Total Case",mini:2,max:null},
+  {n:"Total case evaluation (고정성)",cat:"Total Case",mini:5,max:null},
+  {n:"[가철성]Laboratory case evaluation",cat:"기공",mini:1,max:null},
+  {n:"[고정성]Laboratory case evaluation",cat:"기공",mini:1,max:null},
+  {n:"[임플란트]Laboratory case evaluation",cat:"기공",mini:1,max:null},
+  {n:"Delivery (Pre Practice observation case)",cat:"전 임상실습",mini:3,max:null},
+  {n:"Impression (Pre Practice observation case)",cat:"전 임상실습",mini:3,max:null},
+  {n:"Prep & Temp (Pre Practice observation case)",cat:"전 임상실습",mini:3,max:null},
+  {n:"01. Student evaluation",cat:"증례별 임상참여",mini:150,max:null},
+  {n:"02. observation (교수님)",cat:"증례별 임상참여",mini:50,max:null},
+  {n:"03. Implant assist",cat:"증례별 임상참여",mini:2,max:null},
+  {n:"22. Charting",cat:"증례별 임상참여",mini:10,max:null},
+  {n:"26. 초진 및 임시관 Evaluation",cat:"증례별 임상참여",mini:1,max:null},
+  {n:"27. 지대치 형성 Evaluation",cat:"증례별 임상참여",mini:1,max:null},
+  {n:"28. 인상 Evaluation",cat:"증례별 임상참여",mini:1,max:null},
+  {n:"29. 시적 및 합착 Evaluation",cat:"증례별 임상참여",mini:1,max:null},
+  {n:"30. Crown Practice기공 Evaluation",cat:"증례별 임상참여",mini:1,max:null}]},
+ {dept:"영상",items:[
+  {n:"판독 토론 및 평가",cat:"나절별 임상참여",mini:4,max:4},
+  {n:"Sialography",cat:"증례별 임상참여",mini:1,max:1},
+  {n:"구내 촬영 및 판독",cat:"증례별 임상참여",mini:40,max:null}]},
+ {dept:"치주",items:[
+  {n:"advanced periodontal therapy portfolio",cat:"Total Case",mini:1,max:null},
+  {n:"basic therapy (total) portfolio",cat:"Total Case",mini:1,max:null},
+  {n:"Root planing",cat:"역량평가",mini:20,max:null},
+  {n:"Flap Assist",cat:"증례별 임상참여",mini:15,max:null},
+  {n:"Implant Assist",cat:"증례별 임상참여",mini:15,max:null}]}
+];}
+
 
 const ROUTINE=[
  {id:"chin",tm:"08:30",sk:510,dim:1,tx:"친환 있으면 노티 마감 (양식은 가이드>규칙)"},
@@ -1172,6 +1252,12 @@ async function load(){
   dataOrigin=best?"stored":"fresh";   /* ★빈손 로드면 fresh — 사용자가 직접 수정하기 전까지 자동저장 전면 동결 (시드가 진짜 데이터를 덮는 사고 원천 차단) */
   if(best){S=best;}
   if(!S.mini)S.mini=defaultMini();
+  /* ═ 유폴리오 공식 미니 현황 (S.miniOff) — S.mini와 별개, 임포트가 갱신 ═ */
+  if(!S.miniOff){
+    const SEED={"교정|Total Case(구환)":0.0,"교정|Total Case(신환)":0.0,"교정|Active plate":0.0,"교정|Fixed retainer":0.0,"교정|Removable retainer":0.0,"교정|Removable space maintainer":0.0,"교정|Analysis & Diagnosis Case":1.0,"교정|Assist case - Bonding":233.0,"교정|Assist case - Etc.":0.0,"교정|Assist case - Finishing":0.0,"교정|Assist case - Leveling and alignment":228.0,"교정|Assist case - Space closure":0.0,"내과|Soft tissue lesion total case":0.0,"내과|TMD total case":0.0,"내과|Impression taking & Model fabrication":3.0,"내과|Splint fabrication":0.0,"내과|Charting":1.0,"내과|Halitosis observation":1.0,"내과|Lab reading & Report":0.0,"내과|Medical certificate":0.0,"내과|Orofacial pain & TMD observation":0.0,"내과|Others (REPORTS etc.)":0.0,"내과|Physical therapy":0.0,"내과|Snoring & sleep apnea observation":0.0,"내과|Soft tissue lesion observation":0.0,"내과|Splint delivery observation":0.0,"내과|TMD Charting":0.0,"병리|육안 검사 및 진단 준비 참여":0.0,"보존|Observation (Endodontics) case":2.5,"보존|Observation (Operative) case":4.25,"보존|Observation (Surgery) case":0.0,"보철|Charting and Treatment planning evaluation":0.0,"보철|Total case evaluation (Implant)":0.0,"보철|Total case evaluation (가철성)":0.0,"보철|Total case evaluation (고정성)":0.0,"보철|[가철성]Laboratory case evaluation":0.0,"보철|[고정성]Laboratory case evaluation":0.0,"보철|[임플란트]Laboratory case evaluation":0.0,"보철|Delivery (Pre Practice observation case)":0.0,"보철|Impression (Pre Practice observation case)":0.0,"보철|Prep & Temp (Pre Practice observation case)":0.0,"보철|01. Student evaluation":38.0,"보철|02. observation (교수님)":18.0,"보철|03. Implant assist":0.0,"보철|22. Charting":4.0,"보철|26. 초진 및 임시관 Evaluation":0.0,"보철|27. 지대치 형성 Evaluation":0.0,"보철|28. 인상 Evaluation":0.0,"보철|29. 시적 및 합착 Evaluation":0.0,"보철|30. Crown Practice기공 Evaluation":0.0,"영상|판독 토론 및 평가":1.0,"영상|Sialography":0.0,"영상|구내 촬영 및 판독":0.0,"치주|advanced periodontal therapy portfolio":0.0,"치주|basic therapy (total) portfolio":0.0,"치주|Root planing":0.0,"치주|Flap Assist":2.0,"치주|Implant Assist":2.0};
+    S.miniOff=officialMini().map(d=>({dept:d.dept,items:d.items.map(it=>({n:it.n,cat:it.cat,mini:it.mini,max:it.max,c:(SEED[d.dept+"|"+it.n]||0)}))}));
+    S.miniOffUpd="2026-08-10";
+  }
   /* ═ 미니 v2 마이그레이션 (2026 공식 지침서: 보존 신설·내과 정정·외과 세분화) — c는 이름 매칭 이식 ═ */
   if((S.miniV||1)<2){
     const RENAME={"내과|TMD 옵저":"TMD 옵저 (Orofacial pain)",
@@ -2574,6 +2660,10 @@ function askInput(title,fields,onOk){
       return `<div><div class="hint" style="margin-bottom:3px">${f.label}</div>
         <input id="inp-${i}" type="date" value="${(f.val??"")}" style="width:100%"></div>`;
     }
+    if(f.type==="textarea"){
+      return `<div><div class="hint" style="margin-bottom:3px">${f.label}</div>
+        <textarea id="inp-${i}" rows="4" placeholder="${f.ph||""}" style="width:100%;font-family:inherit;font-size:12px;box-sizing:border-box">${(f.val??"")}</textarea></div>`;
+    }
     return `<div><div class="hint" style="margin-bottom:3px">${f.label}</div>
       <input id="inp-${i}" type="${f.type==="num"?"number":"text"}" ${f.type==="num"?'inputmode="decimal" step="any"':""} value="${(f.val??"")}" style="width:100%"></div>`;
   }).join("");
@@ -2583,6 +2673,7 @@ function askInput(title,fields,onOk){
       const el=document.getElementById("inp-"+i);
       if(f.type==="time")return normTime(el.value);
       if(f.type==="date")return el.value;
+      if(f.type==="textarea")return el.value;
       return f.type==="num"?(parseFloat(el.value)||0):el.value.trim();
     });
     dlg.close();onOk(vals);
@@ -3004,6 +3095,101 @@ function renderMini(){
       </div></div>`;
   }).join("");
   renderSummary();
+  renderMiniOff();
+}
+
+/* 유폴리오 공식 미니 현황 렌더 — 과별 그룹, 미달 강조, 카테고리 표시 */
+function renderMiniOff(){
+  const box=document.getElementById("mini-off-list");
+  if(!box)return;
+  if(!S.miniOff||!S.miniOff.length){box.innerHTML='<p class="hint">데이터 없음</p>';return;}
+  let totMiss=0,totDone=0;
+  const html=S.miniOff.map(d=>{
+    const rows=d.items.map(it=>{
+      const done=it.c>=it.mini;
+      done?totDone++:totMiss++;
+      const need=Math.max(0,it.mini-it.c);
+      const pct=it.mini>0?Math.min(100,Math.round(it.c/it.mini*100)):100;
+      const maxTxt=it.max?` · 맥스 ${it.max}`:"";
+      return `<div style="padding:5px 0;border-bottom:1px solid var(--line)">
+        <div style="display:flex;align-items:center;gap:6px;font-size:12.5px">
+          <span style="flex:1">${esc(it.n)} <span class="hint" style="font-size:10px">${esc(it.cat)}</span></span>
+          <b style="color:${done?"var(--brand)":"var(--red)"}">${it.c}</b><span class="hint" style="font-size:11px">/ ${it.mini}${maxTxt}</span>
+          ${done?'<span style="color:var(--brand);font-weight:800">✓</span>':`<span style="color:var(--red);font-size:11px">−${need}</span>`}
+        </div>
+        <div style="height:4px;background:var(--line);border-radius:2px;margin-top:3px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${done?"var(--brand)":"var(--amber)"}"></div></div>
+      </div>`;
+    }).join("");
+    return `<details style="margin-bottom:6px"${d.items.some(it=>it.c<it.mini)?" open":""}>
+      <summary style="cursor:pointer;font-weight:800;padding:5px 0;color:${DEPT_COLOR[d.dept]||"#333"}">${esc(d.dept)} <span class="hint" style="font-weight:400;font-size:11px">${d.items.filter(it=>it.c>=it.mini).length}/${d.items.length} 달성</span></summary>
+      ${rows}</details>`;
+  }).join("");
+  box.innerHTML=html;
+  const badge=document.getElementById("mff-badge");if(badge)badge.textContent=`미달 ${totMiss} · 달성 ${totDone}`;
+  const upd=document.getElementById("mff-upd");if(upd)upd.textContent="갱신 "+(S.miniOffUpd||"—");
+}
+
+/* ── 유폴리오 임포트: 전용 북마클릿(클립보드 복사형) ──
+   sdent.u-folio.com에서 실행 → 점수를 긁어 JSON을 클립보드에 복사.
+   (CORS 때문에 앱에서 직접 못 부르므로, 유폴리오 페이지 위에서 same-origin 실행) */
+function ufolioBookmarklet(){
+  var code="javascript:(async function(){try{"+
+    "var AC=(document.querySelector('input[name=administer_code]')||{}).value||'15';"+
+    "var H={'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','X-Requested-With':'XMLHttpRequest'};"+
+    "var post=async function(u,p){var r=await fetch(u,{method:'POST',headers:H,body:new URLSearchParams(p),credentials:'same-origin'});var t=await r.text();try{return JSON.parse(t);}catch(e){throw new Error('u-folio 응답 오류(로그인 만료?)');}};"+
+    "var courses=[],page=1;while(page<=20){var d=await post('/ajax/st/dent_summary/list',{page:page,dt_seq:'',administer_code:AC});if(d.status!='200'||!d.list||!d.list.length)break;courses=courses.concat(d.list);if(!d.pageNav||String(d.pageNav).indexOf('page=')<0)break;page++;}"+
+    "if(!courses.length){alert('과목을 못 찾았어요. 임상실습요약표 페이지에서 실행하세요.');return;}"+
+    "var rows=[];for(var j=0;j<courses.length;j++){var c=courses[j];try{var s=await post('/ajax/st/dent_summary/getSummaryData',{curr_seq:c.curr_seq,dt_seq:c.dt_seq,hospital_seq:c.hospital_seq,administer_code:AC});(s.list||[]).forEach(function(it){rows.push({dept:c.dt_name,practice:c.curr_name,menu:it.menu_name,item:it.pc_name,approved:it.app_cnt,patient:it.sum_patient_cnt,score:(it.db_score=='N'?null:it.cal_score)});});}catch(e){}}"+
+    "var out=JSON.stringify({src:'ufolio',ts:Date.now(),rows:rows});"+
+    "await navigator.clipboard.writeText(out);"+
+    "alert('\u2705 유폴리오 점수 '+rows.length+'개 항목을 복사했어요!\\n원내생 커맨드센터 앱 > 플랜 > 미니달성 > [붙여넣기]에 붙여넣으세요.');"+
+    "}catch(e){alert('\u274c 오류: '+e.message);}})()";
+  navigator.clipboard?.writeText(code).then(function(){
+    toast("🔖 북마클릿 복사됨 — 브라우저 북마크로 저장 후 유폴리오에서 실행");
+    askConfirm('<b>유폴리오 임포트 방법</b><br><br>1️⃣ 방금 복사된 <b>북마클릿</b>을 브라우저 북마크(즐겨찾기)로 저장<br>&nbsp;&nbsp;<span class="hint">(북마크 추가 → URL칸에 붙여넣기 → 이름은 "유폴리오추출")</span><br><br>2️⃣ <b>sdent.u-folio.com</b> 로그인 → <b>임상실습요약표</b> 페이지 열기<br><br>3️⃣ 저장한 <b>북마클릿 클릭</b> → 점수 자동 복사<br><br>4️⃣ 이 앱으로 돌아와 <b>[📥 유폴리오에서 가져오기]</b> → 붙여넣기',()=>{},'확인');
+  }).catch(()=>toast("복사 실패 — 클립보드 권한 확인"));
+}
+
+/* 붙여넣기 입력창 */
+function ufolioImportOpen(){
+  askInput("유폴리오 점수 붙여넣기",[
+    {label:"북마클릿으로 복사한 JSON을 붙여넣으세요",type:"textarea",val:"",ph:'{"src":"ufolio",...}'},
+    {label:"미니 '내 값'으로 쓸 기준",type:"seg",val:"approved",opts:[{v:"approved",lb:"승인 개수"},{v:"patient",lb:"환자 수"}]}
+  ],(vals)=>{
+    ufolioApply(vals[0],vals[1]);
+  },"가져오기");
+}
+
+/* 유폴리오 JSON → S.miniOff 매칭·갱신 */
+function ufolioApply(raw,valField){
+  valField=valField||"approved";
+  let data;
+  try{ data=JSON.parse((raw||"").trim()); }catch(e){ toast("JSON 형식이 아니에요 — 다시 복사해 주세요"); return; }
+  const rows=(data&&data.rows)||[];
+  if(!rows.length){ toast("항목이 없어요"); return; }
+  /* 항목명 정규화(공백·대소문자 무시) */
+  const norm=s=>String(s||"").replace(/\s+/g,"").toLowerCase();
+  /* 유폴리오 rows를 항목명 기준 맵으로 (같은 항목 여러 차수면 최대값) */
+  const umap={};
+  rows.forEach(r=>{
+    const key=norm(r.item);
+    const v=Number(valField==="patient"?r.patient:r.approved)||0;
+    if(!(key in umap)||v>umap[key]) umap[key]=v;
+  });
+  /* S.miniOff 항목에 매칭 */
+  let matched=0,updated=0;
+  (S.miniOff||[]).forEach(d=>d.items.forEach(it=>{
+    const key=norm(it.n);
+    if(key in umap){
+      matched++;
+      if(it.c!==umap[key]){ it.c=umap[key]; updated++; }
+    }
+  }));
+  S.miniOffUpd=new Date().toISOString().slice(0,10);
+  save();
+  renderMiniOff();
+  if(typeof renderMini==="function")renderMini();
+  toast(`✅ 유폴리오 반영: ${matched}개 매칭 · ${updated}개 갱신`);
 }
 function stepMini(di,ii,v){const it=S.mini[di].items[ii];it.c=Math.max(0,it.c+v);save();renderMini();}
 function editMini(di,ii){
