@@ -357,6 +357,9 @@ dialog::backdrop{background:rgba(12,40,30,.5)}
 .toast{position:fixed;bottom:calc(90px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 17px;border-radius:99px;font-size:13px;z-index:99;opacity:0;transition:opacity .25s;pointer-events:none;max-width:88vw;text-align:center}
 .toast.show{opacity:1}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+#mff-filter button{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:3px 12px;font-size:12px;font-weight:800;cursor:pointer}
+#mff-filter button.on{background:var(--brand);border-color:var(--brand);color:#fff}
 </style>
 </head>
 <body>
@@ -489,6 +492,11 @@ dialog::backdrop{background:rgba(12,40,30,.5)}
     <div class="card">
       <h2>🦷 유폴리오 미니 현황 <span class="badge" id="mff-badge"></span></h2>
       <p class="hint" style="margin:2px 0 8px"><b id="mff-upd"></b></p>
+      <div id="mff-filter" style="display:flex;gap:5px;margin:0 0 8px;flex-wrap:wrap">
+        <button type="button" data-mf="miss" onclick="mffFilter('miss')" class="on">미달만</button>
+        <button type="button" data-mf="mini" onclick="mffFilter('mini')">미니 전체</button>
+        <button type="button" data-mf="all" onclick="mffFilter('all')">모두</button>
+      </div>
       <div id="mini-off-list"></div>
       <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
         <button class="btn small" style="background:var(--brand);color:#fff" onclick="ufolioImportOpen()">📥 유폴리오에서 가져오기</button>
@@ -888,7 +896,10 @@ dialog::backdrop{background:rgba(12,40,30,.5)}
     <h3 id="vd-title" style="font-size:15px">내원 기록</h3>
     <p class="hint" style="margin:2px 0 6px">이 내원에서 <b>어떤 항목</b>으로 받았는지 체크 — 카드에 내역이 쌓여요</p>
     <div id="vd-picked" style="margin:4px 0 6px"></div>
-    <input type="search" id="vd-tag-q" placeholder="🔍 항목 검색 (예: impression, 1st, 레포트)" oninput="vdRenderTags(window.vdT)" style="width:100%;padding:7px 10px;border:1.5px solid var(--line);border-radius:9px;font-size:12.5px;box-sizing:border-box;margin-bottom:5px">
+    <div style="display:flex;gap:5px;align-items:center;margin-bottom:5px">
+      <input type="search" id="vd-tag-q" placeholder="🔍 항목 검색 (impression, 1st, 레포트…)" oninput="vdRenderTags(window.vdT)" style="flex:1;min-width:0;padding:7px 10px;border:1.5px solid var(--line);border-radius:9px;font-size:12.5px;box-sizing:border-box">
+      <button type="button" id="vd-all-btn" onclick="vdToggleAll()" style="flex:0 0 auto;border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:9px;padding:6px 10px;font-size:11.5px;font-weight:800;cursor:pointer">전체</button>
+    </div>
     <div id="vd-tags" style="display:flex;gap:5px;flex-wrap:wrap;margin:0 0 8px;max-height:168px;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:2px;border:1px solid var(--line);border-radius:9px"></div>
     <input type="text" id="vd-tag-etc" placeholder="항목 직접 입력 (칩에 없을 때)" style="width:100%">
     <input type="text" id="vd-memo" placeholder="메모 (예: A컷 5장 · 다음 내원 때 와이어체크)" style="width:100%;margin-top:6px">
@@ -920,7 +931,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-08-11", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260811-116";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260811-119";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화), 
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -3116,20 +3127,34 @@ function renderMini(){
 }
 
 /* 유폴리오 공식 미니 현황 렌더 — 과별 그룹, 미달 강조, 카테고리 표시 */
+function mffFilter(mode){
+  S.mffMode=mode;
+  document.querySelectorAll("#mff-filter button").forEach(b=>b.classList.toggle("on",b.dataset.mf===mode));
+  save();renderMiniOff();
+}
 function renderMiniOff(){
   const box=document.getElementById("mini-off-list");
   if(!box)return;
   ensureMiniOff();
+  const mode=S.mffMode||"miss";
+  document.querySelectorAll("#mff-filter button").forEach(b=>b.classList.toggle("on",b.dataset.mf===mode));
   if(!S.miniOff||!S.miniOff.length){box.innerHTML='<p class="hint">데이터 없음 — [📥 유폴리오에서 가져오기]를 눌러주세요</p>';return;}
+  /* 배지는 필터와 무관하게 전체 기준 */
   let totMiss=0,totDone=0;
+  S.miniOff.forEach(d=>d.items.forEach(it=>{
+    if(it.mini>0){ it.c>=it.mini?totDone++:totMiss++; }
+  }));
   const html=S.miniOff.map(d=>{
-    /* 메인: 미니가 있거나 점수가 있는 항목 전부. 숨김: 미니도 없고 점수도 0인 것만 */
-    const main=d.items.filter(it=>it.mini>0||it.c>0);
-    const zero=d.items.filter(it=>!(it.mini>0||it.c>0));
+    /* 필터: 미달만 / 미니 전체 / 모두 */
+    let pool=d.items;
+    if(mode==="miss")      pool=d.items.filter(it=>it.mini>0&&it.c<it.mini);
+    else if(mode==="mini") pool=d.items.filter(it=>it.mini>0);
+    /* 메인: 미니가 있거나 점수가 있는 항목. 접힘: 미니도 없고 점수도 0 */
+    const main=pool.filter(it=>it.mini>0||it.c>0);
+    const zero=(mode==="all")?pool.filter(it=>!(it.mini>0||it.c>0)):[];
     const rowHtml=it=>{
       const hasGoal=it.mini>0;
       const done=hasGoal&&it.c>=it.mini;
-      if(hasGoal){done?totDone++:totMiss++;}
       const need=hasGoal?Math.max(0,it.mini-it.c):0;
       const pct=hasGoal?Math.min(100,Math.round(it.c/it.mini*100)):0;
       const maxTxt=it.max?` · 맥스 ${it.max}`:"";
@@ -3154,6 +3179,7 @@ function renderMiniOff(){
     const zeroRows=zero.map(rowHtml).join("");
     const goals=main.filter(it=>it.mini>0);
     const miss=goals.filter(it=>it.c<it.mini).length;
+    if(!main.length&&!zero.length)return "";
     return `<details style="margin-bottom:6px"${miss?" open":""}>
       <summary style="cursor:pointer;font-weight:800;padding:5px 0;color:${DEPT_COLOR[d.dept]||"#333"}">${esc(d.dept)}
         <span class="hint" style="font-weight:400;font-size:11px">${goals.length?`미니 ${goals.length-miss}/${goals.length}`:""}${main.length-goals.length?` · 기록 ${main.length-goals.length}`:""}</span></summary>
@@ -3161,7 +3187,7 @@ function renderMiniOff(){
       ${zeroRows?`<details style="margin:4px 0 0 0"><summary style="cursor:pointer;font-size:11.5px;color:var(--sub);padding:4px 0">아직 0인 항목 ${zero.length}개 보기</summary>${zeroRows}</details>`:""}
     </details>`;
   }).join("");
-  box.innerHTML=html;
+  box.innerHTML=html||`<p class="hint" style="padding:8px 0">${mode==="miss"?"미달 항목이 없어요 🎉 (다른 필터로 전체를 볼 수 있어요)":"표시할 항목이 없어요"}</p>`;
   const badge=document.getElementById("mff-badge");
   if(badge)badge.textContent=`미달 ${totMiss} · 달성 ${totDone}`;
   const upd=document.getElementById("mff-upd");
@@ -3342,44 +3368,44 @@ function renderSummary(){
 /* 과별 토탈 종류(기본 필요횟수)·내원 항목 태그 — 가이드라인 기반 프리셋 */
 const TOTAL_CFG={
  "교정":{kinds:[["신환토탈",3],["구환토탈",3],["진단준비",2]],
-   tags:["Analysis & Diagnosis Case","Assist case - Bonding","Assist case - Leveling and alignment","Assist case - Space closure","Assist case - Finishing","Assist case - Etc.","Total Case(신환)","Total Case(구환)","기공"],
+   tags:["Analysis & Diagnosis Case","Assist case - Bonding","Assist case - Leveling and alignment","Assist case - Space closure","Assist case - Finishing","Assist case - Etc.","Total Case(신환)","Total Case(구환)","Active plate","Fixed retainer","Removable retainer","Removable space maintainer","Fixed Space maintainer(상악)","Fixed Space maintainer(하악)","Removable  Space regainer(상악)","Removable  Space regainer(하악)","기타"],
    tagsByKind:{
      "신환토탈":["Analysis & Diagnosis Case","Assist case - Bonding","Assist case - Leveling and alignment","Assist case - Space closure","Assist case - Finishing","Assist case - Etc.","Total Case(신환)"],
      "구환토탈":["Assist case - Leveling and alignment","Assist case - Space closure","Assist case - Finishing","Assist case - Bonding","Assist case - Etc.","Total Case(구환)"],
      "진단준비":["Analysis & Diagnosis Case","기공: Model Analysis","기공: Cephalometric Tracing","기공지시서 작성","Assist case - Etc."]}},
  "보철":{kinds:[["고정",3],["가철",5],["임플",4],["진단",2]],
-   tags:["22. Charting","23. Model fabrication","24. Treatment planning","04. Preparation & Temporarization","05. Impression","06. Delivery (C & B)","09. Fixture level impression","11. Abutment level impression","12. Delivery (implant)","15. Preliminary impression","16. Final impression","17. Bite registration","18. Wax denture try-in","19. Delivery (가철성)","01. Student evaluation","02. observation (교수님)","03. Implant assist"],
+   tags:["01. Student evaluation","02. observation (교수님)","03. Implant assist","04. Preparation & Temporarization","05. Impression","06. Delivery (C & B)","07. C&B total 추가 visit","08. C&B 토탈 레포트","09. Fixture level impression","10. Abutment & Temporary prosthesis delivery","11. Abutment level impression","12. Delivery (implant)","13. implant total 추가 visit","14. 임플란트보철 토탈 레포트","15. Preliminary impression","16. Final impression","17. Bite registration","18. Wax denture try-in","19. Delivery (가철성)","20. 가철성 total 추가 visit","21. 가철성 토탈 레포트","22. Charting","23. Model fabrication","24. Treatment planning","25. 진단 토탈 레포트","26. 초진 및 임시관 Evaluation","27. 지대치 형성 Evaluation","28. 인상 Evaluation","29. 시적 및 합착 Evaluation","30. Crown Practice기공 Evaluation","[고정성]Laboratory case evaluation","[가철성]Laboratory case evaluation","[임플란트]Laboratory case evaluation","Charting and Treatment planning evaluation","Total case evaluation (고정성)","Total case evaluation (가철성)","Total case evaluation (Implant)","Delivery (Pre Practice observation case)","Impression (Pre Practice observation case)","Prep & Temp (Pre Practice observation case)"],
    tagsByKind:{
      "고정":["22. Charting","24. Treatment planning","04. Preparation & Temporarization","05. Impression","06. Delivery (C & B)","07. C&B total 추가 visit","08. C&B 토탈 레포트","01. Student evaluation","[고정성]Laboratory case evaluation","Total case evaluation (고정성)"],
      "가철":["22. Charting","23. Model fabrication","15. Preliminary impression","16. Final impression","17. Bite registration","18. Wax denture try-in","19. Delivery (가철성)","20. 가철성 total 추가 visit","21. 가철성 토탈 레포트","[가철성]Laboratory case evaluation","Total case evaluation (가철성)"],
      "임플":["22. Charting","03. Implant assist","09. Fixture level impression","10. Abutment & Temporary prosthesis delivery","11. Abutment level impression","12. Delivery (implant)","13. implant total 추가 visit","14. 임플란트보철 토탈 레포트","[임플란트]Laboratory case evaluation","Total case evaluation (Implant)"],
      "진단":["22. Charting","23. Model fabrication","24. Treatment planning","25. 진단 토탈 레포트","Charting and Treatment planning evaluation","02. observation (교수님)"]}},
  "소치":{kinds:[["토탈",3],["포폴",1],["추가토탈",3]],
-   tags:["Total case 1st visit","Total case 2nd visit","Total case 3rd visit","practice - Charting","assist/practice","practice - Q-ray","practice - Composite resin restoration (Cl. I)","practice - 기타","assist & observation (교수님 진료 참여)","기공 practice"],
+   tags:["Total case 1st visit","Total case 2nd visit","Total case 3rd visit","Total case - 포트폴리오 (교수님/전공의 진료 참여)","추가 Total case (교수님/전공의 진료 참여)","assist/practice","assist & observation (교수님 진료 참여)","practice - Charting","practice - Q-ray","practice - Composite resin restoration (Cl. I)","practice - 기타","practice - 포트폴리오 승인","기공 practice - L/A, NHA, B&L","기공 practice - ROA","기공 practice - RSM, FSM, RPE 등","기공 practice - Surgical splint","Pre-practice"],
    tagsByKind:{
      "토탈":["Total case 1st visit","Total case 2nd visit","Total case 3rd visit","practice - Charting","practice - Q-ray","practice - Composite resin restoration (Cl. I)","practice - 기타","assist/practice","Total case (교수님/전공의 진료 참여)"],
      "포폴":["practice - 포트폴리오 승인","Total case - 포트폴리오 (교수님/전공의 진료 참여)","practice - Charting"],
      "추가토탈":["Total case 1st visit","Total case 2nd visit","Total case 3rd visit","practice - Charting","assist/practice","추가 Total case (교수님/전공의 진료 참여)"]}},
  "내과":{kinds:[["연토",2],["티토",3]],
-   tags:["Charting","TMD Charting","Soft tissue lesion observation","Orofacial pain & TMD observation","Physical therapy","Splint delivery observation","Halitosis observation","Medical certificate","Lab reading & Report","Others (REPORTS etc.)","교수진료참여","Impression taking & Model fabrication","Splint fabrication"],
+   tags:["Charting","TMD Charting","Soft tissue lesion observation","Orofacial pain & TMD observation","Physical therapy","Splint delivery observation","Halitosis observation","Medical certificate","Lab reading & Report","Others (REPORTS etc.)","교수진료참여","Impression taking & Model fabrication","Splint fabrication","Snoring & sleep apnea observation","Taste disorder","Soft tissue lesion total case","TMD total case","Pre-practice TMD charting observation"],
    tagsByKind:{
      "연토":["Charting","Soft tissue lesion observation","교수진료참여","Lab reading & Report","Others (REPORTS etc.)","Medical certificate","Soft tissue lesion total case"],
      "티토":["TMD Charting","Orofacial pain & TMD observation","Physical therapy","Impression taking & Model fabrication","Splint fabrication","Splint delivery observation","Others (REPORTS etc.)","교수진료참여","TMD total case"]}},
  "외과":{kinds:[["I&D",2],["Biopsy",2],["발치",1],["수술실",1]],
-   tags:["I & D","follow-up(I&D) 2nd or 3rd visit","Biopsy","follow-up(Biopsy)","Extraction_[A]","Extraction_[O]","외래 신환 차팅","외래 Recall check minor","외래 Recall check major","병동 및 당직"],
+   tags:["I & D","follow-up(I&D) 2nd or 3rd visit","Biopsy","follow-up(Biopsy)","Extraction_[A]","Extraction_[O]","Extraction_[P]_simple extraction","Extraction_[P]_surgical extraction","Cyst, torus removal, alveolar surgery_[A]","Cyst, torus removal, alveolar surgery_[O]","Implant 1st op. (2개 이하 식립)_[A]","Implant 1st op. (2개 이하 식립)_[O]","Implant 1st op (3개 이상 식립)_[A]","Implant 1st op (3개 이상 식립)_[O]","Implant 2nd op_[A]","Implant 2nd op._[O]","Sinus lifting, GBR_[A]","Sinus lifting, GBR_[O]","기타 수술_A[A]","기타 수술_A[O]","기타 수술_B[A]","기타 수술_B[O]","수술실-Cyst and benign tumor surgery","수술실-Maxillofacial deformity and orthognathic surgery","수술실-Malignant tumor and/or reconstruction surgery(free flap)","수술실-Surgical extraction","수술실-기타","외래 신환 차팅","외래 Recall check minor","외래 Recall check major","병동 및 당직","턱관절강 세정술","Surgical splint","모델 제작 (악당)","Pre-practice (프랙티스 전 report 및 oral test)"],
    tagsByKind:{
      "I&D":["I & D","follow-up(I&D) 2nd or 3rd visit","외래 Recall check minor","외래 신환 차팅"],
      "Biopsy":["Biopsy","follow-up(Biopsy)","외래 Recall check minor","외래 신환 차팅"],
      "발치":["Extraction_[A]","Extraction_[O]","Extraction_[P]_simple extraction","Extraction_[P]_surgical extraction","수술실-Surgical extraction","외래 Recall check minor"],
      "수술실":["수술실-Cyst and benign tumor surgery","수술실-Maxillofacial deformity and orthognathic surgery","수술실-Malignant tumor and/or reconstruction surgery(free flap)","수술실-Surgical extraction","수술실-기타","기타 수술_B[A]","병동 및 당직","외래 Recall check major"]}},
  "치주":{kinds:[["Basic",1],["Advanced",1],["360평가",1]],
-   tags:["신환차팅","Oral examination","Plaque control instruction","Scaling","Root planing","Flap Assist","Implant Assist","기타 수술","단타 Assist","픽스 (교수님)"],
+   tags:["신환차팅","Oral examination","Plaque control instruction","Scaling","Root planing","Flap Assist","Implant Assist","기타 수술","단타 Assist","픽스 (교수님)","basic therapy (total) portfolio","advanced periodontal therapy portfolio","360 degree assessment","Pre-practice OE","Pre-practice PCI","Pre-practice RP","Pre-practice SC","초음파 기구 사용 (Ultrasonic scaler)","보고서"],
    tagsByKind:{
      "Basic":["신환차팅","Oral examination","Plaque control instruction","Scaling","Root planing","basic therapy (total) portfolio","단타 Assist"],
      "Advanced":["신환차팅","Oral examination","Plaque control instruction","Scaling","Root planing","Flap Assist","Implant Assist","기타 수술","advanced periodontal therapy portfolio"],
      "360평가":["360 degree assessment","Oral examination","Plaque control instruction","Scaling","Root planing"]}},
  "보존":{kinds:[["레진",1],["엔도",2],["아말감",1],["관찰",1]],
-   tags:["Observation (Charting) case","Observation (Operative) case","Observation (Endodontics) case","Observation (Surgery) case","Observation (GA) case","Composite restoration(practice)","Amalgam restoration(practice)","Endodontic treatment(practice)","단타 assist(보존과)"],
+   tags:["Observation (Charting) case","Observation (Operative) case","Observation (Endodontics) case","Observation (Surgery) case","Observation (GA) case","Composite restoration(practice)","Composite restoration(3급/4급)(practice)","Composite restortion(2급)(Practice)","Practice(복합레진 코어)","Amalgam restoration(practice)","Amalgam restoration(2급)(practice)","Glass ionomer restoration(practice)","Glass ionomer restoration(3급/4급)(practice)","Endodontic treatment(practice)","Endodontic treatment - practice(미니 초과 한정)","Others(practice)","단타 assist(보존과)","단타 assist(원내생진료센터 assist)","Pre-practice (복합레진 수복)","Pre-practice (근관치료)","Pre-practice (대구치 근관치료)","Pre-practice (전치/소구치 근관치료 보고서)"],
    tagsByKind:{
      "레진":["Observation (Charting) case","Composite restoration(practice)","Composite restoration(3급/4급)(practice)","Composite restortion(2급)(Practice)","Practice(복합레진 코어)","Observation (Operative) case"],
      "엔도":["Observation (Charting) case","Observation (Endodontics) case","Endodontic treatment(practice)","Endodontic treatment - practice(미니 초과 한정)","Others(practice)"],
@@ -3395,7 +3421,7 @@ const TOTAL_CFG={
    tags:["구강병리학적 검사 의뢰서 작성","육안 검사 및 진단 준비 참여"],
    tagsByKind:{"진단참여":["구강병리학적 검사 의뢰서 작성","육안 검사 및 진단 준비 참여"]}},
  "원진실":{kinds:[["원내생증례",4],["crown",3],["bridge",3],["temp덴처",2]],
-   tags:["구강 사진 촬영","원내생 증례 치료계획 수립","Tx plan Conference","crown  수복치료","bridge 수복치료","temp. denture","원내생 실습 - 기타"],
+   tags:["구강 사진 촬영","원내생 증례 치료계획 수립","Tx plan Conference","crown  수복치료","bridge 수복치료","temp. denture","원내생 실습 - 기타","원내생 증례 치료 계획 변경서","원내생 증례 치료 계획서 (담당의 변경 시)","원내생 증례 치료 담당의 변경 신청서","원내생 증례 수칙 위반 경위서"],
    tagsByKind:{
      "원내생증례":["구강 사진 촬영","원내생 증례 치료계획 수립","Tx plan Conference","원내생 증례 치료 계획 변경서","원내생 실습 - 기타"],
      "crown":["구강 사진 촬영","원내생 증례 치료계획 수립","crown  수복치료","원내생 실습 - 기타"],
@@ -3448,6 +3474,7 @@ function openVisitDlg(id,date){
   const t=findT(id);if(!t)return;
   window.vdCtx={id,date};window.vdT=t;
   {const q=document.getElementById("vd-tag-q");if(q)q.value="";}
+  window.vdAll=false;
   const vm=(t.vmeta||{})[date]||{};
   window.vdPick=vm.tag||null;
   document.getElementById("vd-title").textContent=`${t.pt} — ${+date.slice(5,7)}/${+date.slice(8,10)} 내원`;
@@ -3467,12 +3494,35 @@ function vdTagsFor(t){
   if(hit)return bk[hit];
   return cfg.tags||[];
 }
+function vdToggleAll(){
+  window.vdAll=!window.vdAll;
+  vdRenderTags(window.vdT);
+}
 function vdRenderTags(t){
   t=t||window.vdT;
   if(!t)return;
   const box=document.getElementById("vd-tags");
   if(!box)return;
-  const all=vdTagsFor(t);
+  const cfg=TOTAL_CFG[t.dept]||{};
+  const kindList=vdTagsFor(t);
+  /* 과 전체 항목 = tags + 모든 종류별 항목 합집합 (빠지는 항목이 없도록) */
+  const cfgAll=(()=>{
+    const seen=new Set(),out=[];
+    const push=a=>(a||[]).forEach(x=>{if(x&&!seen.has(x)){seen.add(x);out.push(x);}});
+    push(cfg.tags);
+    Object.keys(cfg.tagsByKind||{}).forEach(k=>push(cfg.tagsByKind[k]));
+    return out;
+  })();
+  const qNow=(document.getElementById("vd-tag-q")?.value||"").trim();
+  /* ★ 검색 중에는 항상 전체 항목에서 찾음 (추천에 없어도 나오도록) */
+  const all=(qNow||window.vdAll||!kindList.length)?cfgAll:kindList;
+  {const ab=document.getElementById("vd-all-btn");
+   if(ab){const on=window.vdAll||!kindList.length;
+     ab.textContent=qNow?"전체검색":(on?"추천만":"전체 "+cfgAll.length);
+     const lit=on||!!qNow;
+     ab.style.background=lit?"var(--brand)":"transparent";
+     ab.style.color=lit?"#fff":"var(--ink)";
+     ab.style.borderColor=lit?"var(--brand)":"var(--line)";}}
   const q=(document.getElementById("vd-tag-q")?.value||"").trim().toLowerCase();
   const list=q?all.filter(g=>g.toLowerCase().includes(q)):all;
   const col=DEPT_COLOR[t.dept]||"var(--brand)";
@@ -3484,12 +3534,12 @@ function vdRenderTags(t){
           <span style="flex:1">✓ ${esc(window.vdPick)}</span>
           <button type="button" onclick="vdPickTag('')" style="border:none;background:rgba(255,255,255,.25);color:#fff;border-radius:7px;padding:2px 8px;font-size:11px;font-weight:800;cursor:pointer">해제</button>
         </div>`
-      :`<div class="hint" style="font-size:11.5px">아직 선택 안 함 — 아래에서 항목을 고르세요 (총 ${all.length}개)</div>`;
+      :`<div class="hint" style="font-size:11.5px">아직 선택 안 함 — 아래에서 고르거나 <b>검색</b>하세요 (이 과 전체 ${cfgAll.length}개)</div>`;
   }
   box.innerHTML=list.map(g=>{
     const on=window.vdPick===g;
     return `<button type="button" onclick="vdPickTag('${g.replace(/'/g,"\\'")}')" style="border:1.5px solid ${on?col:"var(--line)"};background:${on?col:"transparent"};color:${on?"#fff":"var(--ink)"};border-radius:999px;padding:3px 11px;font-size:12px;font-weight:800;cursor:pointer">${esc(g)}</button>`;
-  }).join("")||`<span class="hint" style="padding:4px">${q?"검색 결과 없음 — 아래 직접 입력":"이 과 프리셋 없음 — 직접 입력"}</span>`;
+  }).join("")||`<span class="hint" style="padding:4px">${q?`"${esc(q)}" 검색 결과 없음 — 아래 칸에 직접 입력하세요`:"이 과 프리셋 없음 — 직접 입력"}</span>`;
 }
 function vdPickTag(g){
   window.vdPick=(!g||window.vdPick===g)?null:g;   /* 빈 값 = 해제 */
@@ -3648,13 +3698,20 @@ function renderTotals(){
     const lastV=t.visits.length?t.visits[t.visits.length-1]:null;
     const vs=t.visits.filter(Boolean).slice().sort();
     const vmm=t.vmeta||{};
-    const tagSum=(()=>{const c={};vs.forEach(d=>{const g=vmm[d]&&vmm[d].tag;if(g)c[g]=(c[g]||0)+1;});const e=Object.entries(c);return e.length?e.map(([k,n])=>k+(n>1?"×"+n:"")).join(" · "):"";})();
+    /* 내원 순서대로 항목 나열 — 연속 중복은 ×N으로 묶고 → 로 구분 */
+    const tagSum=(()=>{
+      const seq=[];
+      vs.forEach(d=>{const g=vmm[d]&&vmm[d].tag;if(!g)return;
+        const last=seq[seq.length-1];
+        if(last&&last.k===g)last.n++;else seq.push({k:g,n:1});});
+      return seq.length?seq.map(x=>x.k+(x.n>1?"×"+x.n:"")).join(" → "):"";
+    })();
     const dcol=DEPT_COLOR[t.dept]||"#666";
     const vlog=vs.length?`<div style="margin:5px 0 2px;display:flex;flex-direction:column;gap:2px">${vs.map((d,i)=>{const g=vmm[d]||{};
       return `<div onclick="openVisitDlg(${t.id},'${d}')" style="display:flex;gap:6px;align-items:flex-start;font-size:11px;cursor:pointer;padding:3px 6px;border-radius:8px;background:#F5FAF7;flex-wrap:wrap">
         <b style="flex:0 0 auto;color:var(--sub)">${i+1}.</b><b style="flex:0 0 auto">${+d.slice(5,7)}/${+d.slice(8,10)}</b>
-        ${g.tag?`<span style="flex:1 1 auto;min-width:0;border:1.5px solid ${dcol};color:${dcol};border-radius:99px;padding:0 8px;font-weight:800;font-size:10px;line-height:1.5;word-break:break-word">${esc(g.tag)}</span>`:`<span style="flex:0 0 auto;color:var(--sub);font-size:10px;border:1px dashed var(--line);border-radius:99px;padding:0 8px">항목?</span>`}
-        <span style="flex:1 0 100%;min-width:0;color:var(--sub);word-break:break-word">${esc(g.m||"")}</span>
+        ${g.tag?`<span style="flex:0 1 auto;border:1.5px solid ${dcol};color:${dcol};border-radius:99px;padding:1px 9px;font-weight:800;font-size:10px;line-height:1.45;white-space:normal;word-break:keep-all">${esc(g.tag)}</span>`:`<span style="flex:0 0 auto;color:var(--sub);font-size:10px;border:1px dashed var(--line);border-radius:99px;padding:1px 9px">항목?</span>`}
+        <span style="flex:1 1 60px;min-width:0;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(g.m||"")}</span>
         <span style="flex:0 0 auto">✏️</span>
         <span onclick="event.stopPropagation();delVisit(${t.id},'${d}')" style="flex:0 0 auto;cursor:pointer;color:#B42318;font-weight:800;padding:0 3px" title="이 내원 삭제">🗑</span></div>`;}).join("")}</div>`:"";
     let dl="";
