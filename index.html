@@ -476,22 +476,19 @@ dialog::backdrop{background:rgba(12,40,30,.5)}
 <!-- ══ 플랜 ══ -->
 <section class="tabpage" id="page-plan">
   <div class="slotpick" id="plan-pills">
-    <button data-p="tmr" class="on">내일</button>
-    <button data-p="mini">미니달성</button>
+    <button data-p="mini" class="on">미니달성</button>
+    <button data-p="tmr">내일</button>
     <button data-p="week">주간</button>
     <button data-p="month">월간</button>
     <button data-p="sem">학기</button>
     <button data-p="year">1년</button>
   </div>
-  <div class="psec" id="p-tmr"></div>
-  <div class="psec" id="p-mini" style="display:none">
-    <p class="hint" style="margin-bottom:10px"><b>미니 = 학기/연 최소 요구량 채우기.</b> <span class="scope sem" style="font-size:10px;padding:2px 6px">학기</span>=이번 학기 / <span class="scope yr" style="font-size:10px;padding:2px 6px">연</span>=1년 · 숫자 탭=수정 · 주황선=오늘 기대 페이스</p>
-    <div id="mini-list"></div>
-    <button class="btn ghost" style="width:100%" onclick="addCustomItem()">＋ 항목 직접 추가</button>
-    <div class="card" style="margin-top:12px"><h2>진행 요약 <span class="badge" id="sum-badge"></span></h2><div id="summary"></div></div>
-    <div class="card" style="margin-top:12px">
+  <div class="psec" id="p-tmr" style="display:none"></div>
+  <div class="psec" id="p-mini">
+    <p class="hint" style="margin-bottom:10px"><b>유폴리오 임상실습 2 기준 미니 현황.</b> 점수가 있는 항목은 모두 표시 · <b>미니</b> 표시가 있으면 최소 요구량 · 아래 버튼으로 최신 점수를 가져오세요.</p>
+    <div class="card">
       <h2>🦷 유폴리오 미니 현황 <span class="badge" id="mff-badge"></span></h2>
-      <p class="hint" style="margin:2px 0 8px">달신 "미니 현황" 기준 공식 미니/맥스. <b id="mff-upd"></b> · 유폴리오에서 다시 긁으면 갱신돼요.</p>
+      <p class="hint" style="margin:2px 0 8px"><b id="mff-upd"></b></p>
       <div id="mini-off-list"></div>
       <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
         <button class="btn small" style="background:var(--brand);color:#fff" onclick="ufolioImportOpen()">📥 유폴리오에서 가져오기</button>
@@ -921,7 +918,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-08-11", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260811-114";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260811-115";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화), 
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -3084,8 +3081,11 @@ function semExpectedPct(){const d=SEM_DATES[S.semester];if(!d)return 0;
   const s=new Date(d.s),e=new Date(d.e),n=new Date();
   return Math.max(0,Math.min(1,(n-s)/(e-s)));}
 function renderMini(){
+  /* 미니달성 탭은 유폴리오 현황 전용 — 기존 목록 요소가 없으면 그것만 렌더 */
+  const _ml=document.getElementById("mini-list");
+  if(!_ml){ renderMiniOff(); return; }
   const exp=semExpectedPct();
-  document.getElementById("mini-list").innerHTML=S.mini.map((d,di)=>{
+  _ml.innerHTML=S.mini.map((d,di)=>{
     const w=d.items.filter(i=>i.t>0);
     const semW=d.items.filter(i=>i.t>0&&i.s==="sem");
     const pct=w.length?Math.min(100,Math.round(w.reduce((a,i)=>a+Math.min(1,i.c/i.t),0)/w.length*100)):0;
@@ -3119,35 +3119,44 @@ function renderMiniOff(){
   if(!box)return;
   ensureMiniOff();
   if(!S.miniOff||!S.miniOff.length){box.innerHTML='<p class="hint">데이터 없음 — [📥 유폴리오에서 가져오기]를 눌러주세요</p>';return;}
-  let totMiss=0,totDone=0,totRec=0;
+  let totMiss=0,totDone=0;
   const html=S.miniOff.map(d=>{
-    const goals=d.items.filter(it=>it.mini>0);
-    const recs =d.items.filter(it=>!(it.mini>0));
+    /* 메인: 미니가 있거나 점수가 있는 항목 전부. 숨김: 미니도 없고 점수도 0인 것만 */
+    const main=d.items.filter(it=>it.mini>0||it.c>0);
+    const zero=d.items.filter(it=>!(it.mini>0||it.c>0));
     const rowHtml=it=>{
       const hasGoal=it.mini>0;
       const done=hasGoal&&it.c>=it.mini;
-      if(hasGoal){done?totDone++:totMiss++;}else totRec++;
+      if(hasGoal){done?totDone++:totMiss++;}
       const need=hasGoal?Math.max(0,it.mini-it.c):0;
-      const pct=hasGoal?(it.mini>0?Math.min(100,Math.round(it.c/it.mini*100)):100):0;
+      const pct=hasGoal?Math.min(100,Math.round(it.c/it.mini*100)):0;
       const maxTxt=it.max?` · 맥스 ${it.max}`:"";
       return `<div style="padding:5px 0;border-bottom:1px solid var(--line)">
         <div style="display:flex;align-items:center;gap:6px;font-size:12.5px">
           <span style="flex:1">${esc(it.n)}${it.cat?` <span class="hint" style="font-size:10px">${esc(it.cat)}</span>`:""}</span>
-          <b style="color:${hasGoal?(done?"var(--brand)":"var(--red)"):"var(--sub)"}">${it.c}</b>
-          ${hasGoal?`<span class="hint" style="font-size:11px">/ ${it.mini}${maxTxt}</span>`:'<span class="hint" style="font-size:10px">기록</span>'}
-          ${hasGoal?(done?'<span style="color:var(--brand);font-weight:800">✓</span>':`<span style="color:var(--red);font-size:11px">−${need}</span>`):""}
+          <b style="color:${hasGoal?(done?"var(--brand)":"var(--red)"):"var(--ink)"}">${it.c}</b>
+          ${hasGoal
+            ?`<span style="font-size:10px;font-weight:800;padding:1px 5px;border-radius:5px;background:${done?"var(--brand)":"var(--red)"};color:#fff">미니 ${it.mini}</span><span class="hint" style="font-size:10.5px">${maxTxt}</span>${done?'<span style="color:var(--brand);font-weight:800">✓</span>':`<span style="color:var(--red);font-size:11px;font-weight:800">−${need}</span>`}`
+            :'<span class="hint" style="font-size:10px">기록</span>'}
         </div>
         ${hasGoal?`<div style="height:4px;background:var(--line);border-radius:2px;margin-top:3px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${done?"var(--brand)":"var(--amber)"}"></div></div>`:""}
       </div>`;
     };
-    const goalRows=goals.map(rowHtml).join("");
-    const recRows=recs.map(rowHtml).join("");
+    /* 미달(미니O) → 달성(미니O) → 점수만 있는 기록 순 */
+    const sorted=main.slice().sort((a,b)=>{
+      const rank=x=>x.mini>0?(x.c<x.mini?0:1):2;
+      const r=rank(a)-rank(b); if(r)return r;
+      return a.n.localeCompare(b.n,"ko");
+    });
+    const mainRows=sorted.map(rowHtml).join("");
+    const zeroRows=zero.map(rowHtml).join("");
+    const goals=main.filter(it=>it.mini>0);
     const miss=goals.filter(it=>it.c<it.mini).length;
     return `<details style="margin-bottom:6px"${miss?" open":""}>
       <summary style="cursor:pointer;font-weight:800;padding:5px 0;color:${DEPT_COLOR[d.dept]||"#333"}">${esc(d.dept)}
-        <span class="hint" style="font-weight:400;font-size:11px">${goals.length?`미니 ${goals.length-miss}/${goals.length} 달성`:""}${recs.length?` · 기록 ${recs.length}`:""}</span></summary>
-      ${goalRows}
-      ${recRows?`<details style="margin:4px 0 0 0"><summary style="cursor:pointer;font-size:11.5px;color:var(--sub);padding:4px 0">그 외 기록 항목 ${recs.length}개 보기</summary>${recRows}</details>`:""}
+        <span class="hint" style="font-weight:400;font-size:11px">${goals.length?`미니 ${goals.length-miss}/${goals.length}`:""}${main.length-goals.length?` · 기록 ${main.length-goals.length}`:""}</span></summary>
+      ${mainRows||'<p class="hint" style="padding:4px 0">항목 없음</p>'}
+      ${zeroRows?`<details style="margin:4px 0 0 0"><summary style="cursor:pointer;font-size:11.5px;color:var(--sub);padding:4px 0">아직 0인 항목 ${zero.length}개 보기</summary>${zeroRows}</details>`:""}
     </details>`;
   }).join("");
   box.innerHTML=html;
@@ -3314,6 +3323,8 @@ function addCustomItem(){
   });
 }
 function renderSummary(){
+  /* 미니달성 탭이 유폴리오 전용으로 바뀌어 요약 요소가 없을 수 있음 */
+  if(!document.getElementById("sum-badge")||!document.getElementById("summary"))return;
   document.getElementById("sum-badge").textContent=S.semester+" · 주황선=기대 페이스";
   const exp=semExpectedPct();
   document.getElementById("summary").innerHTML=S.mini.map(d=>{
@@ -3328,72 +3339,75 @@ function renderSummary(){
 }
 /* 과별 토탈 종류(기본 필요횟수)·내원 항목 태그 — 가이드라인 기반 프리셋 */
 const TOTAL_CFG={
- "교정":{kinds:[["신환토탈",3,"Total Case(신환)"],["구환토탈",3,"Total Case(구환)"],["진단준비",2,"Analysis & Diagnosis Case"]],
-   tags:["진단준비","본딩","Lev&Align","Sp.Closure","Finishing","디본딩","사진","기타"],
-   tagsByKind:{"신환토탈":["신환 접수/차팅","진단자료 채득","분석·진단","본딩(Bonding)","F/U","사진"],
-     "구환토탈":["구환 인계/차팅","와이어·장치 교체","Leveling&Align","Sp.Closure","Finishing","디본딩(Debond)","F/U","사진"],
-     "진단준비":["진단자료 채득","모형·세팔로 분석","진단 토의","사진"]}},
- "보철":{kinds:[["고정",3,"Total case evaluation (고정성)"],["가철",5,"Total case evaluation (가철성)"],["임플",4,"Total case evaluation (Implant)"],["진단",2,"Charting and Treatment planning evaluation"]],
-   tags:["차팅","진단","prep","인상","시적","세팅","체크","기공"],
-   tagsByKind:{"가철":["진단/차팅","preliminary imp","final imp","JR(악간관계)","납의치 시적","denture delivery","조정/체크","F/U"],
-     "고정":["진단/차팅","tooth prep & temp","final imp","납형/코핑 시적","bisque 시적","cementation","교합조정","F/U"],
-     "임플":["진단/CBCT","fixture level imp","abutment level imp","지대주 연결","보철물 세팅","ISQ/체크","F/U"],
-     "진단":["차팅(Charting)","모형 제작","치료계획 수립","진단 토탈 레포트"]}},
- "소치":{kinds:[["토탈",3,"Total case (교수님/전공의 진료 참여)"],["포폴",1,"Total case - 포트폴리오 (교수님/전공의 진료 참여)"],["추가토탈",3,"추가 Total case (교수님/전공의 진료 참여)"]],
-   tags:["신환차팅","1st visit","2nd visit","3rd visit","F/U","사진","큐레이"],
-   tagsByKind:{"토탈":["신환차팅(초진)","1st visit","2nd visit","3rd visit","4th visit↑","F/U","사진","큐레이(caries)"],
-     "포폴":["자료 정리","사진 첨부","포트폴리오 승인"],
-     "추가토탈":["신환차팅(초진)","1st visit","2nd visit","3rd visit","F/U","사진"]}},
- "내과":{kinds:[["연토",2,"Soft tissue lesion total case"],["티토",3,"TMD total case"]],
-   tags:["차팅","F/U","검사","레포트"],
-   tagsByKind:{"연토":["신환차팅","병소 관찰/사진","F/U 1회","레포트"],
-     "티토":["TMD 차팅","검사(개구량 등)","F/U 1회","F/U 2회","스플린트 인상·제작","splint delivery","레포트"]}},
- "외과":{kinds:[["I&D",2,"I & D"],["Biopsy",2,"Biopsy"]],
-   tags:["초진","재진","어시","F/U","레포트"],
-   tagsByKind:{"I&D":["초진(I&D)","follow-up 2nd visit","follow-up 3rd visit","레포트"],
-     "Biopsy":["초진(Biopsy)","병리 결과 확인","follow-up","레포트"]}},
- "치주":{kinds:[["Basic",1,"basic therapy (total) portfolio"],["Advanced",1,"advanced periodontal therapy portfolio"],["360평가",1,"360 degree assessment"]],
-   tags:["수술어시","OE","SC","RP","PCI","re-eval"],
-   tagsByKind:{"Basic":["OE(구강검사)","PCI","SC(스케일링)","RP","re-eval","포트폴리오 정리"],
-     "Advanced":["OE(구강검사)","PCI","SC(스케일링)","RP 1분악","RP 2분악","RP 3분악","RP 4분악","re-eval","수술 어시","포트폴리오 정리"],
-     "360평가":["평가 준비","360 평가 진행"]}},
- "보존":{kinds:[["레진",1,"Composite restoration(practice)"],["엔도",2,"Endodontic treatment(practice)"],["아말감",1,"Amalgam restoration(practice)"]],
-   tags:["차팅","진단","practice","F/U"],
-   tagsByKind:{"레진":["차팅/진단","와동형성","수복(practice)","연마/체크","F/U"],
-     "엔도":["차팅/진단","access opening","canal irrigation","canal filling","practice","F/U"],
-     "아말감":["차팅/진단","와동형성","아말감 충전","연마/체크","F/U"]}},
- "영상":{kinds:[["Sialo",1,"Sialography"],["구내촬영",1,"구내 촬영 및 판독"]],
-   tags:["촬영","판독","레포트"],
-   tagsByKind:{"Sialo":["촬영(Sialography)","판독","레포트"],
-     "구내촬영":["구내 촬영","판독","레포트"]}},
- "병리":{kinds:[["진단참여",1,"육안 검사 및 진단 준비 참여"]],
-   tags:["참관","진단참여","레포트"],
-   tagsByKind:{"진단참여":["검사 의뢰서 작성","육안 검사 참여","진단 준비/현미경","레포트"]}},
- "원진실":{kinds:[["원내생증례",4,"원내생 증례 치료계획 수립"],["crown",3,"crown  수복치료"],["bridge",3,"bridge 수복치료"],["temp덴처",2,"temp. denture"]],
-   tags:["차팅","치료계획","prep","인상","세팅","F/U"],
-   tagsByKind:{"원내생증례":["구강 사진 촬영","차팅/검사","치료계획 수립","Tx plan Conference","치료 진행","F/U"],
-     "crown":["차팅/진단","tooth prep & temp","final imp","cementation","F/U"],
-     "bridge":["차팅/진단","bridge prep & temp","final imp","cementation","F/U"],
-     "temp덴처":["인상 채득","시적/조정","delivery","F/U"]}}};
+ "교정":{kinds:[["신환토탈",3],["구환토탈",3],["진단준비",2]],
+   tags:["Analysis & Diagnosis Case","Assist case - Bonding","Assist case - Leveling and alignment","Assist case - Space closure","Assist case - Finishing","Assist case - Etc.","Total Case(신환)","Total Case(구환)","기공"],
+   tagsByKind:{
+     "신환토탈":["Analysis & Diagnosis Case","Assist case - Bonding","Assist case - Leveling and alignment","Assist case - Space closure","Assist case - Finishing","Assist case - Etc.","Total Case(신환)"],
+     "구환토탈":["Assist case - Leveling and alignment","Assist case - Space closure","Assist case - Finishing","Assist case - Bonding","Assist case - Etc.","Total Case(구환)"],
+     "진단준비":["Analysis & Diagnosis Case","기공: Model Analysis","기공: Cephalometric Tracing","기공지시서 작성","Assist case - Etc."]}},
+ "보철":{kinds:[["고정",3],["가철",5],["임플",4],["진단",2]],
+   tags:["22. Charting","23. Model fabrication","24. Treatment planning","04. Preparation & Temporarization","05. Impression","06. Delivery (C & B)","09. Fixture level impression","11. Abutment level impression","12. Delivery (implant)","15. Preliminary impression","16. Final impression","17. Bite registration","18. Wax denture try-in","19. Delivery (가철성)","01. Student evaluation","02. observation (교수님)","03. Implant assist"],
+   tagsByKind:{
+     "고정":["22. Charting","24. Treatment planning","04. Preparation & Temporarization","05. Impression","06. Delivery (C & B)","07. C&B total 추가 visit","08. C&B 토탈 레포트","01. Student evaluation","[고정성]Laboratory case evaluation","Total case evaluation (고정성)"],
+     "가철":["22. Charting","23. Model fabrication","15. Preliminary impression","16. Final impression","17. Bite registration","18. Wax denture try-in","19. Delivery (가철성)","20. 가철성 total 추가 visit","21. 가철성 토탈 레포트","[가철성]Laboratory case evaluation","Total case evaluation (가철성)"],
+     "임플":["22. Charting","03. Implant assist","09. Fixture level impression","10. Abutment & Temporary prosthesis delivery","11. Abutment level impression","12. Delivery (implant)","13. implant total 추가 visit","14. 임플란트보철 토탈 레포트","[임플란트]Laboratory case evaluation","Total case evaluation (Implant)"],
+     "진단":["22. Charting","23. Model fabrication","24. Treatment planning","25. 진단 토탈 레포트","Charting and Treatment planning evaluation","02. observation (교수님)"]}},
+ "소치":{kinds:[["토탈",3],["포폴",1],["추가토탈",3]],
+   tags:["Total case 1st visit","Total case 2nd visit","Total case 3rd visit","practice - Charting","assist/practice","practice - Q-ray","practice - Composite resin restoration (Cl. I)","practice - 기타","assist & observation (교수님 진료 참여)","기공 practice"],
+   tagsByKind:{
+     "토탈":["Total case 1st visit","Total case 2nd visit","Total case 3rd visit","practice - Charting","practice - Q-ray","practice - Composite resin restoration (Cl. I)","practice - 기타","assist/practice","Total case (교수님/전공의 진료 참여)"],
+     "포폴":["practice - 포트폴리오 승인","Total case - 포트폴리오 (교수님/전공의 진료 참여)","practice - Charting"],
+     "추가토탈":["Total case 1st visit","Total case 2nd visit","Total case 3rd visit","practice - Charting","assist/practice","추가 Total case (교수님/전공의 진료 참여)"]}},
+ "내과":{kinds:[["연토",2],["티토",3]],
+   tags:["Charting","TMD Charting","Soft tissue lesion observation","Orofacial pain & TMD observation","Physical therapy","Splint delivery observation","Halitosis observation","Medical certificate","Lab reading & Report","Others (REPORTS etc.)","교수진료참여","Impression taking & Model fabrication","Splint fabrication"],
+   tagsByKind:{
+     "연토":["Charting","Soft tissue lesion observation","교수진료참여","Lab reading & Report","Others (REPORTS etc.)","Medical certificate","Soft tissue lesion total case"],
+     "티토":["TMD Charting","Orofacial pain & TMD observation","Physical therapy","Impression taking & Model fabrication","Splint fabrication","Splint delivery observation","Others (REPORTS etc.)","교수진료참여","TMD total case"]}},
+ "외과":{kinds:[["I&D",2],["Biopsy",2],["발치",1],["수술실",1]],
+   tags:["I & D","follow-up(I&D) 2nd or 3rd visit","Biopsy","follow-up(Biopsy)","Extraction_[A]","Extraction_[O]","외래 신환 차팅","외래 Recall check minor","외래 Recall check major","병동 및 당직"],
+   tagsByKind:{
+     "I&D":["I & D","follow-up(I&D) 2nd or 3rd visit","외래 Recall check minor","외래 신환 차팅"],
+     "Biopsy":["Biopsy","follow-up(Biopsy)","외래 Recall check minor","외래 신환 차팅"],
+     "발치":["Extraction_[A]","Extraction_[O]","Extraction_[P]_simple extraction","Extraction_[P]_surgical extraction","수술실-Surgical extraction","외래 Recall check minor"],
+     "수술실":["수술실-Cyst and benign tumor surgery","수술실-Maxillofacial deformity and orthognathic surgery","수술실-Malignant tumor and/or reconstruction surgery(free flap)","수술실-Surgical extraction","수술실-기타","기타 수술_B[A]","병동 및 당직","외래 Recall check major"]}},
+ "치주":{kinds:[["Basic",1],["Advanced",1],["360평가",1]],
+   tags:["신환차팅","Oral examination","Plaque control instruction","Scaling","Root planing","Flap Assist","Implant Assist","기타 수술","단타 Assist","픽스 (교수님)"],
+   tagsByKind:{
+     "Basic":["신환차팅","Oral examination","Plaque control instruction","Scaling","Root planing","basic therapy (total) portfolio","단타 Assist"],
+     "Advanced":["신환차팅","Oral examination","Plaque control instruction","Scaling","Root planing","Flap Assist","Implant Assist","기타 수술","advanced periodontal therapy portfolio"],
+     "360평가":["360 degree assessment","Oral examination","Plaque control instruction","Scaling","Root planing"]}},
+ "보존":{kinds:[["레진",1],["엔도",2],["아말감",1],["관찰",1]],
+   tags:["Observation (Charting) case","Observation (Operative) case","Observation (Endodontics) case","Observation (Surgery) case","Observation (GA) case","Composite restoration(practice)","Amalgam restoration(practice)","Endodontic treatment(practice)","단타 assist(보존과)"],
+   tagsByKind:{
+     "레진":["Observation (Charting) case","Composite restoration(practice)","Composite restoration(3급/4급)(practice)","Composite restortion(2급)(Practice)","Practice(복합레진 코어)","Observation (Operative) case"],
+     "엔도":["Observation (Charting) case","Observation (Endodontics) case","Endodontic treatment(practice)","Endodontic treatment - practice(미니 초과 한정)","Others(practice)"],
+     "아말감":["Observation (Charting) case","Amalgam restoration(practice)","Amalgam restoration(2급)(practice)","Glass ionomer restoration(practice)","Glass ionomer restoration(3급/4급)(practice)"],
+     "관찰":["Observation (Charting) case","Observation (Operative) case","Observation (Endodontics) case","Observation (Surgery) case","Observation (GA) case","단타 assist(보존과)","단타 assist(원내생진료센터 assist)"]}},
+ "영상":{kinds:[["Sialo",1],["구내촬영",1],["판독",1]],
+   tags:["Sialography","추가 sialography (1회당 +1)","구내 촬영 및 판독","판독 토론 및 평가"],
+   tagsByKind:{
+     "Sialo":["Sialography","추가 sialography (1회당 +1)","판독 토론 및 평가"],
+     "구내촬영":["구내 촬영 및 판독","판독 토론 및 평가"],
+     "판독":["판독 토론 및 평가","구내 촬영 및 판독"]}},
+ "병리":{kinds:[["진단참여",1]],
+   tags:["구강병리학적 검사 의뢰서 작성","육안 검사 및 진단 준비 참여"],
+   tagsByKind:{"진단참여":["구강병리학적 검사 의뢰서 작성","육안 검사 및 진단 준비 참여"]}},
+ "원진실":{kinds:[["원내생증례",4],["crown",3],["bridge",3],["temp덴처",2]],
+   tags:["구강 사진 촬영","원내생 증례 치료계획 수립","Tx plan Conference","crown  수복치료","bridge 수복치료","temp. denture","원내생 실습 - 기타"],
+   tagsByKind:{
+     "원내생증례":["구강 사진 촬영","원내생 증례 치료계획 수립","Tx plan Conference","원내생 증례 치료 계획 변경서","원내생 실습 - 기타"],
+     "crown":["구강 사진 촬영","원내생 증례 치료계획 수립","crown  수복치료","원내생 실습 - 기타"],
+     "bridge":["구강 사진 촬영","원내생 증례 치료계획 수립","bridge 수복치료","원내생 실습 - 기타"],
+     "temp덴처":["구강 사진 촬영","temp. denture","원내생 실습 - 기타"]}}};
 function tcSet(i,v){const e=document.getElementById(i);if(e)e.value=v==null?"":v;}
 function tcKindChips(){
   const cfg=TOTAL_CFG[val("tc-dept")];const box=document.getElementById("tc-kinds");if(!box)return;
   if(!cfg){box.innerHTML="";return;}
   const cur=val("tc-item");
-  const dep=val("tc-dept");
   box.innerHTML=cfg.kinds.map(k=>{
-    const label=k[0],need=k[1],ufo=k[2]||null;
+    const label=k[0],need=k[1];
     const on=cur===label;
-    /* 유폴리오 미니 현황과 연동 — 남은 개수 표시 */
-    let miniTxt="";
-    if(ufo&&typeof ufoStat==="function"){
-      const st=ufoStat(dep,ufo);
-      if(st){
-        if(st.mini>0)miniTxt=st.c>=st.mini?`<span style="opacity:.8;font-weight:700"> ✓유폴</span>`:`<span style="opacity:.85;font-weight:700"> 유폴 −${Math.max(0,st.mini-st.c)}</span>`;
-        else miniTxt=`<span style="opacity:.6;font-weight:700"> 유폴 ${st.c}</span>`;
-      }
-    }
-    return `<button type="button" onclick="tcPickKind('${label}',${need})" title="${ufo?esc(ufo):""}" style="border:1.5px solid ${on?"var(--brand)":"var(--line)"};background:${on?"var(--brand)":"transparent"};color:${on?"#fff":"var(--ink)"};border-radius:999px;padding:3px 12px;font-size:12px;font-weight:800;cursor:pointer">${label}<span style="opacity:.65;font-weight:700"> ${need}회</span>${miniTxt}</button>`;
+    return `<button type="button" onclick="tcPickKind('${label}',${need})" style="border:1.5px solid ${on?"var(--brand)":"var(--line)"};background:${on?"var(--brand)":"transparent"};color:${on?"#fff":"var(--ink)"};border-radius:999px;padding:3px 12px;font-size:12px;font-weight:800;cursor:pointer">${label}<span style="opacity:.65;font-weight:700"> ${need}회</span></button>`;
   }).join("");
 }
 
