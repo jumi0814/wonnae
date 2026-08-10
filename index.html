@@ -887,7 +887,9 @@ dialog::backdrop{background:rgba(12,40,30,.5)}
   <div class="dlg-in">
     <h3 id="vd-title" style="font-size:15px">내원 기록</h3>
     <p class="hint" style="margin:2px 0 6px">이 내원에서 <b>어떤 항목</b>으로 받았는지 체크 — 카드에 내역이 쌓여요</p>
-    <div id="vd-tags" style="display:flex;gap:5px;flex-wrap:wrap;margin:4px 0 8px"></div>
+    <div id="vd-picked" style="margin:4px 0 6px"></div>
+    <input type="search" id="vd-tag-q" placeholder="🔍 항목 검색 (예: impression, 1st, 레포트)" oninput="vdRenderTags(window.vdT)" style="width:100%;padding:7px 10px;border:1.5px solid var(--line);border-radius:9px;font-size:12.5px;box-sizing:border-box;margin-bottom:5px">
+    <div id="vd-tags" style="display:flex;gap:5px;flex-wrap:wrap;margin:0 0 8px;max-height:168px;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:2px;border:1px solid var(--line);border-radius:9px"></div>
     <input type="text" id="vd-tag-etc" placeholder="항목 직접 입력 (칩에 없을 때)" style="width:100%">
     <input type="text" id="vd-memo" placeholder="메모 (예: A컷 5장 · 다음 내원 때 와이어체크)" style="width:100%;margin-top:6px">
     <div style="display:flex;gap:8px;margin-top:10px">
@@ -918,7 +920,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-08-11", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260811-115";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260811-116";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화), 
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -3444,7 +3446,8 @@ function openTotalDlg(id){
 /* ═══ 내원별 항목·메모 (vmeta) ═══ */
 function openVisitDlg(id,date){
   const t=findT(id);if(!t)return;
-  window.vdCtx={id,date};
+  window.vdCtx={id,date};window.vdT=t;
+  {const q=document.getElementById("vd-tag-q");if(q)q.value="";}
   const vm=(t.vmeta||{})[date]||{};
   window.vdPick=vm.tag||null;
   document.getElementById("vd-title").textContent=`${t.pt} — ${+date.slice(5,7)}/${+date.slice(8,10)} 내원`;
@@ -3465,11 +3468,31 @@ function vdTagsFor(t){
   return cfg.tags||[];
 }
 function vdRenderTags(t){
-  const tags=vdTagsFor(t);
-  document.getElementById("vd-tags").innerHTML=tags.map(g=>`<button type="button" onclick="vdPickTag('${g.replace(/'/g,"\\'")}')" style="border:1.5px solid ${window.vdPick===g?DEPT_COLOR[t.dept]:"var(--line)"};background:${window.vdPick===g?DEPT_COLOR[t.dept]:"transparent"};color:${window.vdPick===g?"#fff":"var(--ink)"};border-radius:999px;padding:3px 11px;font-size:12px;font-weight:800;cursor:pointer">${g}</button>`).join("")||`<span class="hint">이 과 프리셋 없음 — 직접 입력</span>`;
+  t=t||window.vdT;
+  if(!t)return;
+  const box=document.getElementById("vd-tags");
+  if(!box)return;
+  const all=vdTagsFor(t);
+  const q=(document.getElementById("vd-tag-q")?.value||"").trim().toLowerCase();
+  const list=q?all.filter(g=>g.toLowerCase().includes(q)):all;
+  const col=DEPT_COLOR[t.dept]||"var(--brand)";
+  /* 선택된 항목은 항상 위에 크게 표시 (스크롤로 안 보여도 확인 가능) */
+  const pk=document.getElementById("vd-picked");
+  if(pk){
+    pk.innerHTML=window.vdPick
+      ?`<div style="display:flex;align-items:center;gap:6px;padding:6px 9px;border-radius:9px;background:${col};color:#fff;font-size:12.5px;font-weight:800">
+          <span style="flex:1">✓ ${esc(window.vdPick)}</span>
+          <button type="button" onclick="vdPickTag('')" style="border:none;background:rgba(255,255,255,.25);color:#fff;border-radius:7px;padding:2px 8px;font-size:11px;font-weight:800;cursor:pointer">해제</button>
+        </div>`
+      :`<div class="hint" style="font-size:11.5px">아직 선택 안 함 — 아래에서 항목을 고르세요 (총 ${all.length}개)</div>`;
+  }
+  box.innerHTML=list.map(g=>{
+    const on=window.vdPick===g;
+    return `<button type="button" onclick="vdPickTag('${g.replace(/'/g,"\\'")}')" style="border:1.5px solid ${on?col:"var(--line)"};background:${on?col:"transparent"};color:${on?"#fff":"var(--ink)"};border-radius:999px;padding:3px 11px;font-size:12px;font-weight:800;cursor:pointer">${esc(g)}</button>`;
+  }).join("")||`<span class="hint" style="padding:4px">${q?"검색 결과 없음 — 아래 직접 입력":"이 과 프리셋 없음 — 직접 입력"}</span>`;
 }
 function vdPickTag(g){
-  window.vdPick=window.vdPick===g?null:g;
+  window.vdPick=(!g||window.vdPick===g)?null:g;   /* 빈 값 = 해제 */
   tcSet("vd-tag-etc","");
   const t=findT(window.vdCtx.id);if(t)vdRenderTags(t);
 }
@@ -3628,10 +3651,10 @@ function renderTotals(){
     const tagSum=(()=>{const c={};vs.forEach(d=>{const g=vmm[d]&&vmm[d].tag;if(g)c[g]=(c[g]||0)+1;});const e=Object.entries(c);return e.length?e.map(([k,n])=>k+(n>1?"×"+n:"")).join(" · "):"";})();
     const dcol=DEPT_COLOR[t.dept]||"#666";
     const vlog=vs.length?`<div style="margin:5px 0 2px;display:flex;flex-direction:column;gap:2px">${vs.map((d,i)=>{const g=vmm[d]||{};
-      return `<div onclick="openVisitDlg(${t.id},'${d}')" style="display:flex;gap:6px;align-items:center;font-size:11px;cursor:pointer;padding:2.5px 6px;border-radius:8px;background:#F5FAF7">
+      return `<div onclick="openVisitDlg(${t.id},'${d}')" style="display:flex;gap:6px;align-items:flex-start;font-size:11px;cursor:pointer;padding:3px 6px;border-radius:8px;background:#F5FAF7;flex-wrap:wrap">
         <b style="flex:0 0 auto;color:var(--sub)">${i+1}.</b><b style="flex:0 0 auto">${+d.slice(5,7)}/${+d.slice(8,10)}</b>
-        ${g.tag?`<span style="flex:0 0 auto;border:1.5px solid ${dcol};color:${dcol};border-radius:99px;padding:0 8px;font-weight:800;font-size:10px">${esc(g.tag)}</span>`:`<span style="flex:0 0 auto;color:var(--sub);font-size:10px;border:1px dashed var(--line);border-radius:99px;padding:0 8px">항목?</span>`}
-        <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--sub)">${esc(g.m||"")}</span>
+        ${g.tag?`<span style="flex:1 1 auto;min-width:0;border:1.5px solid ${dcol};color:${dcol};border-radius:99px;padding:0 8px;font-weight:800;font-size:10px;line-height:1.5;word-break:break-word">${esc(g.tag)}</span>`:`<span style="flex:0 0 auto;color:var(--sub);font-size:10px;border:1px dashed var(--line);border-radius:99px;padding:0 8px">항목?</span>`}
+        <span style="flex:1 0 100%;min-width:0;color:var(--sub);word-break:break-word">${esc(g.m||"")}</span>
         <span style="flex:0 0 auto">✏️</span>
         <span onclick="event.stopPropagation();delVisit(${t.id},'${d}')" style="flex:0 0 auto;cursor:pointer;color:#B42318;font-weight:800;padding:0 3px" title="이 내원 삭제">🗑</span></div>`;}).join("")}</div>`:"";
     let dl="";
@@ -3654,7 +3677,7 @@ function renderTotals(){
     }
     return _grpHdr+`<div class="tc">
       <div class="top"><span class="dept-tag${txtOn(DEPT_COLOR[t.dept])==="#fff"?"":" lt"}" style="background:${DEPT_COLOR[t.dept]};color:${txtOn(DEPT_COLOR[t.dept])}">${t.dept}</span><span class="pt">${esc(t.pt)}</span>${t.ptno?`<span style="font-size:10.5px;color:var(--sub);font-weight:700">#${esc(t.ptno)}</span>`:""}${t.scope==="all"?`<span class="badge" style="font-size:9.5px;background:#EDE4F7;color:#6A3FA0">타과도 알림</span>`:""}<span style="margin-left:auto">${t.done?"✅":""}</span></div>
-      <div class="meta">${esc(t.item||"")} · ${esc(t.dr||"담당쌤?")}${tagSum?` · <span style="color:${dcol};font-weight:800">${esc(tagSum)}</span>`:""}</div>
+      <div class="meta" style="white-space:normal;word-break:break-word">${esc(t.item||"")} · ${esc(t.dr||"담당쌤?")}${tagSum?`<br><span style="color:${dcol};font-weight:800">${esc(tagSum)}</span>`:""}</div>
       ${um.map(u=>`<div class="deadline" style="border:1.5px dashed var(--purple);background:var(--purple-soft);color:var(--purple)">◇ OCS: ${fmtD(u.d)} ${u.t||""}${t.scope==="all"&&u.dep&&u.dep!==t.dept?` <span class="dept-tag" style="background:${DEPT_COLOR[u.dep]||"#666"};color:${txtOn(DEPT_COLOR[u.dep]||"#666")};font-size:9.5px">${u.dep}</span>`:""} ${esc(u.dr||"")}${u.cat?` · ${esc(u.cat)}`:""}${t.next!==u.d?` <button class="btn small" style="margin-left:6px;background:var(--purple);color:#fff" onclick="setNextFromUp(${t.id},'${u.d}','${u.t||""}','${(u.dr||"").replace(/'/g,"")}','${u.no||""}')">이 날짜로 반영</button>`:" · 반영됨 ✓"}</div>`).join("")}
       ${(t.ocsLog&&t.ocsLog.length)?`<div style="margin:7px 0 4px;border:1px solid var(--line);border-radius:9px;padding:6px 8px;background:#FAFCFB">
         <div style="font-size:10.5px;font-weight:800;color:var(--sub);margin-bottom:3px">📋 OCS 내원 이력 ${t.ocsLog.length}건 · <span style="color:#1D8A4E">봤음 ${t.ocsLog.filter(e=>e.seen==="o").length}</span> · <span style="color:var(--red)">못봄 ${t.ocsLog.filter(e=>e.seen==="x").length}</span> · 미체크 ${t.ocsLog.filter(e=>!e.seen).length}</div>
