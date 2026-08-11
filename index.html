@@ -360,6 +360,11 @@ dialog::backdrop{background:rgba(12,40,30,.5)}
 
 #mff-filter button{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:3px 12px;font-size:12px;font-weight:800;cursor:pointer}
 #mff-filter button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+
+/* iOS는 입력창 글씨가 16px 미만이면 포커스 시 화면을 확대함 → 확대 방지 */
+dialog input,dialog select,dialog textarea,
+#visit-dlg input,#visit-dlg textarea,#total-dlg input,#total-dlg select,#total-dlg textarea,
+#input-dlg input,#input-dlg textarea,#input-dlg select{font-size:16px !important}
 </style>
 </head>
 <body>
@@ -931,7 +936,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-08-12", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260812-121";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260812-123";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화), 
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -3481,14 +3486,17 @@ function openTotalDlg(id){
   document.getElementById("total-dlg").showModal();
 }
 /* ═══ 내원별 항목·메모 (vmeta) ═══ */
-function openVisitDlg(id,date){
+function openVisitDlg(id,key){
   const t=findT(id);if(!t)return;
-  window.vdCtx={id,date};window.vdT=t;
+  const date=String(key).split("#")[0];      /* 표시용 날짜 (key는 발생 순번 포함) */
+  window.vdCtx={id,date,key};window.vdT=t;
   {const q=document.getElementById("vd-tag-q");if(q)q.value="";}
   window.vdAll=false;
-  const vm=(t.vmeta||{})[date]||{};
+  const vm=(t.vmeta||{})[key]||{};
   window.vdPick=vm.tag||null;
-  document.getElementById("vd-title").textContent=`${t.pt} — ${+date.slice(5,7)}/${+date.slice(8,10)} 내원`;
+  const _occ=String(key).indexOf("#")>=0?parseInt(String(key).split("#")[1],10):1;
+  const _same=(t.visits||[]).filter(x=>x===date).length;
+  document.getElementById("vd-title").textContent=`${t.pt} — ${+date.slice(5,7)}/${+date.slice(8,10)} 내원${_same>1?` (${_occ}/${_same}번째)`:""}`;
   tcSet("vd-memo",vm.m||"");
   const tags=vdTagsFor(t);
   tcSet("vd-tag-etc",vm.tag&&!tags.includes(vm.tag)?vm.tag:"");
@@ -3558,21 +3566,22 @@ function vdPickTag(g){
   const t=findT(window.vdCtx.id);if(t)vdRenderTags(t);
 }
 function vdSave(){
-  const {id,date}=window.vdCtx||{};const t=findT(id);if(!t)return;
+  const {id,date,key}=window.vdCtx||{};const t=findT(id);if(!t)return;
+  const mk=key||date;
   t.vmeta=t.vmeta||{};
   const tag=(val("vd-tag-etc")||"").trim()||window.vdPick||"";
   const m=(val("vd-memo")||"").trim();
-  if(tag||m)t.vmeta[date]={tag,m};else delete t.vmeta[date];
+  if(tag||m)t.vmeta[mk]={tag,m};else delete t.vmeta[mk];
   save();syncTotals();document.getElementById("visit-dlg").close();
   toast(tag?`내역 저장 — ${tag}`:"내역 저장");
 }
-function delVisit(id,date){
+function delVisit(id,key){
   const t=findT(id);if(!t)return;
-  const g=(t.vmeta||{})[date]||{};
+  const date=String(key).split("#")[0];
+  const g=vMetaOf(t,key);
   const lbl=`${+date.slice(5,7)}/${+date.slice(8,10)}${g.tag?" ("+g.tag+")":""}`;
-  askConfirm(`${esc(t.pt)}의 <b>${esc(lbl)}</b> 내원 횟수를 삭제할까요?\n달성 횟수에서 1회 줄어들어요.`,()=>{
-    t.visits=(t.visits||[]).filter(d=>d!==date);
-    if(t.vmeta)delete t.vmeta[date];
+  askConfirm(`${esc(t.pt)}의 <b>${esc(lbl)}</b> 내원 1건을 삭제할까요?<br>달성 횟수에서 1회 줄어들어요.`,()=>{
+    vRemove(t,key);
     save();syncTotals();refreshAfterEventChange();
     toast(`내원 1회 삭제 — ${esc(t.pt)}`);
   },"삭제");
@@ -3725,19 +3734,23 @@ function renderTotals(){
     /* 내원 순서대로 항목 나열 — 연속 중복은 ×N으로 묶고 → 로 구분 */
     const tagSum=(()=>{
       const seq=[];
-      vs.forEach(d=>{const g=vmm[d]&&vmm[d].tag;if(!g)return;
+      vListOf(t).forEach(vo=>{const g=vmm[vo.key]&&vmm[vo.key].tag;if(!g)return;
         const last=seq[seq.length-1];
         if(last&&last.k===g)last.n++;else seq.push({k:g,n:1});});
       return seq.length?seq.map(x=>x.k+(x.n>1?"×"+x.n:"")).join(" → "):"";
     })();
     const dcol=DEPT_COLOR[t.dept]||"#666";
-    const vlog=vs.length?`<div style="margin:5px 0 2px;display:flex;flex-direction:column;gap:2px">${vs.map((d,i)=>{const g=vmm[d]||{};
-      return `<div onclick="openVisitDlg(${t.id},'${d}')" style="display:flex;gap:6px;align-items:flex-start;font-size:11px;cursor:pointer;padding:3px 6px;border-radius:8px;background:#F5FAF7;flex-wrap:wrap">
+    const vlog=vs.length?`<div style="margin:5px 0 2px;display:flex;flex-direction:column;gap:2px">${vListOf(t).map((vo,i)=>{const d=vo.d,g=vmm[vo.key]||{};
+      return `<div onclick="openVisitDlg(${t.id},'${vo.key}')" style="display:flex;gap:6px;align-items:flex-start;font-size:11px;cursor:pointer;padding:3px 6px;border-radius:8px;background:#F5FAF7">
         <b style="flex:0 0 auto;color:var(--sub)">${i+1}.</b><b style="flex:0 0 auto">${+d.slice(5,7)}/${+d.slice(8,10)}</b>
-        ${g.tag?`<span style="flex:0 1 auto;border:1.5px solid ${dcol};color:${dcol};border-radius:99px;padding:1px 9px;font-weight:800;font-size:10px;line-height:1.45;white-space:normal;word-break:keep-all">${esc(g.tag)}</span>`:`<span style="flex:0 0 auto;color:var(--sub);font-size:10px;border:1px dashed var(--line);border-radius:99px;padding:1px 9px">항목?</span>`}
-        <span style="flex:1 1 60px;min-width:0;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(g.m||"")}</span>
-        <span style="flex:0 0 auto">✏️</span>
-        <span onclick="event.stopPropagation();delVisit(${t.id},'${d}')" style="flex:0 0 auto;cursor:pointer;color:#B42318;font-weight:800;padding:0 3px" title="이 내원 삭제">🗑</span></div>`;}).join("")}</div>`:"";
+        <span style="flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:2px">
+          ${g.tag?`<span style="align-self:flex-start;max-width:100%;border:1.5px solid ${dcol};color:${dcol};border-radius:99px;padding:1px 9px;font-weight:800;font-size:10px;line-height:1.45;white-space:normal;word-break:break-word;box-sizing:border-box">${esc(g.tag)}</span>`:`<span style="align-self:flex-start;color:var(--sub);font-size:10px;border:1px dashed var(--line);border-radius:99px;padding:1px 9px">항목?</span>`}
+          ${g.m?`<span style="color:var(--sub);word-break:break-word;line-height:1.35">${esc(g.m)}</span>`:""}
+        </span>
+        <span style="flex:0 0 auto;display:flex;gap:4px;align-items:center;white-space:nowrap">
+          <span>✏️</span>
+          <span onclick="event.stopPropagation();delVisit(${t.id},'${vo.key}')" style="cursor:pointer;color:#B42318;font-weight:800;padding:0 2px" title="이 내원 삭제">🗑</span>
+        </span></div>`;}).join("")}</div>`:"";
     let dl="";
     if(t.visits.length>=t.need&&lastV){
       const u=daysFrom(lastV,7),r=daysFrom(lastV,14),ul=dLeft(u),rl=dLeft(r);
@@ -3754,10 +3767,12 @@ function renderTotals(){
       if(arrN.length){
         dl=arrN.map((x,ni)=>{
           const nl=dLeft(new Date(x.d+"T00:00"));
-          return `<div class="deadline ${nl<=1?"warn":"ok"}" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-            <span style="flex:1;min-width:0">다음 내원 ${fmtD(x.d)}${x.t?` <b>${x.t}</b>`:""} (${nl===0?"오늘!":"D-"+nl})${nl===1?" · 오늘 노티!":""}${x.memo?`<br><span style="font-weight:700;opacity:.85">${esc(x.memo)}</span>`:""}</span>
-            <span onclick="event.stopPropagation();setNext(${t.id},${ni})" style="cursor:pointer;flex:0 0 auto" title="수정">✏️</span>
-            <span onclick="event.stopPropagation();delNext(${t.id},${ni})" style="cursor:pointer;flex:0 0 auto;color:#B42318;font-weight:800" title="이 예약 삭제">🗑</span>
+          return `<div class="deadline ${nl<=1?"warn":"ok"}" style="display:flex;align-items:flex-start;gap:6px">
+            <span style="flex:1 1 auto;min-width:0;word-break:break-word">다음 내원 ${fmtD(x.d)}${x.t?` <b>${x.t}</b>`:""} (${nl===0?"오늘!":"D-"+nl})${nl===1?" · 오늘 노티!":""}${x.memo?`<br><span style="font-weight:700;opacity:.85">${esc(x.memo)}</span>`:""}</span>
+            <span style="flex:0 0 auto;display:flex;gap:4px;align-items:center;white-space:nowrap">
+              <span onclick="event.stopPropagation();setNext(${t.id},${ni})" style="cursor:pointer" title="수정">✏️</span>
+              <span onclick="event.stopPropagation();delNext(${t.id},${ni})" style="cursor:pointer;color:#B42318;font-weight:800" title="이 예약 삭제">🗑</span>
+            </span>
           </div>`;
         }).join("");
         if(arrN.length>1)dl+=`<div style="text-align:right;margin-top:2px"><button class="btn small ghost" onclick="event.stopPropagation();clearNexts(${t.id})" style="font-size:10.5px;padding:2px 8px">전체 지우기</button></div>`;
@@ -3786,7 +3801,7 @@ function renderTotals(){
       </div>`:""}
       <div class="visits">${Array.from({length:t.need},(_,i)=>{const v=t.visits[i];
         return `<div class="vdot ${v?"done":""}" onclick="toggleVisit(${t.id},${i})" title="${v||""}">${i+1}</div>`;}).join("")}
-        <div class="vdot" style="border-style:solid;font-size:16px" onclick="addVisitSlot(${t.id})">＋</div></div>
+        <div class="vdot" style="border-style:solid;font-size:16px" onclick="addVisitSlot(${t.id})" title="필요 횟수 +1">＋</div>${(t.need||0)>1&&(t.need||0)>((t.visits||[]).filter(Boolean).length)?`<div class="vdot" style="border-style:solid;font-size:16px;color:#B42318" onclick="delVisitSlot(${t.id})" title="필요 횟수 -1">－</div>`:""}</div>
       ${vlog}
       ${dl}
       <div class="actions">
@@ -3799,21 +3814,69 @@ function renderTotals(){
       </div></div>`;
   }).join("");
 }
+/* ── 같은 날짜 여러 건 지원 ──
+   visits는 날짜 배열(중복 허용). 내역(vmeta)은 '발생 순번 키'로 저장:
+   그 날짜의 1번째=「2026-08-12」, 2번째=「2026-08-12#2」 … (기존 데이터와 호환) */
+function vOccKey(d,n){return n===1?d:d+"#"+n;}
+function vListOf(t){
+  const vs=(t.visits||[]).filter(Boolean).slice().sort();
+  const c={};
+  return vs.map(d=>{c[d]=(c[d]||0)+1;return {d:d,n:c[d],key:vOccKey(d,c[d])};});
+}
+function vMetaOf(t,key){return (t.vmeta||{})[key]||{};}
+/* 특정 발생 1건만 삭제하고, 뒤 순번 키를 당겨 정합성 유지 */
+function vRemove(t,key){
+  const s=String(key);
+  const d=s.split("#")[0];
+  const n=s.indexOf("#")>=0?(parseInt(s.split("#")[1],10)||1):1;
+  const vs=(t.visits||[]).filter(Boolean).slice().sort();
+  let seen=0,idx=-1;
+  for(let i=0;i<vs.length;i++){ if(vs[i]===d){ seen++; if(seen===n){ idx=i; break; } } }
+  if(idx>=0)vs.splice(idx,1);
+  t.visits=vs;
+  const meta=t.vmeta||{};
+  delete meta[vOccKey(d,n)];
+  let k=n+1;
+  while(meta[vOccKey(d,k)]!==undefined){ meta[vOccKey(d,k-1)]=meta[vOccKey(d,k)]; delete meta[vOccKey(d,k)]; k++; }
+  t.vmeta=meta;
+}
 function toggleVisit(id,i){
   const _g=findT(id);if(!_g)return;
   const t=findT(id);
   if(t.visits[i]){
-    const _vd=t.visits[i];askConfirm(`${i+1}번째 visit(${fmtD(_vd)}) 기록을 삭제할까요?`,()=>{t.visits.splice(i,1);if(t.vmeta)delete t.vmeta[_vd];save();syncTotals();},"삭제");
+    const lst=vListOf(t);const vo=lst[i];
+    const _vd=vo?vo.d:t.visits[i];
+    askConfirm(`${i+1}번째 visit(${fmtD(_vd)}) 기록을 삭제할까요?`,()=>{
+      if(vo)vRemove(t,vo.key); else {t.visits.splice(i,1);}
+      save();syncTotals();},"삭제");
   }else{
     askDate(`${esc(t.pt)} — ${i+1}번째 visit 날짜`,ymd(new Date()),d=>{
-      t.visits[i]=d;t.visits=t.visits.filter(Boolean).sort();
-      if(t.next===d){t.next="";t.nextT="";t.nextHidden=false;t.nextU=Date.now();}   /* 다녀온 날짜는 해제 */
+      t.visits[i]=d;t.visits=t.visits.filter(Boolean).sort();   /* 같은 날짜 중복 허용 */
       if(t.visits.length>=t.need){t.next="";t.nextT="";t.nextHidden=false;t.nextU=Date.now();}
+      else if(t.next===d){                                     /* 다녀온 날짜면 그 예약만 해제 */
+        if(Array.isArray(t.nexts)){t.nexts=t.nexts.filter(x=>x&&x.d!==d);}
+        if(typeof syncNextPrimary==="function")syncNextPrimary(t);
+        else {t.next="";t.nextT="";t.nextHidden=false;t.nextU=Date.now();}
+      }
       save();syncTotals();toast(`${i+1}번째 visit 기록됨`);
-      if((TOTAL_CFG[t.dept]||{}).tags)openVisitDlg(id,d);   /* 바로 항목 체크 */});
+      /* 방금 추가한 그 발생 건의 항목 창 열기 */
+      const lst=vListOf(t);
+      const same=lst.filter(x=>x.d===d);
+      const target=same.length?same[same.length-1].key:d;
+      if((TOTAL_CFG[t.dept]||{}).tags)openVisitDlg(id,target);
+    });
   }
 }
-function addVisitSlot(id){findT(id).need++;save();syncTotals();}
+function addVisitSlot(id){const t=findT(id);if(!t)return;t.need=(t.need||0)+1;save();syncTotals();}
+/* 필요 횟수 1 줄이기 — 이미 기록된 내원 수 아래로는 줄일 수 없음 */
+function delVisitSlot(id){
+  const t=findT(id);if(!t)return;
+  const used=(t.visits||[]).filter(Boolean).length;
+  const cur=t.need||0;
+  if(cur<=1){toast("최소 1회는 필요해요");return;}
+  if(cur-1<used){toast(`이미 ${used}회 기록돼 있어요 — 내원 기록을 먼저 지워주세요`);return;}
+  t.need=cur-1;save();syncTotals();toast(`필요 횟수 ${t.need}회로 변경`);
+}
 /* ── 다음 내원 예약 (여러 개 지원) ──
    t.nexts=[{d,t,memo}] 가 원본. t.next/t.nextT 는 가장 이른 예정 1건으로 항상 동기화
    (기존 달력·알림·타임라인 로직이 t.next 를 그대로 쓰기 때문). */
@@ -5587,7 +5650,9 @@ function mergeStates(a,b){
     const ex=tm[t.id];
     if(!ex){tm[t.id]=JSON.parse(JSON.stringify(t));return;}
     /* visits: 합집합(날짜순) */
-    ex.visits=[...new Set([...(ex.visits||[]),...(t.visits||[])])].filter(Boolean).sort();
+    {/* 같은 날짜 여러 건을 보존하려면 Set 합집합은 쓸 수 없음 → 기록이 더 많은 쪽 채택 */
+     const A=(ex.visits||[]).filter(Boolean),B=(t.visits||[]).filter(Boolean);
+     ex.visits=(B.length>A.length?B:A).slice().sort();}
     /* vmeta: 키 합집합 — 양쪽에 같은 날짜가 있으면 내용이 있는 쪽 우선 */
     const va=ex.vmeta||{},vb=t.vmeta||{};const vo={};
     [...new Set([...Object.keys(va),...Object.keys(vb)])].forEach(d=>{
