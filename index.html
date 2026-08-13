@@ -411,7 +411,7 @@ select,textarea{font-size:16px !important}
         <select id="ev-dept"></select>
         <input type="number" id="ev-dur" placeholder="소요(분)" min="0" step="30">
         <input type="text" id="ev-title" class="full" placeholder="내용">
-        <input type="text" id="ev-memo" class="full" placeholder="메모: 환자명 · 도착규칙">
+        <textarea id="ev-memo" class="full" rows="2" placeholder="메모: 환자명 · 도착규칙 (여러 줄 가능)" style="font-family:inherit;resize:vertical"></textarea>
       </div>
       <button class="btn" style="width:100%" onclick="addEvent()">저장</button>
     </details>
@@ -893,6 +893,9 @@ select,textarea{font-size:16px !important}
       <input type="text" id="tc-dr" placeholder="담당 쌤">
       <input type="number" id="tc-need" placeholder="필요 visit" value="3">
       <div style="grid-column:1/-1;display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span style="font-size:11px;color:var(--sub);font-weight:800;flex:0 0 auto">📅 다음 내원</span><input type="date" id="tc-next" title="다음 내원일" style="flex:1;min-width:120px"><input type="text" id="tc-nextT" inputmode="numeric" maxlength="5" placeholder="예: 15:00" title="24시간제 (9시→9, 오후3시→15)" style="max-width:96px" oninput="this.value=this.value.replace(/[^0-9:]/g,'')" onblur="this.value=normTime(this.value)"><span style="font-size:10px;color:var(--sub);flex:0 0 auto">시간은 선택 · 달력에 ⏳점선으로 떠요</span></div>
+      <div style="grid-column:1/-1">
+        <textarea id="tc-memo" rows="2" placeholder="📝 메모 (선택) — 특이사항·주의점·연락 내용 등" style="width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;font-family:inherit;resize:vertical;box-sizing:border-box"></textarea>
+      </div>
     </div>
     <select id="tc-scope" style="width:100%;margin-top:6px;padding:9px 11px;border:1.5px solid var(--line);border-radius:10px;font-size:13px">
       <option value="dept">이 과 내원만 매칭 (기본)</option>
@@ -945,7 +948,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-08-14", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260814-135";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260814-140";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화), 
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -2320,15 +2323,18 @@ function confirmNextEvent(tid){const t=findT(tid);if(!t||!t.next)return;
   const who=(t.dr&&t.dr.trim())?t.dr.trim():t.dept;
   const title=`${who} ${t.item||"토탈"}`;
   const pinfo=`${t.ptno?t.ptno+" ":""}${t.pt}`;
+  /* 토탈에 적어둔 메모가 있으면 환자정보 아래 줄에 함께 넣음 */
+  const tmemo=(t.memo||"").trim();
+  const pfull=pinfo+(tmemo?"\n📝 "+tmemo:"");
   /* 같은 날짜·시간·제목 일정이 이미 있으면(예: 같은 슬롯 환자 2명) 새로 만들지 않고 메모에 환자 추가
      — 중복치유기가 다른 환자를 쌍둥이로 오인하는 것 원천 차단 */
   const twin=S.events.find(e=>e.date===t.next&&(e.time||"")===(t.nextT||"")&&e.title===title&&e.status!=="cancel");
   if(twin){
-    if(!(twin.memo||"").includes(pinfo))twin.memo=(twin.memo?twin.memo+" / ":"")+pinfo;
+    if(!(twin.memo||"").includes(pinfo))twin.memo=(twin.memo?twin.memo+"\n":"")+pfull;
     twin.u=Date.now();
   }else{
     S.events.push({id:Date.now(),date:t.next,dept:t.dept,title,time:t.nextT||null,dur:60,
-      memo:pinfo,status:"plan",kind:"etc",span:null,manual:true,u:Date.now()});
+      memo:pfull,status:"plan",kind:"etc",span:null,manual:true,u:Date.now()});
   }
   /* ★확정해도 다음 내원일은 토탈에 그대로 보존 — 달력엔 실 일정이 떴으니 예상 점선만 숨김(nextHidden) */
   t.nextHidden=true;t.nextU=Date.now();
@@ -2840,7 +2846,7 @@ function exportICS(scope){
      if(scope==="delta")return true;
      return ds.startsWith(ym);};
    return (S.totals||[]).filter(t=>!t.done&&!t.nextHidden&&t.next&&t.next>=today0&&!(t.visits||[]).includes(t.next)&&inScope(t.next))
-     .map(t=>({id:"v"+t.id,date:t.next,dept:t.dept,title:`${(t.dr&&t.dr.trim())?t.dr.trim():t.dept} ${t.item||"토탈"}`,time:t.nextT||null,dur:60,memo:`${t.ptno?t.ptno+" ":""}${t.pt}`,span:null,status:"plan",_virt:true}));};
+     .map(t=>({id:"v"+t.id,date:t.next,dept:t.dept,title:`${(t.dr&&t.dr.trim())?t.dr.trim():t.dept} ${t.item||"토탈"}`,time:t.nextT||null,dur:60,memo:`${t.ptno?t.ptno+" ":""}${t.pt}${(t.memo||"").trim()?"\n📝 "+(t.memo||"").trim():""}`,span:null,status:"plan",_virt:true}));};
   if(scope==="delta"){
     const since=S.lastExport||0;
     evs=S.events.filter(e=>e.status!=="cancel"&&(e.u||0)>since);
@@ -3595,6 +3601,51 @@ function tcPickKind(k,n){
   if(!t||!(t.visits||[]).filter(Boolean).length)tcSet("tc-need",n);   /* 이미 내원 기록 있으면 need 유지 */
   tcKindChips();
 }
+/* 토탈 메모 변경 → 이미 생성된 일정의 메모도 함께 갱신
+   (일정 메모 형식: "환자번호 환자명" + 줄바꿈 + "📝 토탈메모") */
+function syncTotalMemoToEvents(t,oldMemo){
+  if(!t)return 0;
+  const pinfo=`${t.ptno?t.ptno+" ":""}${t.pt}`;
+  if(!pinfo.trim())return 0;
+  const nm=(t.memo||"").trim();
+  let n=0;
+  (S.events||[]).forEach(e=>{
+    if(!e||e.status==="cancel")return;
+    const memo=String(e.memo||"");
+    if(!memo.includes(pinfo))return;                 /* 이 환자 일정만 */
+    /* 이 환자 블록(= pinfo 줄 + 뒤따르는 📝 줄)을 새 내용으로 교체 */
+    const lines=memo.split("\n");
+    const out=[];let changed=false;
+    for(let i=0;i<lines.length;i++){
+      const ln=lines[i];
+      out.push(ln);
+      if(ln.includes(pinfo)){
+        /* 바로 다음 줄이 기존 📝 이면 제거 */
+        if(lines[i+1]!==undefined&&/^📝\s/.test(lines[i+1])){ i++; changed=true; }
+        if(nm){ out.push("📝 "+nm); changed=true; }
+        else changed=true;
+      }
+    }
+    const next=out.join("\n").replace(/\n{3,}/g,"\n\n").trim();
+    if(changed&&next!==memo){ e.memo=next; e.u=Date.now(); n++; }
+  });
+  return n;
+}
+/* 토탈 메모 빠른 추가·수정·삭제 (카드에서 바로) */
+function editTotalMemo(id){
+  const t=findT(id);if(!t)return;
+  askInput(`${t.pt} — 메모`,[
+    {label:"📝 메모 (비우고 저장하면 삭제)",type:"textarea",val:t.memo||"",ph:"특이사항·주의점·연락 내용 등"}
+  ],vals=>{
+    const old=(t.memo||"").trim();
+    const m=(vals[0]||"").trim();
+    const had=!!old;
+    t.memo=m;t.u=Date.now();
+    const n=syncTotalMemoToEvents(t,old);   /* 이미 만들어진 일정 메모도 함께 갱신 */
+    save();renderTotals();refreshAfterEventChange&&refreshAfterEventChange();
+    toast((m?(had?"메모 수정됨":"메모 추가됨"):"메모 삭제됨")+(n?` · 일정 ${n}건 반영`:""));
+  },"저장");
+}
 function openTotalDlg(id){
   window.tcEditId=id||null;
   const t=id?findT(id):null;
@@ -3602,6 +3653,7 @@ function openTotalDlg(id){
   document.getElementById("tc-dept").innerHTML=DEPTS.map(d=>`<option${t&&t.dept===d?" selected":""}>${d}</option>`).join("");
   tcSet("tc-item",t?t.item:"");tcSet("tc-pt",t?t.pt:"");tcSet("tc-ptno",t?t.ptno:"");tcSet("tc-dr",t?t.dr:"");
   tcSet("tc-need",t?t.need:3);tcSet("tc-next",t?t.next:"");tcSet("tc-nextT",t?(t.nextT||""):"");
+  tcSet("tc-memo",t?(t.memo||""):"");
   document.getElementById("tc-scope").value=t?(t.scope||"dept"):"dept";
   tcKindChips();
   document.getElementById("total-dlg").showModal();
@@ -3719,6 +3771,7 @@ function saveTotal(){
   const ed=window.tcEditId?findT(window.tcEditId):null;
   const t=ed||{id:Date.now(),visits:[],vmeta:{},done:false,ufol:false,report:false};
   t.dept=val("tc-dept");t.item=val("tc-item");t.pt=val("tc-pt");t.ptno=val("tc-ptno").trim();t.dr=val("tc-dr");t.scope=val("tc-scope")||"dept";
+  t.memo=(val("tc-memo")||"").trim();
   t.need=Math.max(parseInt(val("tc-need"))||3,(t.visits||[]).filter(Boolean).length||0)||3;
   {const _n=val("tc-next"),_t=normTime(val("tc-nextT"));
    if(_n!==(t.next||"")||_t!==(t.nextT||"")){
@@ -3737,7 +3790,7 @@ function saveTotal(){
   if(!t.pt){toast("환자명 입력");return;}
   if(!ed)S.totals.push(t);
   save(true);document.getElementById("total-dlg").close();window.tcEditId=null;
-  ["tc-item","tc-pt","tc-ptno","tc-dr","tc-next","tc-nextT"].forEach(i=>document.getElementById(i).value="");
+  ["tc-item","tc-pt","tc-ptno","tc-dr","tc-next","tc-nextT","tc-memo"].forEach(i=>document.getElementById(i).value="");
   syncTotals();
   if(ed){toast("✏️ 수정 완료");return;}
   const um=upMatch(t);
@@ -3788,12 +3841,42 @@ function toggleTcDept(dep){
   renderTotals();
 }
 function clearTcDept(){tcDeptFilter=null;renderTotals();}
-/* 토탈 검색 — 입력 중 포커스·커서 유지 */
+/* 토탈 검색 — 한글 IME 조합 중에는 재렌더하지 않아 글자 깨짐 방지 */
 function tcSearch(v){
   window.tcQuery=v||"";
+  if(window.tcComposing)return;          /* 조합 중이면 목록 갱신을 미룸 */
+  tcRerenderKeepFocus();
+}
+/* 검색창에 IME(한글 조합) 이벤트를 JS로 직접 바인딩
+   — oncompositionstart 인라인 속성은 브라우저가 핸들러로 인식하지 않음 */
+function tcBindIME(){
+  const el=document.getElementById("tc-q");
+  if(!el||el.__imeBound)return;
+  el.__imeBound=1;
+  el.addEventListener("compositionstart",()=>{window.tcComposing=true;});
+  el.addEventListener("compositionend",e=>{
+    window.tcComposing=false;
+    window.tcQuery=e.target.value||"";
+    tcRerenderKeepFocus();
+  });
+}
+/* 목록만 다시 그리고 검색창 포커스·커서 위치 복원 */
+function tcRerenderKeepFocus(){
+  const el0=document.getElementById("tc-q");
+  const pos=el0?el0.selectionStart:null;
   renderTotals();
   const el=document.getElementById("tc-q");
-  if(el){el.focus();try{el.setSelectionRange(el.value.length,el.value.length);}catch(e){}}
+  if(el){
+    el.focus();
+    try{const p=(pos==null?el.value.length:Math.min(pos,el.value.length));el.setSelectionRange(p,p);}catch(e){}
+  }
+}
+/* 조합 시작/끝 처리 — oninput 대신 이 두 이벤트로 안전하게 */
+function tcCompStart(){window.tcComposing=true;}
+function tcCompEnd(v){
+  window.tcComposing=false;
+  window.tcQuery=v||"";
+  tcRerenderKeepFocus();
 }
 function renderTotals(){
   renderTotalFound();
@@ -3821,7 +3904,8 @@ function renderTotals(){
     const q=(window.tcQuery||"");
     filterHtml=`<div style="display:flex;gap:5px;align-items:center;margin:0 0 7px">
       <input type="search" id="tc-q" value="${esc(q)}" placeholder="🔍 환자명·번호·담당쌤 검색"
-        oninput="tcSearch(this.value)" style="flex:1;min-width:0;padding:6px 10px;border:1.5px solid ${q?"var(--brand)":"var(--line)"};border-radius:9px;box-sizing:border-box">
+        oninput="tcSearch(this.value)"
+        style="flex:1;min-width:0;padding:6px 10px;border:1.5px solid ${q?"var(--brand)":"var(--line)"};border-radius:9px;box-sizing:border-box">
       ${q?`<button onclick="tcSearch('')" style="flex:0 0 auto;border:1.5px solid var(--line);background:transparent;color:var(--sub);border-radius:9px;padding:6px 10px;font-size:11.5px;font-weight:800;cursor:pointer">✕</button>`:""}
     </div>`;
     const active=tcDeptFilter&&tcDeptFilter.size>0;
@@ -3853,7 +3937,7 @@ function renderTotals(){
   {const q=(window.tcQuery||"").trim().toLowerCase().replace(/\s+/g,"");
    if(q){
      const hit=t=>{
-       const f=[t.pt,t.ptno,t.dr,t.item,t.dept].map(x=>String(x||"").toLowerCase().replace(/\s+/g,""));
+       const f=[t.pt,t.ptno,t.dr,t.item,t.dept,t.memo].map(x=>String(x||"").toLowerCase().replace(/\s+/g,""));
        return f.some(x=>x.includes(q));
      };
      shown=shown.filter(hit);
@@ -3871,7 +3955,7 @@ function renderTotals(){
   });
   {const q=(window.tcQuery||"").trim();
    if(!shown.length){
-     box.innerHTML=filterHtml+`<div class="card"><div class="empty">${q?`"${esc(q)}" 검색 결과 없음 — 이름·번호 일부만 입력해도 돼요`:"선택한 조건의 토탈이 없어요"}</div></div>`;return;}
+     box.innerHTML=filterHtml+`<div class="card"><div class="empty">${q?`"${esc(q)}" 검색 결과 없음 — 이름·번호 일부만 입력해도 돼요`:"선택한 조건의 토탈이 없어요"}</div></div>`;tcBindIME();return;}
    if(q)filterHtml+=`<div class="hint" style="margin:-2px 0 6px 2px;font-size:11.5px">🔍 <b>"${esc(q)}"</b> 검색 결과 <b style="color:var(--brand)">${shown.length}건</b></div>`;
   }
   let _prevItem=null;
@@ -3893,7 +3977,11 @@ function renderTotals(){
       vListOf(t).forEach(vo=>{const g=vmm[vo.key]&&vmm[vo.key].tag;if(!g)return;
         const last=seq[seq.length-1];
         if(last&&last.k===g)last.n++;else seq.push({k:g,n:1});});
-      return seq.length?seq.map(x=>x.k+(x.n>1?"×"+x.n:"")).join(" → "):"";
+      if(!seq.length)return "";
+      /* 아래 내원 목록과 중복되므로 요약은 압축: 최근 항목 + 남은 개수 */
+      const last=seq[seq.length-1];
+      const more=seq.length-1;
+      return last.k+(last.n>1?"×"+last.n:"")+(more>0?` <span style="opacity:.7;font-weight:700">외 ${more}</span>`:"");
     })();
     const dcol=DEPT_COLOR[t.dept]||"#666";
     const vlog=vs.length?`<div style="margin:5px 0 2px;display:flex;flex-direction:column;gap:2px">${vListOf(t).map((vo,i)=>{const d=vo.d,g=vmm[vo.key]||{};
@@ -3942,7 +4030,9 @@ function renderTotals(){
     }
     return _grpHdr+`<div class="tc">
       <div class="top"><span class="dept-tag${txtOn(DEPT_COLOR[t.dept])==="#fff"?"":" lt"}" style="background:${DEPT_COLOR[t.dept]};color:${txtOn(DEPT_COLOR[t.dept])}">${t.dept}</span><span class="pt">${esc(t.pt)}</span>${t.ptno?`<span style="font-size:10.5px;color:var(--sub);font-weight:700">#${esc(t.ptno)}</span>`:""}${t.scope==="all"?`<span class="badge" style="font-size:9.5px;background:#EDE4F7;color:#6A3FA0">타과도 알림</span>`:""}<span style="margin-left:auto">${t.done?"✅":""}</span></div>
-      <div class="meta" style="white-space:normal;word-break:break-word">${esc(t.item||"")} · ${esc(t.dr||"담당쌤?")}${tagSum?`<br><span style="color:${dcol};font-weight:800">${esc(tagSum)}</span>`:""}</div>
+      <div class="meta" style="white-space:normal;word-break:break-word">${esc(t.item||"")} · ${esc(t.dr||"담당쌤?")}${tagSum?`<br><span style="color:${dcol};font-weight:800">${tagSum}</span>`:""}</div>
+      ${t.memo?`<div onclick="event.stopPropagation();editTotalMemo(${t.id})" style="margin:4px 0 2px;padding:5px 8px;border-radius:8px;background:#FFF9E6;border:1px solid #F0DFA8;font-size:11.5px;color:#6B5A20;cursor:pointer;word-break:break-word" title="탭하면 수정">📝 ${esc(t.memo)}</div>`
+        :`<div onclick="event.stopPropagation();editTotalMemo(${t.id})" style="margin:3px 0 1px;font-size:10.5px;color:var(--sub);cursor:pointer">＋ 메모 추가</div>`}
       ${um.map(u=>`<div class="deadline" style="border:1.5px dashed var(--purple);background:var(--purple-soft);color:var(--purple)">◇ OCS: ${fmtD(u.d)} ${u.t||""}${t.scope==="all"&&u.dep&&u.dep!==t.dept?` <span class="dept-tag" style="background:${DEPT_COLOR[u.dep]||"#666"};color:${txtOn(DEPT_COLOR[u.dep]||"#666")};font-size:9.5px">${u.dep}</span>`:""} ${esc(u.dr||"")}${u.cat?` · ${esc(u.cat)}`:""}${t.next!==u.d?` <button class="btn small" style="margin-left:6px;background:var(--purple);color:#fff" onclick="setNextFromUp(${t.id},'${u.d}','${u.t||""}','${(u.dr||"").replace(/'/g,"")}','${u.no||""}')">이 날짜로 반영</button>`:" · 반영됨 ✓"}</div>`).join("")}
       ${(t.ocsLog&&t.ocsLog.length)?`<div style="margin:7px 0 4px;border:1px solid var(--line);border-radius:9px;padding:6px 8px;background:#FAFCFB">
         <div style="font-size:10.5px;font-weight:800;color:var(--sub);margin-bottom:3px">📋 OCS 내원 이력 ${t.ocsLog.length}건 · <span style="color:#1D8A4E">봤음 ${t.ocsLog.filter(e=>e.seen==="o").length}</span> · <span style="color:var(--red)">못봄 ${t.ocsLog.filter(e=>e.seen==="x").length}</span> · 미체크 ${t.ocsLog.filter(e=>!e.seen).length}</div>
@@ -3957,7 +4047,7 @@ function renderTotals(){
       </div>`:""}
       <div class="visits">${Array.from({length:t.need},(_,i)=>{const v=t.visits[i];
         return `<div class="vdot ${v?"done":""}" onclick="toggleVisit(${t.id},${i})" title="${v||""}">${i+1}</div>`;}).join("")}
-        <div class="vdot" style="border-style:solid;font-size:16px" onclick="addVisitSlot(${t.id})" title="필요 횟수 +1">＋</div>${(t.need||0)>1&&(t.need||0)>((t.visits||[]).filter(Boolean).length)?`<div class="vdot" style="border-style:solid;font-size:16px;color:#B42318" onclick="delVisitSlot(${t.id})" title="필요 횟수 -1">－</div>`:""}</div>
+        <div class="vdot" style="border-style:solid;font-size:16px" onclick="addVisitSlot(${t.id})" title="필요 횟수 +1">＋</div>${(t.need||0)>1&&(t.need||0)>((t.visits||[]).filter(Boolean).length)?`<div class="vdot" style="border-style:dashed;border-color:var(--line);font-size:13px;color:var(--sub);opacity:.75;transform:scale(.86)" onclick="delVisitSlot(${t.id})" title="필요 횟수 -1">－</div>`:""}</div>
       ${vlog}
       ${dl}
       <div class="actions">
@@ -3969,6 +4059,7 @@ function renderTotals(){
         <button class="btn small danger" onclick="delTotal(${t.id})">삭제</button>
       </div></div>`;
   }).join("");
+  tcBindIME();
 }
 /* ── 같은 날짜 여러 건 지원 ──
    visits는 날짜 배열(중복 허용). 내역(vmeta)은 '발생 순번 키'로 저장:
