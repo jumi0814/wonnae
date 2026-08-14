@@ -10,13 +10,15 @@
 <title>원내생 커맨드센터</title>
 <style>
 :root{
-  --bg:#EEF3F0; --card:#FFFFFF; --ink:#182620; --sub:#63756D;
-  --brand:#177457; --brand-deep:#0C3527; --brand-2:#0F4A36;
-  --brand-soft:#DFEEE7; --amber:#B37814; --amber-soft:#FAF1DC;
-  --red:#B23A2F; --red-soft:#F9E9E6; --blue:#2F5D8A; --blue-soft:#E7EEF6;
-  --purple:#6E4FA3; --hl:#FFF3B0;--purple-soft:#EFEAF8;
-  --line:#DFE8E3; --line2:#EAF0EC;
-  --shadow:0 1px 2px rgba(12,53,39,.06),0 6px 20px rgba(12,53,39,.07);
+  /* ── 테마: 슬레이트 + 코럴 (따뜻한 오프화이트 배경 · 무채색 헤더 · 산호빛 포인트) ── */
+  --bg:#FAF8F5; --card:#FFFFFF; --ink:#232A33; --sub:#78818C;
+  --brand:#2B3440; --brand-deep:#1A2028; --brand-2:#38434F;
+  --brand-soft:#FFE9E4; --amber:#B0791F; --amber-soft:#FBF2E2;
+  --red:#C4503F; --red-soft:#FCEDEA; --blue:#3A6EA5; --blue-soft:#EAF1F8;
+  --purple:#6E5AA8; --hl:#FFF1C9;--purple-soft:#F0ECF8;
+  --coral:#FF6B5A; --coral-soft:#FFE9E4;
+  --line:#E8E3DC; --line2:#F2EEE8;
+  --shadow:0 1px 2px rgba(35,42,51,.05),0 4px 14px rgba(35,42,51,.06);
   --r:16px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -41,6 +43,7 @@ header .sub{font-size:11px;opacity:.72;margin-top:1px}
 .tl-item .t{font-size:15px;font-weight:800;font-variant-numeric:tabular-nums}
 .tl-item{max-width:210px}
 .tl-item .l{font-size:10.5px;opacity:.78;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-item .l2{font-size:9.5px;opacity:.62;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
 .tl-item.tot{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.28)}
 .tl-item.next{background:#fff;color:var(--brand-deep);border-color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.18)}
 .tl-item.past{opacity:.32}
@@ -50,25 +53,25 @@ main{padding:14px 6px calc(86px + env(safe-area-inset-bottom));max-width:1100px;
 @media(min-width:860px){main{max-width:96vw}}
 .tabpage{display:none}.tabpage.active{display:block;animation:fadein .18s ease}
 @keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:15px;margin-bottom:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:16px;margin-bottom:11px}
 @media(max-width:480px){.card{padding:13px 11px}}
-.card h2{font-size:14px;font-weight:800;margin-bottom:10px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.card h2::before{content:"";width:4px;height:15px;border-radius:3px;background:var(--brand);flex:0 0 auto}
-.card h2 .badge{font-size:10px;font-weight:700;background:var(--brand-soft);color:var(--brand);border-radius:99px;padding:2.5px 9px}
+.card h2{font-size:14.5px;font-weight:800;margin-bottom:10px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;letter-spacing:-.2px}
+.card h2::before{content:"";width:4px;height:15px;border-radius:3px;background:var(--coral);flex:0 0 auto}
+.card h2 .badge{font-size:10px;font-weight:800;background:var(--coral-soft);color:#C4472F;border-radius:99px;padding:2.5px 9px;letter-spacing:-.1px}
 .card h2 .badge.pu{background:var(--purple-soft);color:var(--purple)}
 .card h2 .badge.am{background:var(--amber-soft);color:var(--amber)}
 .hint{font-size:12px;color:var(--sub)}
 button{font-family:inherit;cursor:pointer;border:none;background:none}
 .btn{background:var(--brand);color:#fff;border-radius:11px;padding:10px 15px;font-size:13.5px;font-weight:700;transition:filter .15s}
 .btn:active{filter:brightness(.92)}
-.btn.ghost{background:var(--brand-soft);color:var(--brand)}
-.btn.small{padding:6px 11px;font-size:12px;border-radius:9px}
+.btn.ghost{background:var(--line2);color:var(--brand-2);border:1px solid var(--line)}
+.btn.small{padding:6px 11px;font-size:12px;border-radius:9px;white-space:nowrap}
 .btn.danger{background:var(--red-soft);color:var(--red)}
 nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);display:flex;z-index:50;padding-bottom:env(safe-area-inset-bottom)}
 nav button{flex:1;padding:8px 0 7px;font-size:10.5px;color:var(--sub);display:flex;flex-direction:column;align-items:center;gap:2px;font-weight:700;position:relative}
 nav button .ic{font-size:17px;line-height:1.1}
-nav button.on{color:var(--brand)}
-nav button.on::after{content:"";position:absolute;top:0;width:26px;height:3px;border-radius:0 0 4px 4px;background:var(--brand)}
+nav button.on{color:var(--coral)}
+nav button.on::after{content:"";position:absolute;top:0;width:26px;height:3px;border-radius:0 0 4px 4px;background:var(--coral)}
 input,select,textarea{font-family:inherit;font-size:14px;border:1.5px solid var(--line);border-radius:11px;padding:10px 11px;width:100%;background:#fff;color:var(--ink)}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
 .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:8px}
@@ -76,8 +79,8 @@ input,select,textarea{min-width:0;max-width:100%;box-sizing:border-box}
 input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;background:#fff;min-height:40px}
 .full{grid-column:1/-1}
 .slotpick{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
-.slotpick button{border:1.5px solid var(--line);border-radius:99px;padding:6px 13px;font-size:12.5px;font-weight:700;color:var(--sub);background:#fff}
-.slotpick button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.slotpick button{border:1.5px solid var(--line);border-radius:99px;padding:6px 13px;font-size:12.5px;font-weight:700;color:var(--sub);background:#fff;transition:background .12s,border-color .12s,color .12s}
+.slotpick button.on{background:var(--coral);color:#fff;border-color:var(--coral);box-shadow:0 2px 8px rgba(255,107,90,.28)}
 .empty{padding:22px 8px;text-align:center;color:var(--sub);font-size:13px}
 /* ═ 일정: 빠른 추가 ═ */
 #quick-wrap{display:flex;gap:7px}
@@ -362,7 +365,7 @@ dialog::backdrop{background:rgba(12,40,30,.5)}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
 #mff-filter button{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:3px 12px;font-size:12px;font-weight:800;cursor:pointer}
-#mff-filter button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+#mff-filter button.on{background:var(--coral);border-color:var(--coral);color:#fff;box-shadow:0 2px 8px rgba(255,107,90,.25)}
 
 /* iOS는 입력창 글씨가 16px 미만이면 포커스 시 화면을 확대함 → 전체 입력 16px로 통일해 확대 방지
    (체크박스·라디오·버튼형은 제외 — 레이아웃에 영향 없음) */
@@ -950,7 +953,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-08-14", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260814-145";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260814-149";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화), 
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -1961,7 +1964,7 @@ function timelineItems(){
   const skOf=(time,span)=>time?hm2min(time):(span==="full"?1:span==="am"?540:span==="pm"?780:1440);
   const evList=(S.events||[]).filter(e=>e.date===today&&e.status!=="cancel");
   evList.forEach(e=>{
-    items.push({t:e.time||(e.span==="full"?"하루":e.span==="am"?"오전":e.span==="pm"?"오후":"시간?"),sk:skOf(e.time,e.span),l:e.title.slice(0,9),c:DEPT_COLOR[e.dept]||"#888",un:!e.time&&!e.span,_ev:e});});
+    items.push({t:e.time||(e.span==="full"?"하루":e.span==="am"?"오전":e.span==="pm"?"오후":"시간?"),sk:skOf(e.time,e.span),l:e.title.slice(0,14),c:DEPT_COLOR[e.dept]||"#888",un:!e.time&&!e.span,_ev:e});});
   const _MS=matchSet();
   upOn(today).filter(u=>_MS.has(u)).forEach(u=>{
     /* ── 같은 진료 중복 방지 ──
@@ -1971,8 +1974,8 @@ function timelineItems(){
     const host=sameName||sameTime;
     if(host){
       const it=items.find(x=>x._ev===host);
-      if(it){                       /* 토탈 정보를 대표 표기로 승격 (환자명·번호·진료내역) */
-        it.l="◇"+u.pt+(u.no?" #"+String(u.no).slice(-4):"")+(u.cat?" "+u.cat:"");
+      if(it){                       /* 일정 제목은 그대로 두고, 토탈 정보는 아랫줄에 덧붙임 */
+        it.sub="◇"+u.pt+(u.no?" #"+String(u.no).slice(-4):"")+(u.cat?" "+u.cat:"");
         it.c=DEPT_COLOR[u.dep]||it.c;
         it.tot=1;
       }
@@ -2001,7 +2004,7 @@ function tick(){
       const nowM=hm2min(hm);
       let ni=items.findIndex(x=>!x.un&&x.sk>=nowM);
       strip.innerHTML=items.map((x,i)=>`<div class="tl-item ${x.duty?"duty":""} ${x.tot?"tot":""} ${!x.un&&x.sk<nowM?"past":""} ${i===ni?"next":""}">
-        <div class="t">${x.t}</div><div class="l">${x.c?`<span class="dot" style="background:${x.c}"></span>`:""}${x.duty?"☑ ":""}${esc(x.l)}</div></div>`).join("");
+        <div class="t">${x.t}</div><div class="l">${x.c?`<span class="dot" style="background:${x.c}"></span>`:""}${x.duty?"☑ ":""}${esc(x.l)}</div>${x.sub?`<div class="l2">${esc(x.sub)}</div>`:""}</div>`).join("");
       const nx=strip.querySelector(".next");if(nx&&!strip.dataset.s){nx.scrollIntoView({inline:"start",block:"nearest"});strip.dataset.s=1;}
     }
   }
@@ -5348,7 +5351,8 @@ function renderOcsNew(){
   const box=document.getElementById("new-body");
   if(!box)return;
   const ds=ocsDate||ymd(new Date());
-  const all=upOn(ds).filter(isNewPt);
+  /* 대상 과(소치·내과·보존·보철·교정)의 신환만 — 외과 등은 제외 */
+  const all=upOn(ds).filter(u=>isNewPt(u)&&NEW_DEPS.includes(u.dep));
   /* 과 필터 (기본: 전체) */
   const f=window.newDeptFilter||"";
   const list=(f?all.filter(u=>u.dep===f):all).slice().sort((a,b)=>String(a.t||"~").localeCompare(String(b.t||"~")));
