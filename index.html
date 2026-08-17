@@ -798,6 +798,7 @@ select,textarea{font-size:16px !important}
       <p class="hint">Claude가 새 HTML을 주면: <b>파일 받기 → 아래 버튼 → 방금 받은 파일 선택</b> — 끝! 위 ☁️ 연결에 저장된 토큰으로 앱이 <b>스스로 index.html을 커밋</b>해요. GitHub 웹사이트에 들어갈 일이 없어요. (반영까지 30초~1분)</p>
       <button class="btn" style="width:100%;background:var(--brand);border-color:var(--brand);color:#fff;font-weight:800" onclick="deployPick()">🚀 새 HTML 파일 선택 → 자동 배포</button>
       <input type="file" id="deploy-file" accept=".html,text/html" style="display:none" onchange="deployOnFile(event)">
+      <button class="btn small ghost" style="width:100%;margin-top:6px" onclick="checkLive()">🔎 사이트에 실제 올라간 버전 확인</button>
       <p class="hint" id="gh-deploy-status" style="margin-top:6px"></p>
     </div>
     <div class="card" style="border:1.5px solid var(--amber)">
@@ -953,7 +954,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-08-18", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260818-152";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260818-155";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화), 
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -1573,6 +1574,62 @@ async function freshCheck(){
     if(mm&&mm[1]!==BUILD_ID){showFreshBanner(mm[1]);return true;}
   }catch(e){}
   return false;
+}
+
+/* ── 원진실 환자 안내 메시지 ──
+   날짜·시간을 채운 병원 안내문을 클립보드로 복사 (복사 실패 시 길게 눌러 복사할 수 있게 표시) */
+const VISIT_MSG_TPL=`[네이버지도]
+서울대학교치과병원
+서울 종로구 대학로 101 서울대학교치과병원
+https://naver.me/FEgGlX29
+
+({DT}) 1층 원내생진료센터에서 내원 접수해주시면 되겠습니다.`;
+function visitMsgText(ds,tm){
+  const d=new Date(ds+"T00:00");
+  const dow=["일","월","화","수","목","금","토"][d.getDay()];
+  const md=`${d.getMonth()+1}월 ${d.getDate()}일(${dow})`;
+  let t="";
+  if(tm){
+    const [H,M]=String(tm).split(":").map(n=>parseInt(n,10));
+    const ampm=H<12?"오전":"오후";
+    const h12=H%12===0?12:H%12;
+    t=` ${ampm} ${h12}시${M?` ${M}분`:""}`;
+  }
+  return VISIT_MSG_TPL.replace("{DT}",md+t);
+}
+function copyVisitMsg(ds,tm,pt){
+  const txt=visitMsgText(ds,tm);
+  const show=()=>askConfirm(`<b>${esc(pt||"")} 안내문</b> — 아래를 길게 눌러 복사하세요<br><br><div style="user-select:all;white-space:pre-wrap;font-size:12.5px;background:var(--line2);padding:10px;border-radius:9px;line-height:1.5">${esc(txt)}</div>`,()=>{},"확인");
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(()=>toast(`📋 ${pt||""} 안내문 복사됨`)).catch(show);
+  }else show();
+}
+/* 사이트에 실제 반영된 빌드 확인 — 배포 실패 메일이 왔을 때 진짜 실패인지 판별 */
+async function checkLive(){
+  const st=document.getElementById("gh-deploy-status");
+  const say=s=>{if(st)st.innerHTML=s;};
+  if(!/^https?:/.test(location.protocol)){
+    say('<span style="color:var(--sub)">로컬 파일로 열려 있어요 — 배포된 사이트 주소에서 확인해 주세요</span>');return;
+  }
+  say("⏳ 사이트 확인 중…");
+  try{
+    const r=await fetch(location.pathname+"?live="+Date.now(),{cache:"no-store"});
+    if(!r.ok)throw new Error("HTTP "+r.status);
+    const t=await r.text();
+    const mm=t.match(/BUILD_ID="([0-9-]+)"/);
+    const live=mm?mm[1]:null;
+    if(!live){say('<span style="color:var(--red)">버전을 못 읽었어요 — 잠시 후 다시 시도</span>');return;}
+    const liveN=live.slice(-3), myN=BUILD_ID.slice(-3);
+    if(live===BUILD_ID){
+      say(`✅ <b>사이트 = 지금 이 버전 (#${myN})</b> — 배포 정상이에요. 실패 메일이 왔어도 이미 반영됐어요.`);
+    }else if(live<BUILD_ID){
+      say(`⚠ 사이트는 <b>#${liveN}</b>, 이 화면은 <b>#${myN}</b> — 아직 반영 전이에요.<br>1~2분 뒤 다시 확인하거나 🚀 배포를 한 번 더 눌러주세요.`);
+    }else{
+      say(`ℹ 사이트가 <b>#${liveN}</b>로 더 최신이에요 — 🆕 배너를 탭해 새로고침하세요.`);
+    }
+  }catch(e){
+    say(`<span style="color:var(--red)">확인 실패 — ${esc(String(e&&e.message||e))}</span>`);
+  }
 }
 function showFreshBanner(nb){
   if(document.getElementById("fresh-banner"))return;
@@ -3036,9 +3093,34 @@ function renderToday(){
       if(u.d===tmrs&&t.next!==tmrs)a+=`<div class="alertline warn">◇ 내일 OCS에 토탈환자 [${t.dept}] ${esc(t.pt)} 확인 — 오늘 18시 노티 + 토탈 탭에서 날짜 반영</div>`;});
     const lastV=t.visits.length?t.visits[t.visits.length-1]:null;
     if(t.visits.length>=t.need&&lastV){
-      if(!t.ufol&&dLeft(daysFrom(lastV,7))<=1)a+=`<div class="alertline">⚠ [${t.dept}] ${esc(t.pt)} 유폴 임박/초과!</div>`;
-      if(!t.report&&dLeft(daysFrom(lastV,14))<=2)a+=`<div class="alertline">⚠ [${t.dept}] ${esc(t.pt)} 레포트 임박/초과</div>`;
-    }});
+      if(t.dept==="보철"){
+        /* 보철: 레포트 사인 D+7 · 케이스 제출 D+14 — 완성 표시할 때까지 계속 노출 */
+        if(!t.ufol){const dl=dLeft(daysFrom(lastV,7));
+          a+=`<div class="alertline${dl<=0?" warn":""}">📝 [보철] ${esc(t.pt)} 레포트 사인받기 — ${dl>0?`D-${dl}`:`${-dl}일 지남`} <span class="hint">(완성 표시 전까지 계속)</span></div>`;}
+        if(!t.report){const dl=dLeft(daysFrom(lastV,14));
+          a+=`<div class="alertline${dl<=0?" warn":""}">📤 [보철] ${esc(t.pt)} 토탈 케이스 제출 — ${dl>0?`D-${dl}`:`${-dl}일 지남`} <span class="hint">(완성 표시 전까지 계속)</span></div>`;}
+      }else{
+        if(!t.ufol&&dLeft(daysFrom(lastV,7))<=1)a+=`<div class="alertline">⚠ [${t.dept}] ${esc(t.pt)} 유폴 임박/초과!</div>`;
+        if(!t.report&&dLeft(daysFrom(lastV,14))<=2)a+=`<div class="alertline">⚠ [${t.dept}] ${esc(t.pt)} 레포트 임박/초과</div>`;
+      }
+    }
+    /* ── 예정된 다음 내원 기준 할일 ── */
+    {const arrN=(Array.isArray(t.nexts)?t.nexts:(t.next?[{d:t.next,t:t.nextT||""}]:[]))
+        .filter(x=>x&&x.d&&x.d>=rt);
+     arrN.forEach(x=>{
+       const dd=dLeft(new Date(x.d+"T00:00"));
+       /* 소치 토탈: 1주 전 포트폴리오 사진 요청 · 당일 레포트 사인 */
+       if(t.dept==="소치"){
+         if(dd<=7&&dd>=0)a+=`<div class="alertline${dd<=2?" warn":""}">📸 [소치] ${esc(t.pt)} ${fmtD(x.d)} 토탈 — <b>담당쌤께 포트폴리오 사진 요청</b> (D-${dd})</div>`;
+         if(dd===0)a+=`<div class="alertline warn">✍️ [소치] ${esc(t.pt)} <b>오늘 토탈 — 레포트 사인받기</b></div>`;
+       }
+       /* 원진실: 3일 전 환자 연락 */
+       if(t.dept==="원진실"&&dd<=3&&dd>=0){
+         a+=`<div class="alertline${dd<=1?" warn":""}">📞 [원진실] ${esc(t.pt)} ${fmtD(x.d)}${x.t?" "+x.t:""} — <b>환자분께 연락드리기</b> (D-${dd})
+           <button class="btn small ghost" style="margin-left:6px;font-size:10.5px;padding:2px 8px" onclick="event.stopPropagation();copyVisitMsg('${x.d}','${x.t||""}','${esc(t.pt)}')">📋 안내문</button></div>`;
+       }
+     });}
+  });
   const miss=rtEvs.filter(e=>!e.time&&!e.span);miss.length&&(a+=`<div class="alertline warn">⏰ 오늘 시간 미정 일정 ${miss.length}건 — OCS 확인</div>`);
   document.getElementById("deadline-alerts").innerHTML=a;
   /* 보고 있는 날짜의 당일 토탈 노티 */
@@ -3821,6 +3903,12 @@ let tcSortMode="deadline";   /* deadline=다음내원 임박순 · item=항목�
 let tcItemFilter=null;       /* null=전체 · 선택된 항목명(item) */
 function setTcSort(m){tcSortMode=m;renderTotals();}
 function toggleTcShowDone(){window.tcShowDone=!window.tcShowDone;renderTotals();}
+function cycleTcDone(){
+  const m=window.tcDoneMode||"hide";
+  window.tcDoneMode=(m==="hide")?"only":(m==="only"?"all":"hide");
+  window.tcShowDone=(window.tcDoneMode!=="hide");   /* 기존 코드 호환 */
+  renderTotals();
+}
 function setTcItem(it){tcItemFilter=(tcItemFilter===it)?null:it;renderTotals();}
 /* 다음 내원(또는 마감) 임박 정렬용 — 작을수록 급함, 없으면 큰 값 */
 function tcUrgency(t){
@@ -3908,9 +3996,10 @@ function renderTotals(listOnly){
   if(!S.totals.length){box.innerHTML=`<div class="card"><div class="empty">진행 토탈 없음 — 차팅→재진 잡히면 등록 (프리토탈 사인 먼저!)</div></div>`;return;}
   /* 서브탭: 전체/과별 + 완료 보기 토글 */
   const deps=tcDeptList();
-  const doneN=S.totals.filter(t=>t.done).length;
   /* 과 필터 후보 집합 (항목 세부탭·정렬에 쓰임) */
   let scoped=(!tcDeptFilter||tcDeptFilter.size===0)?S.totals.slice():S.totals.filter(t=>tcDeptFilter.has(t.dept));
+  /* 완료 개수는 '현재 과 필터'를 반영해야 함 (전체 고정 X) */
+  const doneN=scoped.filter(t=>t.done).length;
   /* 현재 스코프의 항목(item) 목록 */
   const itemList=[...new Set(scoped.map(t=>(t.item||"").trim()).filter(Boolean))];
   if(tcItemFilter&&!itemList.includes(tcItemFilter))tcItemFilter=null;
@@ -3930,7 +4019,10 @@ function renderTotals(listOnly){
       <button onclick="clearTcDept()" style="border:1.5px solid ${active?"var(--line)":"var(--brand)"};background:${active?"transparent":"var(--brand)"};color:${active?"var(--sub)":"#fff"};border-radius:999px;padding:2px 11px;font-size:11px;font-weight:800;cursor:pointer">전체 ${S.totals.length}</button>
       ${deps.map(dep=>{const on=active&&tcDeptFilter.has(dep);const col=DEPT_COLOR[dep]||"#666";const n=S.totals.filter(t=>t.dept===dep).length;
         return `<button onclick="toggleTcDept('${dep}')" style="border:1.5px solid ${col};background:${on?col:col+"14"};color:${on?"#fff":col};border-radius:999px;padding:2px 11px;font-size:11px;font-weight:800;cursor:pointer">${dep} ${n}</button>`;}).join("")}
-      ${doneN?`<button onclick="toggleTcShowDone()" style="margin-left:auto;border:1.5px solid var(--line);background:${window.tcShowDone?"var(--ink)":"transparent"};color:${window.tcShowDone?"#fff":"var(--sub)"};border-radius:999px;padding:2px 11px;font-size:10.5px;font-weight:700;cursor:pointer">✅완료 ${doneN} ${window.tcShowDone?"숨기기":"보기"}</button>`:""}
+      ${doneN?(()=>{const m=window.tcDoneMode||"hide";
+        const lb=m==="hide"?`✅완료 ${doneN} 보기`:(m==="only"?`✅완료만 ${doneN}`:`✅완료 포함 ${doneN}`);
+        const on=m!=="hide";
+        return `<button onclick="cycleTcDone()" title="진행중 → 완료만 → 전체" style="margin-left:auto;border:1.5px solid ${on?"var(--coral)":"var(--line)"};background:${m==="only"?"var(--coral)":(m==="all"?"var(--coral-soft)":"transparent")};color:${m==="only"?"#fff":(m==="all"?"#C4472F":"var(--sub)")};border-radius:999px;padding:2px 11px;font-size:10.5px;font-weight:800;cursor:pointer">${lb}</button>`;})():""}
     </div>`;
     /* 항목별 세부탭 (현재 과 스코프에 항목이 2개 이상일 때만) */
     if(itemList.length>1){
@@ -3959,7 +4051,12 @@ function renderTotals(listOnly){
      };
      shown=shown.filter(hit);
    }}
-  if(!window.tcShowDone&&!(window.tcQuery||"").trim())shown=shown.filter(t=>!t.done);   /* 검색 중엔 완료도 함께 찾기 */
+  /* 완료 표시 모드: hide=진행중만 · only=완료만 · all=전체 (검색 중엔 항상 전체에서 찾기) */
+  {const m=window.tcDoneMode||"hide";
+   if(!(window.tcQuery||"").trim()){
+     if(m==="hide")shown=shown.filter(t=>!t.done);
+     else if(m==="only")shown=shown.filter(t=>t.done);
+   }}
   /* 정렬: 완료는 항상 뒤로, 그 안에서 임박순 또는 항목별 */
   shown=shown.slice().sort((a,b)=>{
     const ad=a.done?1:0,bd=b.done?1:0;if(ad!==bd)return ad-bd;   /* 미완료 먼저 */
