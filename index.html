@@ -1026,7 +1026,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-09-05", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260905-219";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260905-222";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화),
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -3311,7 +3311,18 @@ function renderToday(){
 
     /* ── 예약(다음 내원) 기준 준비 할일 ── */
     /* ② 소치 포트폴리오 사진 — '첫' 다음 내원 7일 전까지 (마감 3일 전부터 노출) */
-    if(t.dept==="소치"&&nextUp.length){
+    /* ── 소치 프리토탈 레포트 — 차팅(첫 내원)한 날부터 7일 이내 작성 ──
+       마감 3일 전부터 알림. 체크하면 사라짐. */
+    if(t.dept==="소치"&&vsAll.length>=1&&!(t.preRep)){
+      const chart=vsAll[0];                       /* 첫 내원 = 차팅한 날 */
+      const by=ymd(daysFrom(chart,7)),dl=dLeft(daysFrom(chart,7));
+      if(dl<=3)push(dl<=0?0:1,dl,"📄",t.dept,t.pt,
+        `<b>프리토탈 레포트</b> 작성 <span class="hint">~${fmtD(by)} (차팅 +7일)</span>`,
+        `<button class="btn small ghost" style="margin-left:6px;font-size:10.5px;padding:2px 8px" onclick="event.stopPropagation();tgl(${t.id},'preRep')">✓ 작성함</button>`);
+    }
+    /* 소치 포트폴리오 사진 — '차팅(첫 내원) 이후'의 다음 내원 7일 전까지.
+       아직 차팅 전(내원 기록 0건)이면 사진을 요청할 단계가 아니므로 알리지 않음. */
+    if(t.dept==="소치"&&nextUp.length&&vsAll.length>=1){
       const x=nextUp[0];
       if(!(t.photoAsk&&t.photoAsk[x.d])){
         const by=ymd(new Date(new Date(x.d+"T00:00").getTime()-7*864e5));
@@ -5689,12 +5700,35 @@ function hvOf(u){
      · 교정 SS/S쌤: 본딩 ★★★ 급 · r/c 등 일반 진료도 ★ (토요일 100% 전공의!)
      · 소치 SS쌤(박규아·장수진): 신환=토탈씨앗 ★★ · 일반 진료 ★ (라포 과!) */
   /* ═ 신환은 구강내과·보철·교정·소치에서 고밸류 (보존은 대상 아님 → HIST 오탐 무관) ═ */
-  if(isNewPt(u)&&["내과","보철","교정","소치"].includes(u.dep))push(4.6*(STRAT_W[u.dep]||1),"신환🌱");
+  if(isNewPt(u)&&["내과","보철","교정","소치"].includes(u.dep)){
+    /* 교정에서 장치 제거(rr/fr del·debond)는 신환이어도 볼 게 적으므로 제외 */
+    const delOnly=(u.dep==="교정")&&/\b[rf]\s*r\s*del|\bdebond|디본/i.test(u.cat||"");
+    if(!delOnly)push(4.6*(STRAT_W[u.dep]||1),"신환🌱");
+  }
   const dr=(u.dr||"").trim();
-  /* ═ 교정: 전공의쌤 진료는 내역과 무관하게 전부 고밸류 (교수님 진료만 제외) ═ */
+  /* ═ 교정 전공의 고밸류 조건 ═
+       ① 내원 간격이 2개월 이내 (1m·2m·2w·4w·6w… → 조정 단계라 볼 게 많음)
+       ② MARPE
+       ③ 본딩 (아래 티어 레이어에서 ★★★로 따로 가산)
+     제외: rr del / fr del (장치 제거만 하는 진료)
+     ※ 교수님 진료는 애초에 대상 아님 */
   if(u.dep==="교정"){
     const isProf=dr&&(PROFS.교정||[]).includes(dr);
-    if(dr&&!isProf)push(2.2*(STRAT_W["교정"]||1),"교정 전공의");
+    const cat=(u.cat||"");
+    const isDel=/\b[rf]\s*r\s*del|\bdebond|디본/i.test(cat);          /* rr del·fr del 제외 */
+    let ok=false, lb="";
+    if(!isDel){
+      /* 간격 표기 파싱: 숫자+m(개월)/w(주)/y(년) — 2개월(=8주) 이내만 */
+      const mm=cat.match(/(\d+(?:\.\d+)?)\s*(m|개월|w|주|y|년)/i);
+      if(mm){
+        const n=parseFloat(mm[1]), unit=mm[2].toLowerCase();
+        const months=(unit==="m"||unit==="개월")?n:((unit==="w"||unit==="주")?n/4.345:n*12);
+        if(months<=2.05){ ok=true; lb=`교정 ${mm[0].replace(/\s+/g,"")}`; }
+      }
+      if(/marpe/i.test(cat)){ ok=true; lb="교정 MARPE"; }
+      if(/본딩|bond(?!ing agent)/i.test(cat)){ ok=true; lb="교정 본딩"; }
+    }
+    if(dr&&!isProf&&ok)push(2.2*(STRAT_W["교정"]||1),lb||"교정 전공의");
   }
   if(dr&&typeof DR_TIER!=="undefined"){
     const t=(DR_TIER[u.dep]||{})[dr]||"";
@@ -5703,8 +5737,17 @@ function hvOf(u){
       if(dr==="이지훈")push(5.5,"이지훈GOAT⚡");
       else if(t==="SS")push(4.6,"SS쌤 진료");
     }else if(u.dep==="교정"&&(t==="SS"||t==="S")){
-      if(/본딩|bond(?!ing agent)/i.test(cat))push(5.2,"티어쌤 본딩⚡");
-      else push(2.6,"교정 티어쌤");
+      const isDel2=/\b[rf]\s*r\s*del|\bdebond|디본/i.test(cat);
+      if(isDel2){ /* 장치 제거 진료는 티어쌤이어도 고밸류 아님 */ }
+      else if(/본딩|bond(?!ing agent)/i.test(cat))push(5.2,"티어쌤 본딩⚡");
+      else{
+        const mm2=cat.match(/(\d+(?:\.\d+)?)\s*(m|개월|w|주|y|년)/i);
+        let near=false;
+        if(mm2){const n2=parseFloat(mm2[1]),u2=mm2[2].toLowerCase();
+          const mo=(u2==="m"||u2==="개월")?n2:((u2==="w"||u2==="주")?n2/4.345:n2*12);
+          near=mo<=2.05;}
+        if(near||/marpe/i.test(cat))push(2.6,"교정 티어쌤");
+      }
     }else if(u.dep==="소치"&&t==="SS"){
       if(/신환|초진|C N [MF]|I N [MF]/.test(cat))push(4.3,"SS쌤 신환🌱");
       else push(2.6,"소치 SS쌤");
