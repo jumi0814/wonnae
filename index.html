@@ -44,9 +44,9 @@ header{cursor:pointer;-webkit-user-select:none;user-select:none}
 #view-tag{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.45);border-radius:99px;padding:1px 8px;font-size:10px;font-weight:800;margin-left:4px;cursor:pointer;-webkit-tap-highlight-color:rgba(255,255,255,.3)}
 body.share-mode #view-tag{background:rgba(120,200,160,.28);border-color:rgba(160,230,190,.5)}
 header{background:transparent;color:#fff;padding:calc(16px + env(safe-area-inset-top)) 18px 10px;display:flex;align-items:center;gap:10px}
-header h1{font-size:19.5px;font-weight:900;letter-spacing:-.035em;text-shadow:0 1px 2px rgba(0,0,0,.28)}
+header h1{font-size:19.5px;font-weight:900;letter-spacing:-.035em;text-shadow:0 1px 2px rgba(0,0,0,.28);white-space:nowrap;min-width:0}
 header .sub{font-size:11px;opacity:.8;margin-top:4px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
-#sem-btn{margin-left:auto;background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.32);color:#fff;border-radius:99px;padding:6px 14px;font-size:12px;font-weight:800;letter-spacing:-.02em;backdrop-filter:blur(8px);box-shadow:0 2px 8px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.22);transition:transform .12s}
+#sem-btn{margin-left:auto;flex:0 0 auto;white-space:nowrap;background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.32);color:#fff;border-radius:99px;padding:6px 13px;font-size:12px;font-weight:800;letter-spacing:-.02em;line-height:1.25;backdrop-filter:blur(8px);box-shadow:0 2px 8px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.22);transition:transform .12s}
 #sem-btn:active{transform:scale(.96)}
 #timeline{background:transparent;padding:0 18px 16px}
 #tl-strip{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
@@ -167,6 +167,8 @@ td.dcell:active,td.zcell:active,td.fullcell:active{background:var(--brand-soft)}
 /* 하루 통짜 (공휴일/메이저) = 날짜 아래 가로 배너 */
 .mfull{margin:1px 2px 2px;border-radius:5px;padding:3px 5px;font-size:9.5px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;line-height:1.4}
 .mfull.holi{background:repeating-linear-gradient(45deg,#B23A2F,#B23A2F 6px,#9e3128 6px,#9e3128 12px)}
+/* 📚 수업(매주 목요일 오전) — 공휴일과 비슷한 톤의 사선 패턴(남색 계열) */
+.mfull.cls{background:repeating-linear-gradient(45deg,#41557A,#41557A 6px,#38496B 6px,#38496B 12px);color:#fff}
 /* 하루종일 = 오전+오후 합친 셀 (rowspan) */
 td.fullcell{padding:2px;vertical-align:top}
 td.fullcell.is-holi{background:#2E3A34}
@@ -833,6 +835,23 @@ select,textarea{font-size:16px !important}
       <button class="btn small ghost" style="width:100%;margin-top:6px" onclick="checkLive()">🔎 사이트에 실제 올라간 버전 확인</button>
       <p class="hint" id="gh-deploy-status" style="margin-top:6px"></p>
     </div>
+    <div class="card">
+      <h2>📅 아이폰 캘린더에 자동 연동</h2>
+      <p class="hint">배포할 때 <b>wonnae.ics</b>가 함께 올라가요. 한 번 구독해두면 <b>일정이 바뀔 때마다 폰 캘린더도 따라 바뀌어요</b> (쌓이지 않고 갱신).</p>
+      <div style="background:var(--brand-soft);border-radius:10px;padding:9px 11px;margin:8px 0;font-size:12px;line-height:1.7">
+        <b>아이폰에서 딱 한 번만:</b><br>
+        설정 → 캘린더 → 계정 → <b>계정 추가</b> → 기타 → <b>구독 캘린더 추가</b><br>
+        아래 주소를 붙여넣고 [다음] → [저장]
+      </div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <input id="ics-url" readonly style="flex:1;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff">
+        <button class="btn small" onclick="copyIcsUrl()">📋 복사</button>
+      </div>
+      <p class="hint" style="margin-top:6px">· 갱신 주기는 <b>설정 → 캘린더 → 계정 → 구독 캘린더 → 데이터 가져오기</b>에서 조정<br>
+        · 읽기 전용이라 폰에서 고쳐도 대시보드에는 안 들어와요<br>
+        · 그만 보고 싶으면 그 계정만 삭제하면 전부 깨끗이 사라져요</p>
+      <button class="btn small ghost" style="width:100%;margin-top:8px" onclick="icsDownload()">⬇ 지금 파일로 받기 (즉시 추가)</button>
+    </div>
     <div class="card" style="border:1.5px solid var(--amber)">
       <h2>💾 데이터 지키기 (필수!) <span class="badge" id="db-mode"></span></h2>
       <p class="hint"><b>왜 중요한가요?</b> 새 HTML 버전은 <b>저장공간이 새로 시작</b>돼요(플랫폼 구조상 버전별 분리). 그래서 버전을 갈아탈 땐 <b>이전 버전 [📤 복사] → 새 버전 [📥 붙여넣기 복원]</b> 10초 루틴이 공식 이동 경로! 파일 저장은 장기 보관용 이중 안전장치예요.</p>
@@ -1056,7 +1075,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-09-10", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260910-243";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260910-247";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화),
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -1487,6 +1506,7 @@ async function load(){
   cloudOK=await probeP;
   const mb=document.getElementById("db-mode");if(mb)mb.textContent=cloudOK?"☁ 계정 저장 켜짐 — 폰·PC 자동 연동, 업데이트해도 유지":"⚠ 자동 저장 불안정 — 게시 전이거나 저장소 미작동. 백업 파일 꼭 만들기";
   renderAll(true);
+  try{renderIcsUrl();}catch(e){}
   loadDone=true;          /* 이제부터 저장 허용 (로드 전 빈 시드 덮어쓰기 방지) */
   /* ═ 뷰 모드 적용 + 헤더 더블탭 전환 바인딩 ═ */
   S.viewMode=S.viewMode||"personal";
@@ -1857,6 +1877,100 @@ async function deployOnFile(ev){
   const kb=(file.size/1024).toFixed(0);
   askConfirm(`선택 파일: 빌드 #${pb?pb.slice(-2):"구버전(번호없음)"} · OCS 📦${m?+m[1].slice(5,7)+"/"+ +m[1].slice(8,10):"?"} · ${kb}KB — 지금 화면은 #${BUILD_ID.slice(-2)}. ${same?"⚠ 같은 빌드예요(이미 반영됨) — 새 파일을 받았는지 확인!":older?"⚠ 지금 화면보다 옛 빌드예요!":"✅ 새 빌드 맞아요."} 배포할까요?`,()=>{deployCommit(txt);},"🚀 배포");
 }
+/* ══ 📅 아이폰 캘린더 구독용 ICS 만들기 ══
+   · 전체 목록을 통째로 갱신하는 방식 — 수정하면 바뀌고, 지우면 사라짐(쌓이지 않음)
+   · 일정마다 고유 UID를 넣어 iOS가 같은 일정으로 알아보게 함
+   · 확정 일정 + 토탈의 다음 내원(예정) + 목요일 수업 포함 */
+function icsEsc(s){return String(s||"").replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\r?\n/g,"\\n");}
+function icsFold(line){                       /* 75바이트 넘으면 접기(RFC 5545) */
+  const out=[];let s=line;
+  while(s.length>73){out.push(s.slice(0,73));s=" "+s.slice(73);}
+  out.push(s);return out.join("\r\n");
+}
+/* 구독 주소 — 배포 저장소 기준 (webcal:// 로 열면 iOS가 바로 구독 화면을 띄움) */
+function icsUrl(){
+  const repo=(ghCfg&&ghCfg.repo)||"jumi0814/wonnae";
+  const [owner,name]=String(repo).split("/");
+  return `webcal://${owner}.github.io/${name}/wonnae.ics`;
+}
+function renderIcsUrl(){const el=document.getElementById("ics-url");if(el)el.value=icsUrl();}
+async function copyIcsUrl(){
+  try{await navigator.clipboard.writeText(icsUrl());toast("📋 구독 주소를 복사했어요");}
+  catch(e){const el=document.getElementById("ics-url");if(el){el.select();document.execCommand("copy");toast("📋 복사됨");}}
+}
+function icsDownload(){
+  try{
+    const blob=new Blob([buildICS()],{type:"text/calendar;charset=utf-8"});
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);a.download="wonnae.ics";
+    document.body.appendChild(a);a.click();
+    setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);
+    toast("⬇ 캘린더 파일을 받았어요 — 탭하면 추가돼요");
+  }catch(e){toast("파일 만들기 실패: "+(e&&e.message||e));}
+}
+function buildICS(){
+  const L=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//wonnae//command center//KO",
+    "CALSCALE:GREGORIAN","METHOD:PUBLISH",
+    "X-WR-CALNAME:원내생 일정","X-WR-TIMEZONE:Asia/Seoul",
+    "X-PUBLISHED-TTL:PT15M","REFRESH-INTERVAL;VALUE=DURATION:PT15M"];
+  const stamp=new Date().toISOString().replace(/[-:]/g,"").split(".")[0]+"Z";
+  const dOnly=ds=>ds.replace(/-/g,"");
+  const dTime=(ds,tm)=>dOnly(ds)+"T"+String(tm||"09:00").replace(":","")+"00";
+  const plus=(ds,tm,min)=>{const x=new Date(ds+"T"+(tm||"09:00")+":00");
+    x.setMinutes(x.getMinutes()+min);
+    const p=n=>String(n).padStart(2,"0");
+    return `${x.getFullYear()}${p(x.getMonth()+1)}${p(x.getDate())}T${p(x.getHours())}${p(x.getMinutes())}00`;};
+  const add=(uid,ds,tm,title,desc,alarmMin)=>{
+    L.push("BEGIN:VEVENT");
+    L.push("UID:"+uid+"@wonnae");
+    L.push("DTSTAMP:"+stamp);
+    if(tm){
+      L.push("DTSTART;TZID=Asia/Seoul:"+dTime(ds,tm));
+      L.push("DTEND;TZID=Asia/Seoul:"+plus(ds,tm,60));
+    }else{
+      L.push("DTSTART;VALUE=DATE:"+dOnly(ds));
+      const nx=new Date(ds+"T00:00");nx.setDate(nx.getDate()+1);
+      L.push("DTEND;VALUE=DATE:"+dOnly(ymd(nx)));
+    }
+    L.push(icsFold("SUMMARY:"+icsEsc(title)));
+    if(desc)L.push(icsFold("DESCRIPTION:"+icsEsc(desc)));
+    if(alarmMin!=null){
+      L.push("BEGIN:VALARM","TRIGGER:-PT"+alarmMin+"M","ACTION:DISPLAY",
+             "DESCRIPTION:"+icsEsc(title),"END:VALARM");
+    }
+    L.push("END:VEVENT");
+  };
+
+  /* ① 내 일정표(확정 일정 포함) */
+  (S.events||[]).forEach(e=>{
+    if(!e||!e.date||e.status==="cancel")return;
+    const memo=String(e.memo||"").trim();
+    add("ev-"+e.id, e.date, e.time, e.title||"일정", memo, e.time?30:null);
+  });
+  /* ② 토탈의 다음 내원 — 아직 확정 안 한 예정 (⏳ 표시) */
+  (S.totals||[]).forEach(t=>{
+    if(t.done)return;
+    (Array.isArray(t.nexts)?t.nexts:[]).forEach(x=>{
+      if(!x||!x.d)return;
+      if(t.confirmed&&t.confirmed[x.d])return;     /* 확정분은 ①에 이미 있음 */
+      const who=(t.dr&&t.dr.trim())?t.dr.trim():t.dept;
+      add("nx-"+t.id+"-"+x.d, x.d, x.t,
+          `⏳ ${who} ${t.item||"토탈"}`,
+          `${t.ptno?t.ptno+" ":""}${t.pt}${t.memo?"\n"+t.memo:""}`, x.t?30:null);
+    });
+  });
+  /* ③ 매주 목요일 오전 수업 (12월까지) */
+  {const x=new Date();x.setHours(0,0,0,0);
+   while(x.getDay()!==4)x.setDate(x.getDate()+1);
+   for(let i=0;i<24;i++){
+     const ds=ymd(x);
+     if(ds>CLASS_UNTIL)break;
+     add("cls-"+ds, ds, "09:00", "📚 수업", "매주 목요일 오전", null);
+     x.setDate(x.getDate()+7);
+   }}
+  L.push("END:VCALENDAR");
+  return L.join("\r\n");
+}
 async function deployCommit(txt){
   const st=document.getElementById("gh-deploy-status");
   const say=s=>{if(st)st.innerHTML=s;};
@@ -1872,7 +1986,11 @@ async function deployCommit(txt){
   const t0=Date.now();
   try{
     /* 공용 Git Data API 헬퍼로 index.html 커밋 (.nojekyll 자동 포함) */
-    await gitCommitFiles([{path:"index.html",text:txt}],"deploy "+new Date().toISOString().slice(5,16).replace("T"," "),(k,info)=>{
+    /* index.html + 캘린더 구독 파일(wonnae.ics)을 함께 커밋 */
+    let icsTxt="";try{icsTxt=buildICS();}catch(e){}
+    const files=[{path:"index.html",text:txt}];
+    if(icsTxt)files.push({path:"wonnae.ics",text:icsTxt});
+    await gitCommitFiles(files,"deploy "+new Date().toISOString().slice(5,16).replace("T"," "),(k,info)=>{
       if(k==="blobs")say(`⏳ 배포 중… (1/3 업로드 <b>${info&&info.mb}MB</b> — 통신 상태에 따라 30초~2분)`);
       else if(k==="blob-done")say(`✔ 업로드 완료 (${info&&info.sec}초) — 다음 단계…`);
       else if(steps[k])say(steps[k]);
@@ -2428,6 +2546,8 @@ function protoFor(ev){
 
 /* 진료 점유 범위: full=하루 통짜 / am|pm=나절 통짜 / null=일반 */
 const FULLDAY_RE=/공휴일|메이저|양악|말리컨|물치실|물치|판독|영상\s*픽스|제헌절|광복절|현충일|개천절|한글날|성탄|신정|설날|추석|어린이날|부처님|국시/;
+/* 수업(목요일 오전)도 공휴일처럼 '통짜' 표시 */
+const CLASS_RE=/^수업$/;
 const SESSION_RE=/교픽|마이너|통진|외래|GSP|픽스/i;
 function spanOf(title,time){
   if(FULLDAY_RE.test(title))return "full";
@@ -2553,7 +2673,23 @@ function evPass(e){
   if(!e.dept||HOLI_RE.test(e.title||""))return true;   /* 공휴일·과 없는 일정은 항상 표시 */
   return calDeptFilter.has(e.dept);
 }
-function evOn(ds){return S.events.filter(e=>e.date===ds&&evPass(e));}
+/* ── 매주 목요일 오전 = 수업 (학기 내내 고정) ──
+   실제 데이터로 저장하지 않고 화면에 합성해 보여준다.
+   (직접 만든 일정이 이미 있으면 중복 표시하지 않음) */
+const CLASS_UNTIL="2026-12-31";
+function classVirt(ds){
+  if(!ds||ds>CLASS_UNTIL)return null;
+  if(new Date(ds+"T00:00").getDay()!==4)return null;      /* 목요일만 */
+  if((S.events||[]).some(e=>e&&e.date===ds&&e.status!=="cancel"&&/수업/.test(e.title||"")))return null;
+  return {id:"cls-"+ds,date:ds,title:"수업",dept:"",time:null,dur:0,
+          memo:"",status:"plan",kind:"class",span:"am",manual:false,virtual:true,u:0};
+}
+function evOn(ds){
+  const list=S.events.filter(e=>e.date===ds&&evPass(e));
+  const cv=classVirt(ds);
+  if(cv)list.unshift(cv);
+  return list;
+}
 function calDeptList(){ /* 이번 달 실제 등장 과 (색상 순서) */
   const order=["소치","내과","교정","치주","보존","보철","외과","영상","병리","원진실","관악","공통","기타"];
   const ym=`${calYM.y}-${String(calYM.m+1).padStart(2,"0")}`;
@@ -2584,6 +2720,10 @@ function hm2min(t){if(!t)return null;const[a,b]=t.split(":").map(Number);return 
 function ymd(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;}
 function min2hm(m){return String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0");}
 function chipHtml(e){
+  /* 📚 수업(매주 목요일 오전) — 공휴일과 비슷한 톤으로 눈에 띄게 */
+  if(CLASS_RE.test(e.title||"")){
+    return `<span class="chip sess" style="background:repeating-linear-gradient(45deg,#41557A,#41557A 5px,#38496B 5px,#38496B 10px);border-color:#2F3F5E;color:#fff;font-weight:800" title="매주 목요일 오전 수업">📚 수업</span>`;
+  }
   const c=DEPT_COLOR[e.dept]||"#666";
   const sess=e.span==="am"||e.span==="pm";
   const tm=e.time?`<span class="tm2">${e.time.replace(":","")}</span>`:"";
@@ -2900,7 +3040,7 @@ function renderCalendar(){
         const fullItems=fulls.map(e=>{
           const holi=/공휴일|절$|성탄|신정|설날|추석|어린이날|부처님|현충일|개천절|한글날/.test(e.title);
           const stcls=e.status==="cancel"?" fd-cancel":e.status==="moved"?" fd-moved":"";
-          return {sk:skOf(e),full:1,html:`<div class="mfull2 ${holi?"holi":"treat"}${stcls}" style="${holi?"":`background:${DEPT_COLOR[e.dept]||"#666"}`}" onclick="event.stopPropagation();openChip('${e.id}')">${e.time?`<span class="fd-t">${e.time.replace(":","")}</span>`:""}${e.status==="cancel"?"✕ ":e.status==="moved"?"⤳ ":""}${esc(e.title)}</div>`};
+          return {sk:skOf(e),full:1,html:`<div class="mfull2 ${holi?"holi":(CLASS_RE.test(e.title||"")?"cls":"treat")}${stcls}" style="${(holi||CLASS_RE.test(e.title||""))?"":`background:${DEPT_COLOR[e.dept]||"#666"}`}" onclick="event.stopPropagation();openChip('${e.id}')">${e.time?`<span class="fd-t">${e.time.replace(":","")}</span>`:""}${e.status==="cancel"?"✕ ":e.status==="moved"?"⤳ ":""}${esc(e.title)}</div>`};
         });
         const exAll=[...am,...pm].sort((a,b)=>skOf(a)-skOf(b));
         const extraItems=exAll.map(e=>({sk:skOf(e),full:0,html:`<div class="fd-1">${chipHtml(e)}</div>`}));
@@ -3584,6 +3724,9 @@ function notiFixTime(id,ds,ocsT){
     if(!e.fromTotal.some(f=>f.id===t.id&&f.d===ds))return;
     if((e.time||"")!==ocsT){e.time=ocsT||null;e.u=Date.now();moved++;}
   });
+  /* 시간을 고쳤으니 확정도 풀어 다시 점선칩으로 (재확정 여부는 직접 결정) */
+  if(t.confirmed&&t.confirmed[ds]){delete t.confirmed[ds];
+    if(!Object.keys(t.confirmed).length)delete t.confirmed;}
   save(true);syncAll();
   toast(`🕐 ${esc(t.pt)} ${ds.slice(5)} 시간을 OCS(${ocsT})에 맞췄어요${moved?" · 일정도 함께 변경":""}`);
 }
@@ -4876,20 +5019,30 @@ function syncConfirmedEvents(t){
   const pinfo=`${t.ptno?t.ptno+" ":""}${t.pt}`;
   const tmemo=(t.memo||"").trim();
   const pfull=pinfo+(tmemo?"\n📝 "+tmemo:"");
+  let touched=false;                 /* 이번에 실제로 바뀐 게 있나 */
   (S.events||[]).forEach(e=>{
     if(!e||e.status==="cancel"||!Array.isArray(e.fromTotal))return;
     const link=e.fromTotal.find(f=>f.id===t.id);
     if(!link)return;
     /* 제목(담당쌤·항목) 갱신 — 이 일정이 이 토탈만의 것일 때만 (여러 환자 공유 시 제목 유지) */
-    if(e.fromTotal.length===1&&e.title!==title){e.title=title;e.dept=t.dept;e.u=Date.now();n++;}
+    if(e.fromTotal.length===1&&e.title!==title){e.title=title;e.dept=t.dept;e.u=Date.now();n++;touched=true;}
     /* 메모 속 환자정보 갱신 */
     if(link.pinfo&&link.pinfo!==pinfo){
       e.memo=String(e.memo||"").split("\n").map(ln=>ln.includes(link.pinfo)?pfull.split("\n")[0]:ln).join("\n");
-      link.pinfo=pinfo;link.pt=t.pt;e.u=Date.now();n++;
+      link.pinfo=pinfo;link.pt=t.pt;e.u=Date.now();n++;touched=true;
     }else if(e.fromTotal.length===1&&tmemo&&!String(e.memo||"").includes(tmemo)){
-      e.memo=pfull;e.u=Date.now();n++;
+      e.memo=pfull;e.u=Date.now();n++;touched=true;
     }
+    /* 시간이 달라졌으면 일정도 맞추고 '수정됨'으로 본다 */
+    const mine=(Array.isArray(t.nexts)?t.nexts:[]).find(x=>x&&x.d===link.d);
+    if(mine&&(e.time||"")!==(mine.t||"")){e.time=mine.t||null;e.u=Date.now();n++;touched=true;}
   });
+  /* ★어떤 내용이든 수정했으면 확정을 풀어 다시 점선칩으로★
+     — 바뀐 내용으로 다시 확정할지 직접 고를 수 있게 한다. */
+  if(touched&&t.confirmed){
+    Object.keys(t.confirmed).forEach(ds=>delete t.confirmed[ds]);
+    delete t.confirmed;n++;
+  }
   /* 확정 목록 정리 — 예약에 없는 날짜의 확정은 해제(→ 다시 점선칩) */
   if(t.confirmed){
     const live=new Set((Array.isArray(t.nexts)?t.nexts:[]).map(x=>x&&x.d).filter(Boolean));
@@ -5827,17 +5980,17 @@ function hiIcon(k){const n=hiOf(k);return n?HI_COLORS[n].ico:"🖍️";}
 /* ── 칠할 색 고르기(펜) ──
    penColor=0이면 '순환' 모드(기존 동작), 1~3이면 그 색으로 바로 칠함 */
 function hiSetPen(n){
-  window.penColor=(window.penColor===n)?0:n;    /* 같은 색 다시 누르면 순환 모드로 */
+  window.penColor=n||1;                          /* 항상 색 하나가 선택된 상태 */
   renderHiPen();
 }
 function renderHiPen(){
   const el=document.getElementById("hi-pen");if(!el)return;
   if(window.penColor===undefined)window.penColor=0;
-  const items=[[0,"🔁 순환","#fff"],[1,"노랑","#FFF3B0"],[2,"🟥 빨강","#FFD8D2"],[3,"⬜ 회색","#ECEEF1"]];
+  const items=[[1,"노랑","#FFF3B0"],[2,"🟥 빨강","#FFD8D2"],[3,"⬜ 회색","#ECEEF1"]];
+  if(!window.penColor)window.penColor=1;          /* 순환 없음 — 기본 노랑 */
   /* 작고 단정하게 — 색은 동그란 점, 선택된 것만 코럴 링 */
   el.innerHTML=`<span style="font-size:10px;font-weight:800;color:var(--sub);opacity:.8">🖍️</span>`
     +items.map(([n,lb,c])=>{const on=window.penColor===n;
-      if(n===0)return `<button onclick="hiSetPen(0)" title="색 순환" style="border:1px solid ${on?"var(--coral)":"var(--line)"};background:${on?"var(--coral)":"#fff"};color:${on?"#fff":"var(--sub)"};border-radius:999px;padding:1px 7px;font-size:9.5px;font-weight:800;cursor:pointer;line-height:1.5">순환</button>`;
       return `<button onclick="hiSetPen(${n})" title="${lb}" style="width:17px;height:17px;padding:0;border-radius:50%;cursor:pointer;background:${c};border:${on?"2px solid var(--coral)":"1px solid rgba(0,0,0,.13)"};box-shadow:${on?"0 0 0 2px rgba(255,107,90,.18)":"none"}"></button>`;
     }).join("");
 }
@@ -5896,21 +6049,11 @@ function hiBindLong(){
     btn.addEventListener("click",e=>{if(long){e.preventDefault();e.stopPropagation();long=false;}},true);
   });
 }
+/* 🖍️ 탭 = 위에서 고른 색으로 칠하기 (같은 색이면 해제). 순환 없음. */
+/* 🖍️ 탭 = 위에서 고른 색으로 칠하기 (같은 색을 다시 탭하면 해제). 순환 없음. */
 function ocsHiByKey(k){
-  /* 펜 색이 지정돼 있으면 순환 대신 그 색으로 바로 칠함(같은 색이면 해제) */
-  if(window.penColor){
-    const cur=hiOf(k);
-    ocsHiSet(k, cur===window.penColor ? 0 : window.penColor);
-    return;
-  }
-  S.ocsHi=S.ocsHi||{};
-  const cur=hiOf(k);
-  const next=(cur>=3)?0:cur+1;            /* 노랑 → 빨강 → 회색 → 해제 */
-  if(next)S.ocsHi[k]=next;else delete S.ocsHi[k];
-  save();
-  hiPaint(k);
-  try{if(window.hlTabMode&&typeof renderOcsGold==="function"){renderOcsGold();return;}}catch(e){}
-  return;
+  const pen=window.penColor||1;
+  ocsHiSet(k, hiOf(k)===pen ? 0 : pen);
 }
 /* 특정 키의 하이라이트 색을 화면에 즉시 반영 (재렌더 없이) */
 function hiPaint(k){
