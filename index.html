@@ -848,9 +848,16 @@ select,textarea{font-size:16px !important}
         <input id="ics-url" readonly style="flex:1;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff">
         <button class="btn small" onclick="copyIcsUrl()">📋 복사</button>
       </div>
-      <p class="hint" style="margin-top:6px">· 갱신 주기는 <b>설정 → 캘린더 → 계정 → 구독 캘린더 → 데이터 가져오기</b>에서 조정<br>
-        · 읽기 전용이라 폰에서 고쳐도 대시보드에는 안 들어와요<br>
-        · 그만 보고 싶으면 그 계정만 삭제하면 전부 깨끗이 사라져요</p>
+      <div style="background:#FBF2E2;border:1px solid var(--amber);border-radius:10px;padding:9px 11px;margin:8px 0;font-size:12px;line-height:1.7">
+        <b>⚠ 자동 갱신이 안 되는 것 같다면</b><br>
+        아이폰 <b>설정 → 앱 → 캘린더 → 계정 → 구독 캘린더 → 데이터 가져오기</b><br>
+        여기서 <b>매시간</b>(또는 가장 짧은 주기)으로 바꿔주세요.<br>
+        <span style="color:var(--sub)">기본값이 &lsquo;수동&rsquo;이면 영영 안 바뀌어요.</span><br>
+        급할 땐 캘린더 앱에서 <b>아래로 당겨 새로고침</b>하면 즉시 받아와요.
+      </div>
+      <p class="hint" style="margin-top:6px">· 읽기 전용이라 폰에서 고쳐도 대시보드에는 안 들어와요<br>
+        · 그만 보고 싶으면 그 계정만 삭제하면 전부 깨끗이 사라져요<br>
+        · 일정을 바꾼 뒤엔 <b>🚀 배포</b>를 눌러야 폰에 반영돼요</p>
       <button class="btn small ghost" style="width:100%;margin-top:8px" onclick="icsDownload()">⬇ 지금 파일로 받기 (즉시 추가)</button>
       <button class="btn small ghost" style="width:100%;margin-top:6px" onclick="checkIcs()">🔎 GitHub에 실제로 올라갔는지 확인</button>
       <p class="hint" id="ics-check" style="margin-top:4px"></p>
@@ -1078,7 +1085,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-09-10", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260910-250";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260910-252";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화),
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -1933,7 +1940,10 @@ function buildICS(){
   const L=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//wonnae//command center//KO",
     "CALSCALE:GREGORIAN","METHOD:PUBLISH",
     "X-WR-CALNAME:원내생 일정","X-WR-TIMEZONE:Asia/Seoul",
-    "X-PUBLISHED-TTL:PT15M","REFRESH-INTERVAL;VALUE=DURATION:PT15M"];
+    /* 갱신 주기를 짧게 요청 (iOS가 참고) */
+    "X-PUBLISHED-TTL:PT5M","REFRESH-INTERVAL;VALUE=DURATION:PT5M",
+    "X-WR-RELCALID:wonnae-"+((ghCfg&&ghCfg.repo)||"local"),
+    "X-WONNAE-BUILD:"+(typeof BUILD_ID!=="undefined"?BUILD_ID:"")];
   const stamp=new Date().toISOString().replace(/[-:]/g,"").split(".")[0]+"Z";
   const dOnly=ds=>ds.replace(/-/g,"");
   const dTime=(ds,tm)=>{
@@ -1953,15 +1963,24 @@ function buildICS(){
     x.setMinutes(x.getMinutes()+min);
     const p=n=>String(n).padStart(2,"0");
     return `${x.getFullYear()}${p(x.getMonth()+1)}${p(x.getDate())}T${p(x.getHours())}${p(x.getMinutes())}00`;};
-  const add=(uid,ds,tm,title,desc,alarmMin)=>{
+  const add=(uid,ds,tm,title,desc,alarmMin,durMin)=>{
     if(!ds||!/^\d{4}-\d{2}-\d{2}$/.test(ds))return;   /* 날짜 형식이 이상하면 그 항목만 건너뜀 */
     title=title||"일정";
+    /* HTML 일정표와 동일하게 — 시간이 있으면 제목 앞에 'HHMM '로 붙임 (예: "1430 이영빈 고정") */
+    if(tm){
+      const hm=String(tm).split(":");
+      const hh=String(parseInt(hm[0],10)||0).padStart(2,"0");
+      const mm=String(parseInt(hm[1],10)||0).padStart(2,"0");
+      title=hh+mm+" "+title;
+    }
     L.push("BEGIN:VEVENT");
     L.push("UID:"+uid+"@wonnae");
     L.push("DTSTAMP:"+stamp);
+    L.push("LAST-MODIFIED:"+stamp);
+    L.push("SEQUENCE:"+Math.floor(Date.now()/60000)%100000);   /* 바뀔 때마다 증가 → 갱신 인식 */
     if(tm){
       L.push("DTSTART;TZID=Asia/Seoul:"+dTime(ds,tm));
-      L.push("DTEND;TZID=Asia/Seoul:"+plus(ds,tm,60));
+      L.push("DTEND;TZID=Asia/Seoul:"+plus(ds,tm,durMin||60));
     }else{
       L.push("DTSTART;VALUE=DATE:"+dOnly(ds));
       const nx=new Date(ds+"T00:00");nx.setDate(nx.getDate()+1);
@@ -1991,7 +2010,13 @@ function buildICS(){
     if(!stillConfirmed(e))return;                    /* 확정 풀린 일정은 제외 */
     try{
       const memo=String(e.memo||"").trim();
-      add("ev-"+e.id, e.date, e.time, e.title||"일정", memo, e.time?30:null);
+      /* 나절 일정(오전/오후)은 시간이 없어도 '종일'로 만들지 않고 기본 시각을 준다
+         — 아이폰에서 하루종일 칸에 박히지 않고 일반 일정처럼 보이게 */
+      let tm=e.time;
+      if(!tm&&e.span==="am")tm="09:00";
+      if(!tm&&e.span==="pm")tm="13:00";
+      const dur=(!e.time&&(e.span==="am"||e.span==="pm"))?210:60;   /* 나절=3.5시간 */
+      add("ev-"+e.id, e.date, tm, e.title||"일정", memo, tm?30:null, dur);
     }catch(err){}                                    /* 이 일정 하나만 건너뛰고 나머지는 계속 */
   });
   /* ※ 확정한 일정만 내보낸다 — 예정(점선칩)과 수업은 폰 캘린더에 넣지 않음 */
