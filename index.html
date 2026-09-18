@@ -22,7 +22,7 @@
   --r:16px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html{scroll-behavior:smooth}
 body{font-family:"Apple SD Gothic Neo","Noto Sans KR","Pretendard",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.55;padding-bottom:78px}
 /* ── 상단 히어로 ──
    슬레이트 딥톤 위에 코럴 글로우를 얹어 깊이를 준다. (초록 잔재 제거) */
@@ -324,17 +324,17 @@ td.fullcell.is-holi{background:#2E3A34}
 .otbl td:nth-child(2){width:58px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .otbl td:nth-child(4){width:50px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 /* OCS 상단 탭: 윗줄 = 오늘·고밸류·신환·하이라이트 / 아랫줄 = 토탈·통계 */
-#ocs-pills{gap:5px}
+#ocs-pills{gap:2px 5px}
 #ocs-pills button{padding:5px 10px;font-size:12px;white-space:nowrap}
 #ocs-pills .pill-br{flex-basis:100%;height:0}
 /* 쌤별·시간대 공용 행: 시간 | 이름(번호) | 진료내역 | (담당쌤) | 🖍️ */
-.odtbl td.t{font-weight:800;font-size:10.5px;white-space:nowrap;padding-left:1px;padding-right:0;color:var(--ink)}
-.odtbl td.t+td.p{padding-left:4px}
-.oddr{display:inline-grid;grid-template-columns:auto auto;column-gap:4px;align-items:baseline;line-height:1.2;padding:2px 9px 1px}
+.odtbl td.t{width:1%;font-weight:800;font-size:10.5px;white-space:nowrap;padding-left:0;padding-right:4px;color:var(--ink)}
+.odtbl td.t+td.p{padding-left:0}
+.oddr{display:inline-grid;grid-template-columns:auto auto;column-gap:3px;align-items:baseline;line-height:1.15;padding:2px 8px 1px;font-size:11px}
 .oddr .nm2{grid-column:1;grid-row:1;white-space:nowrap}
-.oddr .n1{grid-column:2;grid-row:1;font-size:10.5px;color:var(--sub);font-weight:700;text-align:left;white-space:nowrap}
-.oddr .dm{grid-column:1;grid-row:2;justify-self:end;font-size:7.5px;line-height:1}
-.oddr .n2{grid-column:2;grid-row:2;font-size:9.5px;font-weight:800;color:var(--amber);text-align:left;white-space:nowrap}
+.oddr .n1{grid-column:2;grid-row:1;font-size:10px;color:var(--sub);font-weight:700;text-align:left;white-space:nowrap}
+.oddr .dm{grid-column:1;grid-row:2;justify-self:end;font-size:8px;line-height:1.1}
+.oddr .n2{grid-column:2;grid-row:2;font-size:9px;font-weight:800;color:var(--amber);text-align:left;white-space:nowrap}
 .oddr .z{color:var(--sub);opacity:.5}
 .oddr.on .n1,.oddr.on .n2{color:#fff;opacity:.95}
 .tvsum{display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding:6px 2px;cursor:pointer;list-style:none}
@@ -342,12 +342,13 @@ td.fullcell.is-holi{background:#2E3A34}
 .tvsum .tm{font-size:13px;font-weight:900;width:44px;flex:0 0 auto}
 .tvsum .cnt{font-size:12px;font-weight:900;flex:0 0 auto}
 .tvchips{display:flex;flex-wrap:nowrap;gap:3px;width:100%;min-width:0}
-.tvchip{flex:0 0 auto;display:inline-flex;align-items:baseline;white-space:nowrap;border:1.5px solid var(--c);color:var(--c);background:#fff;border-radius:7px;padding:0 4px;font-size:10.5px;font-weight:800;line-height:1.55;letter-spacing:-.3px}
-.tvchip i{font-style:normal;font-size:9.5px;margin-left:2px;letter-spacing:-.4px}
-.tvchip i b{font-size:7px;font-weight:400;vertical-align:1px;margin-right:0}
-.tvcard{padding-left:9px !important;padding-right:9px !important}
-.tvchips.tight{gap:2px}.tvchips.tight .tvchip{padding:0 2.5px;letter-spacing:-.5px}
-.tvchips.tighter .tvchip{font-size:10px}.tvchips.tighter .tvchip i{font-size:9px}
+.tvchip{flex:0 0 auto;display:inline-flex;align-items:baseline;white-space:nowrap;border:1.5px solid var(--c);color:var(--c);background:#fff;border-radius:8px;padding:0 4px;font-size:10.5px;font-weight:800;line-height:1.6}
+.tvchip i{font-style:normal;font-size:9.5px;margin-left:3px}
+.tvchip i b{font-size:7.5px;font-weight:400;vertical-align:1px}
+.tvcard{margin-left:-6px !important;margin-right:-6px !important;padding-left:8px !important;padding-right:8px !important}
+.tvchips{margin:0 -4px;width:calc(100% + 8px)}
+.tvchips.tight{gap:2px}.tvchips.tight .tvchip{padding:0 3px}
+.tvchips.tighter .tvchip{padding:0 2px}.tvchips.tighter .tvchip i{margin-left:2px}
 .tvsum .my{font-size:10.5px;font-weight:700;color:var(--sub);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1 1 0}
 .tvdep{margin:3px 0 5px 2px}
 .tvdep>summary{font-size:12px;font-weight:800;cursor:pointer;padding:2px 0}
@@ -387,13 +388,13 @@ html,body,button,a,input,select,textarea,summary,label{touch-action:manipulation
 .oddr.on{background:var(--c);border-color:var(--c);color:#fff}
 .oddr.on small{color:#fff}
 .oddr.prof{opacity:.55}
-.odtbl{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px}
-.odtbl td{padding:2.5px 3px;border-bottom:1px solid var(--line);vertical-align:middle;line-height:1.25;overflow-wrap:anywhere;word-break:break-word}
-.odtbl td.h{width:20px;text-align:center;padding:0}
-.odtbl td.p{width:60px;font-weight:800;line-height:1.12}
-.odtbl td.p .nm{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11.5px}
-.odtbl td.p .no{display:block;font-size:8.5px;font-weight:600;color:var(--sub);letter-spacing:-.3px;white-space:nowrap;overflow:hidden}
-.odtbl td.r{width:52px;text-align:right;color:var(--sub);font-weight:700;font-size:10.5px}
+.odtbl{width:100%;border-collapse:collapse;table-layout:auto;font-size:11px}
+.odtbl td{padding:2.5px 2px;border-bottom:1px solid var(--line);vertical-align:middle;line-height:1.25;overflow-wrap:anywhere;word-break:break-word}
+.odtbl td.h{width:1%;text-align:center;padding:0 3px 0 0;white-space:nowrap}
+.odtbl td.p{width:1%;white-space:nowrap;font-weight:800;line-height:1.12;padding-right:6px}
+.odtbl td.p .nm{display:block;max-width:64px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11.5px}
+.odtbl td.p .no{display:block;font-size:8.5px;font-weight:600;color:var(--sub);letter-spacing:-.3px;white-space:nowrap}
+.odtbl td.r{width:1%;white-space:nowrap;text-align:right;color:var(--sub);font-weight:700;font-size:10.5px;padding-left:5px;max-width:60px;overflow:hidden;text-overflow:ellipsis}
 .odtbl tr.g td{border-bottom:1.5px solid var(--line);padding:6px 3px 2px;font-size:11.5px;font-weight:900;color:var(--ink);background:transparent}
 .odtbl tr.g td small{font-size:10px;color:var(--sub);font-weight:700;margin-left:4px}
 .odtbl tr.lk td{font-size:10px;color:var(--sub)}
@@ -1176,7 +1177,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-09-19", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260919-283";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260919-285";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화),
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -6769,9 +6770,9 @@ function renderOcsNew(){
     const k=(typeof ocsKey==="function")?ocsKey(u):"";
     const hi=k&&S.ocsHi&&S.ocsHi[k];
     const HL="var(--hl,#FFF3B0)";
-    return `<div style="display:flex;align-items:flex-start;gap:7px;padding:6px 6px;border-bottom:1px solid var(--line);border-radius:8px;${hiStyle(k)}${dim?"opacity:.5;":""}">
+    return `<div style="display:flex;align-items:flex-start;gap:5px;padding:6px 5px;border-bottom:1px solid var(--line);border-radius:8px;${hiStyle(k)}${dim?"opacity:.5;":""}">
       ${k?`<button type="button" data-k="${esc(k)}" onclick="event.stopPropagation();ocsHiByKey('${esc(k)}')" title="탭=색 순환 · 길게 누르면 색 선택" style="flex:0 0 auto;border:none;background:transparent;cursor:pointer;font-size:12px;padding:0;opacity:${hi?"1":".3"}">🖍️</button>`:""}
-      <b style="flex:0 0 auto;font-size:12.5px;width:40px">${u.t||"?"}</b>
+      <b style="flex:0 0 auto;font-size:12.5px">${u.t||"?"}</b>
       <span class="dept-tag" style="flex:0 0 auto;background:${col};color:${txtOn(col)};font-size:9.5px">${u.dep}</span>
       <span style="flex:1;min-width:0">
         <span style="font-weight:800">${esc(u.pt)}</span>
@@ -7008,8 +7009,8 @@ function odRowT(u,MSg,hvMap,drCol){
   const hiBtn=`<button type="button" data-k="${k}" onclick="event.stopPropagation();ocsHiByKey('${k}')" title="탭=칠하기 · 길게 누르면 색 선택" style="border:none;background:transparent;cursor:pointer;font-size:12px;padding:0;opacity:${hn?"1":".35"}">${hn?HI_COLORS[hn].ico:"🖍️"}</button>`;
   return `<tr class="${lock?"lk":""}" data-st="${st0}" style="${st}"><td class="h">${hiBtn}</td><td class="t">${u.t||"?"}</td><td class="p"><span class="nm">${esc(u.pt)}${mine?'<b style="color:var(--purple)">◇</b>':""}</span>${u.no?`<span class="no">${esc(u.no)}</span>`:""}</td><td>${lock?"🔒 ":""}${hvT}${nw}${esc(u.cat||"—")}</td>${drCol?`<td class="r">${esc(drLabel(u))}</td>`:""}</tr>`;
 }
-const OD_COLS_DR=`<colgroup><col style="width:20px"><col style="width:36px"><col style="width:62px"><col></colgroup>`;
-const OD_COLS_TV=`<colgroup><col style="width:20px"><col style="width:36px"><col style="width:60px"><col><col style="width:50px"></colgroup>`;
+const OD_COLS_DR="";
+const OD_COLS_TV="";
 /* 시간대 슬롯의 과 칩이 한 줄에 안 들어가면(좁은 폰) 여백부터 줄이고, 그래도 넘치면 글자를 아주 살짝만 줄임 */
 window.addEventListener("resize",()=>{clearTimeout(window.__tvFitT);window.__tvFitT=setTimeout(()=>{try{tvFitChips();}catch(e){}},150);});
 function tvFitChips(){
@@ -7073,7 +7074,7 @@ function odDepHtml(ds,raw,MSg,hvMap){
     const flush=()=>{if(!buf.length)return;rows+=`<tr class="g"><td colspan="4">${cur||"시간 미정"}<small>${buf.length}건</small></td></tr>`+buf.map(u=>odRow(u,esc(drLabel(u)),MSg,hvMap)).join("");buf=[];};
     vis.forEach(u=>{if((u.t||"")!==cur){flush();cur=u.t||"";}buf.push(u);});flush();
   }
-  return h+`<table class="odtbl"><colgroup><col style="width:20px"><col style="width:62px"><col><col style="width:54px"></colgroup>${rows}</table></div>`;
+  return h+`<table class="odtbl">${rows}</table></div>`;
 }
 /* ═══ 오늘 뭐 열리나 — ⏱ 시간대별 전체(기본) / 🗂 과별로 보기 ═══ */
 function renderOcsDay(){
