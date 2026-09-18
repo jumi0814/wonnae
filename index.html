@@ -408,11 +408,13 @@ body.odf-pre #o-day button,body.odf-nsr #o-day button{font-family:inherit}
 .odpen{flex:0 0 auto;display:flex;align-items:center;gap:2px;border:1.5px solid var(--line);border-radius:999px;padding:2px 5px;background:#fff}
 .odpen:empty{display:none}
 .odpen button{width:15px !important;height:15px !important}
+.odpen button:first-of-type{width:17px !important;font-size:9.5px !important}
 @media (max-width:430px){.odseg .lg{display:none}}
 .odbar{flex-wrap:nowrap}
 .odseg{flex:1 1 0}
 .odpen>span{display:none}   /* 날짜 옆에서는 🖍️ 아이콘 없이 색 점만 */
-@media (max-width:385px){.odbar{gap:4px}.odnav button{padding:3px 6px}.odnav button:first-child,.odnav button:last-child{padding:1px 6px}.odfont{padding:3px 6px}.odseg button{padding:4px 3px;font-size:11px}.odpen{padding:2px 4px}}
+@media (max-width:385px){.odpen{gap:1px !important;padding:2px 3px !important}.odpen button{width:14px !important;height:14px !important}.odpen button:first-of-type{width:16px !important}.odbar{gap:3px}.odseg button{padding:4px 2px !important}.odfont{padding:3px 5px !important}}
+@media (max-width:385px){.odbar{gap:3px}.odnav button{padding:3px 6px}.odnav button:first-child,.odnav button:last-child{padding:1px 6px}.odfont{padding:3px 6px}.odseg button{padding:4px 3px;font-size:11px}.odpen{padding:2px 4px}}
 .odfont{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:3px 8px;font-size:11.5px;font-weight:800;color:var(--sub);cursor:pointer;line-height:1.3}
 .odfont-pop{position:fixed;z-index:9999;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 22px rgba(35,42,51,.22);padding:5px;display:flex;flex-direction:column;gap:3px;min-width:170px}
 .odfont-pop button{border:1.5px solid transparent;background:transparent;border-radius:9px;padding:7px 10px;text-align:left;cursor:pointer;font-size:13.5px;color:var(--ink)}
@@ -1251,7 +1253,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-09-19", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260919-298";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260919-299";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화),
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -6341,14 +6343,12 @@ function hiIcon(k){const n=hiOf(k);return n?HI_COLORS[n].ico:"🖍️";}
 /* ── 칠할 색 고르기(펜) ──
    penColor=0이면 '순환' 모드(기존 동작), 1~3이면 그 색으로 바로 칠함 */
 function hiSetPen(n){
-  window.penColor=n||1;                          /* 항상 색 하나가 선택된 상태 */
+  window.penColor=+n||0;                         /* 0 = 🔄 순환(기본) · 1~3 = 그 색만 칠하기 */
   renderHiPen();
 }
 function renderHiPen(){
   const el=document.getElementById("hi-pen");if(!el)return;
-  if(window.penColor===undefined)window.penColor=0;
-  const items=[[1,"노랑","#FFF3B0"],[2,"🟥 빨강","#FFD8D2"],[3,"⬜ 회색","#ECEEF1"]];
-  if(!window.penColor)window.penColor=1;          /* 순환 없음 — 기본 노랑 */
+  if(window.penColor===undefined)window.penColor=0;   /* 기본 = 🔄 순환 모드 */
   /* 작고 단정하게 — 색은 동그란 점, 선택된 것만 코럴 링 */
   el.innerHTML=penDotsHtml();
   const el2=document.getElementById("hi-pen-inline");if(el2)el2.innerHTML=penDotsHtml();
@@ -6356,8 +6356,10 @@ function renderHiPen(){
 }
 function penDotsHtml(){
   const items=[[1,"노랑","#FFF3B0"],[2,"🟥 빨강","#FFD8D2"],[3,"⬜ 회색","#ECEEF1"]];
-  if(!window.penColor)window.penColor=1;
+  if(window.penColor===undefined)window.penColor=0;
+  const cy=window.penColor===0;
   return `<span style="font-size:10px;font-weight:800;color:var(--sub);opacity:.8">🖍️</span>`
+    +`<button onclick="hiSetPen(0)" title="순환 모드 — 탭할 때마다 노랑→빨강→회색→해제" style="width:19px;height:17px;padding:0;border-radius:50%;cursor:pointer;background:${cy?"#FFF4F2":"#fff"};font-size:10.5px;line-height:1;border:${cy?"2px solid var(--coral)":"1px solid rgba(0,0,0,.13)"};box-shadow:${cy?"0 0 0 2px rgba(255,107,90,.18)":"none"}">🔄</button>`
     +items.map(([n,lb,c])=>{const on=window.penColor===n;
       return `<button onclick="hiSetPen(${n})" title="${lb}" style="width:17px;height:17px;padding:0;border-radius:50%;cursor:pointer;background:${c};border:${on?"2px solid var(--coral)":"1px solid rgba(0,0,0,.13)"};box-shadow:${on?"0 0 0 2px rgba(255,107,90,.18)":"none"}"></button>`;
     }).join("");
@@ -6420,8 +6422,9 @@ function hiBindLong(){
 /* 🖍️ 탭 = 위에서 고른 색으로 칠하기 (같은 색이면 해제). 순환 없음. */
 /* 🖍️ 탭 = 위에서 고른 색으로 칠하기 (같은 색을 다시 탭하면 해제). 순환 없음. */
 function ocsHiByKey(k){
-  const pen=window.penColor||1;
-  ocsHiSet(k, hiOf(k)===pen ? 0 : pen);
+  const pen=window.penColor||0;
+  if(!pen){ocsHiSet(k,(hiOf(k)+1)%4);return;}   /* 🔄 순환: 없음→노랑→빨강→회색→해제 */
+  ocsHiSet(k, hiOf(k)===pen ? 0 : pen);          /* 색 선택: 그 색만 칠하기 (같은 색 다시 탭 = 해제) */
 }
 /* 특정 키의 하이라이트 색을 화면에 즉시 반영 (재렌더 없이) */
 function hiPaint(k){
