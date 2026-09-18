@@ -385,6 +385,14 @@ body.odf-pre #o-day .odtbl td.r{font-weight:500}
 body.odf-pre #o-day .dept-tag{font-weight:700}
 body.odf-nsr #o-day,body.odf-nsr .odprobe{font-family:"NanumSquareRound","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
 body.odf-pre #o-day button,body.odf-nsr #o-day button{font-family:inherit}
+.odpen{flex:0 0 auto;display:flex;align-items:center;gap:2px;border:1.5px solid var(--line);border-radius:999px;padding:2px 5px;background:#fff}
+.odpen:empty{display:none}
+.odpen button{width:15px !important;height:15px !important}
+@media (max-width:430px){.odseg .lg{display:none}}
+.odbar{flex-wrap:nowrap}
+.odseg{flex:1 1 0}
+.odpen>span{display:none}   /* 날짜 옆에서는 🖍️ 아이콘 없이 색 점만 */
+@media (max-width:385px){.odbar{gap:4px}.odnav button{padding:3px 6px}.odnav button:first-child,.odnav button:last-child{padding:1px 6px}.odfont{padding:3px 6px}.odseg button{padding:4px 3px;font-size:11px}.odpen{padding:2px 4px}}
 .odfont{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:3px 8px;font-size:11.5px;font-weight:800;color:var(--sub);cursor:pointer;line-height:1.3}
 .odfont-pop{position:fixed;z-index:9999;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 22px rgba(35,42,51,.22);padding:5px;display:flex;flex-direction:column;gap:3px;min-width:170px}
 .odfont-pop button{border:1.5px solid transparent;background:transparent;border-radius:9px;padding:7px 10px;text-align:left;cursor:pointer;font-size:13.5px;color:var(--ink)}
@@ -722,9 +730,10 @@ select,textarea{font-size:16px !important}
         <button type="button" onclick="ocsMove(1)" aria-label="다음 날">›</button>
       </div>
       <button type="button" class="odfont personal-only" id="od-font" onclick="odFontMenu(this)" title="글씨체 바꾸기">Aa</button>
+      <span class="odpen" id="hi-pen-bar"></span>
       <div class="odseg personal-only" id="od-seg">
-        <button type="button" data-m="time" onclick="odSetMode('time')">⏱ 시간대별 전체</button>
-        <button type="button" data-m="dep" onclick="odSetMode('dep')">🗂 과별로 보기</button>
+        <button type="button" data-m="time" onclick="odSetMode('time')">⏱ 시간대별<span class="lg"> 전체</span></button>
+        <button type="button" data-m="dep" onclick="odSetMode('dep')">🗂 과별<span class="lg">로 보기</span></button>
       </div>
     </div>
     <div id="ocs-myday"></div>
@@ -1222,7 +1231,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-09-19", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260919-293";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260919-295";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화),
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -6323,6 +6332,7 @@ function renderHiPen(){
   /* 작고 단정하게 — 색은 동그란 점, 선택된 것만 코럴 링 */
   el.innerHTML=penDotsHtml();
   const el2=document.getElementById("hi-pen-inline");if(el2)el2.innerHTML=penDotsHtml();
+  const el3=document.getElementById("hi-pen-bar");if(el3)el3.innerHTML=(el3.dataset.on==="1")?penDotsHtml():"";
 }
 function penDotsHtml(){
   const items=[[1,"노랑","#FFF3B0"],[2,"🟥 빨강","#FFD8D2"],[3,"⬜ 회색","#ECEEF1"]];
@@ -6724,7 +6734,7 @@ function tierBadge(dep,dr){const t=drTier(dep,dr);if(!t)return"";
  return ` <span style="font-size:8.5px;border:1px solid;border-radius:5px;padding:0 3px;font-weight:900;${st}">${t}</span>`;}
 function timeViewHtml(ds){
   const raw=upOn(ds);if(!raw.length)return "";
-  const ups=raw.filter(u=>accessOf(u)==="resi");
+  const ups=raw.filter(u=>accessOf(u)==="resi"&&u.dep!=="내과");   /* 시간대별 전체는 내과 제외 */
   const MSg=matchSet();
   const fmt=m=>String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0");
   const hvMap=new Map();ups.forEach(u=>{const r=hvOf(u);if(r)hvMap.set(u,r);});
@@ -6898,29 +6908,34 @@ function renderOcsGold(){
     /* ── 🖍️ 하이라이트만 ──
        기본은 노랑+빨강만 (회색=비중요 가림 표시라 목록에서 제외).
        색 칩으로 노랑/빨강/회색/전체를 따로 모아볼 수 있음. */
-    if(!window.hlColor)window.hlColor="main";     /* main | 1 | 2 | 3 | all */
-    const passColor=n=>{
+    if(!window.hlColor)window.hlColor="main";     /* main | 1 | 2 | 3 | tot | all */
+    /* ◇ 내 토탈 진료는 칠하지 않아도 자동으로 여기 모임 (보라 배경) — 회색으로 칠해 가린 건 제외 */
+    const isTot=u=>MSg.has(u)&&hiOf(ocsKey(u))!==3;
+    const passColor=(n,u)=>{
       const f=window.hlColor;
-      if(f==="all")return n>0;
-      if(f==="main")return n===1||n===2;          /* 기본: 노랑+빨강 */
+      if(f==="tot")return isTot(u);
+      if(f==="all")return n>0||isTot(u);
+      if(f==="main")return n===1||n===2||isTot(u);   /* 기본: 노랑+빨강+내 토탈 */
       return n===+f;
     };
-    const hlAll=raw.filter(u=>hiOf(ocsKey(u))>0);
-    const hlList=hlAll.filter(u=>passColor(hiOf(ocsKey(u)))).sort((a,b)=>{
+    const hlAll=raw.filter(u=>hiOf(ocsKey(u))>0||isTot(u));
+    const hlList=hlAll.filter(u=>passColor(hiOf(ocsKey(u)),u)).sort((a,b)=>{
       const ta=(a.t||"99:99"),tb=(b.t||"99:99");return ta<tb?-1:ta>tb?1:0;
     });
     /* 색 필터 칩 */
     {const cn=n=>hlAll.filter(u=>hiOf(ocsKey(u))===n).length;
-     const chips=[["main","🖍️ 기본",cn(1)+cn(2)],["1","노랑",cn(1)],["2","🟥 빨강",cn(2)],["3","⬜ 회색",cn(3)],["all","전체",hlAll.length]];
+     const tn=hlAll.filter(isTot).length;
+     const mainN=hlAll.filter(u=>{const n=hiOf(ocsKey(u));return n===1||n===2||isTot(u);}).length;
+     const chips=[["main","🖍️ 기본",mainN],["1","노랑",cn(1)],["2","🟥 빨강",cn(2)],["3","⬜ 회색",cn(3)],["tot","◇ 토탈",tn],["all","전체",hlAll.length]];
      html+=`<div style="display:flex;gap:5px;align-items:center;margin:0 0 9px;flex-wrap:wrap">
        <span style="font-size:11px;font-weight:800;color:var(--sub)">색</span>
        ${chips.map(([k,lb,n])=>{const on=window.hlColor===k;
-         return `<button onclick="hlSetColor('${k}')" ${n?"":"disabled"} style="border:1.5px solid ${on?"var(--coral)":"var(--line)"};background:${on?"var(--coral)":(k==="1"?"#FFF3B0":k==="2"?"#FFD8D2":k==="3"?"#ECEEF1":"#fff")};color:${on?"#fff":(n?"var(--ink)":"#CCC")};border-radius:999px;padding:3px 11px;font-size:11.5px;font-weight:800;cursor:${n?"pointer":"default"}">${lb} ${n}</button>`;
+         return `<button onclick="hlSetColor('${k}')" ${n?"":"disabled"} style="border:1.5px solid ${on?"var(--coral)":"var(--line)"};background:${on?"var(--coral)":(k==="1"?"#FFF3B0":k==="2"?"#FFD8D2":k==="3"?"#ECEEF1":k==="tot"?"var(--purple-soft)":"#fff")};color:${on?"#fff":(n?(k==="tot"?"var(--purple)":"var(--ink)"):"#CCC")};border-radius:999px;padding:3px 11px;font-size:11.5px;font-weight:800;cursor:${n?"pointer":"default"}">${lb} ${n}</button>`;
        }).join("")}
-       <span class="hint" style="font-size:10.5px">회색은 기본에서 제외</span>
+       <span class="hint" style="font-size:10.5px">◇내 토탈은 자동 포함 · 회색은 기본에서 제외</span>
      </div>`;}
     if(!hlList.length){
-      html+=`<div class="card"><p class="hint">🖍️ 이 날 하이라이트한 진료가 없어요.<br><b>오늘 뭐 열리나</b>(시간대별·과별)나 💎 고밸류 탭에서 진료 옆 🖍️를 탭하면 여기에 모여요.</p></div>`;
+      html+=`<div class="card"><p class="hint">🖍️ 이 날 하이라이트한 진료나 내 토탈 진료가 없어요.<br><b>오늘 뭐 열리나</b>(시간대별·과별)나 💎 고밸류 탭에서 진료 옆 🖍️를 탭하면 여기에 모여요.</p></div>`;
     }else{
       const cnt=hlList.length, myc=hlList.filter(u=>MSg.has(u)).length, dmc=hlList.filter(u=>hvMap.has(u)).length;
       html+=`<div class="card"><div style="font-size:12px;font-weight:800;margin-bottom:5px">🖍️ 하이라이트 <span class="badge pu">${cnt}건</span> <span style="font-weight:600;color:var(--sub)">· 시간순${dmc?` · 💎${dmc}`:""}${myc?` · ◇내토탈 ${myc}`:""}</span></div>`;
@@ -7204,7 +7219,9 @@ function renderOcsDay(){
   const share=document.body.classList.contains("share-mode");
   const mode=share?"dep":(odV.mode==="dep"?"dep":"time");
   document.querySelectorAll("#od-seg button").forEach(b=>b.classList.toggle("on",b.dataset.m===mode));
-  {const hp=document.getElementById("hi-pen");if(hp)hp.style.display=mode==="dep"?"none":"";}
+  /* 하이라이트 색: 오늘 뭐 열리나에서는 전역 줄 대신 — 시간대별은 날짜 옆, 과별은 목록 위 */
+  {const hp=document.getElementById("hi-pen");if(hp)hp.style.display="none";
+   const hb=document.getElementById("hi-pen-bar");if(hb){hb.dataset.on=mode==="time"?"1":"0";hb.innerHTML=mode==="time"?penDotsHtml():"";}}
   const raw=upOn(ds);
   const MSg=matchSet();
   const ups=raw.filter(u=>accessOf(u)==="resi");
