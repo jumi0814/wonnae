@@ -40,6 +40,20 @@ body{font-family:"Apple SD Gothic Neo","Noto Sans KR","Pretendard",system-ui,san
 body.share-mode .personal-only{display:none !important}
 .share-only{display:none !important}
 body.share-mode .share-only{display:flex !important}
+/* 배포용 화면을 공유판처럼: 블록/인라인 전용 표시 도우미 */
+.share-blk,.share-inl{display:none !important}
+body.share-mode .share-blk{display:block !important}
+body.share-mode .share-inl{display:inline !important}
+body.share-mode .personal-inl{display:none !important}
+body.share-mode #view-tag{display:none}
+body.share-mode #guide-pills{display:none}
+
+body.share-mode #ocs-pills .pill-br{display:none}
+.hdr-right{display:contents}
+.hdr-right #sv-dot-slot{order:2}
+body.share-mode .hdr-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;margin-left:auto;flex:0 0 auto}
+body.share-mode .hdr-right .made-by{order:0}body.share-mode .hdr-right #sv-dot-slot{order:1}body.share-mode .hdr-right #sem-btn{order:2}
+.made-by{font-size:10.5px;font-weight:700;opacity:.82;letter-spacing:.01em;white-space:nowrap;color:#fff}
 header{cursor:pointer;-webkit-user-select:none;user-select:none}
 #view-tag{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.45);border-radius:99px;padding:1px 8px;font-size:10px;font-weight:800;margin-left:4px;cursor:pointer;-webkit-tap-highlight-color:rgba(255,255,255,.3)}
 body.share-mode #view-tag{background:rgba(120,200,160,.28);border-color:rgba(160,230,190,.5)}
@@ -494,7 +508,7 @@ select,textarea{font-size:16px !important}
 <div id="topband">
 <header>
   <div><h1>원내생 커맨드센터</h1><div class="sub"><span id="view-tag">🔧 개인용</span> <span id="build-badge" style="display:inline-block;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:99px;padding:2px 9px;font-size:10px;font-weight:800;backdrop-filter:blur(4px)"></span></div></div>
-  <button id="sem-btn" onclick="switchSemester()">3-2학기</button>
+  <div class="hdr-right"><span class="made-by share-inl">made by 쭘</span><span id="sv-dot-slot"></span><button id="sem-btn" onclick="switchSemester()">3-2학기</button></div>
 </header>
 <div id="timeline">
   <div id="now-line"><span id="now-date"></span><span id="now-clock">--:--</span></div>
@@ -651,9 +665,9 @@ select,textarea{font-size:16px !important}
 <!-- ══ OCS ══ -->
 <section class="tabpage" id="page-ocs">
   <div class="slotpick" id="ocs-pills">
-    <button data-o="day" class="on">오늘 뭐 열리나</button>
+    <button data-o="day" class="on"><span class="personal-inl">오늘 뭐 열리나</span><span class="share-inl">당일 뷰</span></button>
     <button data-o="gold" class="personal-only">⚡고밸류</button>
-    <button data-o="new">🌱신환만</button>
+    <button data-o="new" class="personal-only">🌱신환만</button>
     <button data-o="hl" data-golddir="hl">🖍️하이라이트</button>
     <span class="pill-br" aria-hidden="true"></span>
     <button data-o="total">토탈</button>
@@ -692,7 +706,7 @@ select,textarea{font-size:16px !important}
         <button type="button" id="ocs-nav-title" onclick="ocsReset()" title="탭하면 오늘로">오늘</button>
         <button type="button" onclick="ocsMove(1)" aria-label="다음 날">›</button>
       </div>
-      <button type="button" class="odfont" id="od-font" onclick="odFontMenu(this)" title="글씨체 바꾸기">Aa</button>
+      <button type="button" class="odfont personal-only" id="od-font" onclick="odFontMenu(this)" title="글씨체 바꾸기">Aa</button>
       <div class="odseg personal-only" id="od-seg">
         <button type="button" data-m="time" onclick="odSetMode('time')">⏱ 시간대별 전체</button>
         <button type="button" data-m="dep" onclick="odSetMode('dep')">🗂 과별로 보기</button>
@@ -718,6 +732,12 @@ select,textarea{font-size:16px !important}
   </div>
 
   <div class="gsec" id="g-flow">
+    <div class="card share-blk"><h2>📋 노티 양식 <span class="badge pu">탭해서 복사</span></h2>
+      <div class="copybox" onclick="copyTx(this)"><code>@케이스장, 내원시간, 환자번호, 이름, 들어가는 원내생</code><button class="btn small ghost">복사</button></div>
+      <p class="hint">↑ 친환 노티 — 당일 <b>08:30까지</b> 과별 질문/잡담방</p>
+      <div class="copybox" onclick="copyTx(this)"><code>선생님,날짜,시간,항목(가/고/임),환자명,환자번호,번호,이름</code><button class="btn small ghost">복사</button></div>
+      <p class="hint">↑ 보철 토탈 노티 — 전날 18:00~당일 08:00 토탈방 · 2명이면 각자!</p>
+    </div>
     <div class="card"><h2>케이스별 절차 체크리스트</h2>
     <p class="hint">사인·유폴 순서 복잡한 케이스 단계별 (체크 저장 안 됨 — 케이스마다 재사용)</p></div>
     <p class="hint" style="margin-bottom:6px">처음이면 <b>⓪ 공통 3개</b>부터! 제목 탭=단계 펼치기 · 과 칩 탭=그 과만 보기 · <span style="background:#DFF0E7;border-radius:4px;padding:0 4px">✍초록</span>=유폴·사인 단계 · <span style="background:#FBEAEA;border-radius:4px;padding:0 4px">⚠빨강</span>=실수 주의</p>
@@ -895,7 +915,7 @@ select,textarea{font-size:16px !important}
 </div>
 
   <div class="gsec" id="g-set" style="display:none">
-    <div class="card" style="border:2px solid var(--brand)">
+    <div class="card personal-only" style="border:2px solid var(--brand)">
       <h2>🔥 일정 굽기 — 폰·컴퓨터 완전 동기화</h2>
       <p class="hint">OCS·규칙은 <b>파일 안에 새겨져</b> 있어서 어디서 열든 최신인데, <b>일정은 각 기기 브라우저 저장소</b>에 살아서 파일만 갈아선 기기 간에 안 넘어가요. 해결책: 아래 버튼으로 코드를 복사해 <b>Claude 채팅에 붙여넣기</b> → 다음 버전부터 이 일정이 <b>파일 자체에 새겨져</b>(OCS처럼!) 폰·컴 어디서 열어도 똑같이 떠요. 각 기기에서 고친 내용은 병합되어 절대 안 사라져요.</p>
       <button class="btn" style="width:100%;background:var(--brand);border-color:var(--brand);color:#fff;font-weight:800" onclick="copyBake()">🔥 일정 굽기 코드 복사 (→ Claude에게 붙여넣기)</button>
@@ -956,7 +976,7 @@ select,textarea{font-size:16px !important}
       <button class="btn small ghost" style="width:100%;margin-top:6px" onclick="checkIcs()">🔎 GitHub에 실제로 올라갔는지 확인</button>
       <p class="hint" id="ics-check" style="margin-top:4px"></p>
     </div>
-    <div class="card" style="border:1.5px solid var(--amber)">
+    <div class="card sv-keep" style="border:1.5px solid var(--amber)">
       <h2>💾 데이터 지키기 (필수!) <span class="badge" id="db-mode"></span></h2>
       <p class="hint"><b>왜 중요한가요?</b> 새 HTML 버전은 <b>저장공간이 새로 시작</b>돼요(플랫폼 구조상 버전별 분리). 그래서 버전을 갈아탈 땐 <b>이전 버전 [📤 복사] → 새 버전 [📥 붙여넣기 복원]</b> 10초 루틴이 공식 이동 경로! 파일 저장은 장기 보관용 이중 안전장치예요.</p>
       <div style="display:flex;gap:8px;margin:10px 0 4px">
@@ -1187,7 +1207,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-09-19", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260919-289";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260919-290";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화),
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -2318,7 +2338,7 @@ function updateSvDot(){
   if(!el){const hd=document.querySelector("header");if(!hd)return;
     el=document.createElement("button");el.id="sv-dot";
     el.style.cssText="border:none;background:transparent;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap;padding:2px 0 0;text-align:right";
-    el.onclick=showSvLog;hd.appendChild(el);}
+    el.onclick=showSvLog;(document.getElementById("sv-dot-slot")||hd).appendChild(el);}
   const lsOK=(()=>{try{localStorage.setItem("__t","1");localStorage.removeItem("__t");return true;}catch(e){return false;}})();
   const sa=S&&S.savedAt?new Date(S.savedAt):null;
   const when=sa?` · ${sa.getMonth()+1}/${sa.getDate()} ${String(sa.getHours()).padStart(2,"0")}:${String(sa.getMinutes()).padStart(2,"0")}`:"";
@@ -2538,10 +2558,10 @@ document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
     document.querySelectorAll("nav button").forEach(x=>x.classList.remove("on"));b.classList.add("on");
     document.querySelectorAll(".tabpage").forEach(p=>p.classList.remove("active"));
     document.getElementById("page-rules").classList.add("active");
-    const bk=document.getElementById("db-mode");
-    if(bk){const card=bk.closest(".card");if(card){card.scrollIntoView({behavior:"smooth",block:"start"});}else{window.scrollTo(0,0);}}
+    guideShow("set");window.scrollTo(0,0);          /* 저장 탭 = 백업·동기화 섹션 */
     return;
   }
+  if(b.dataset.tab==="rules"&&S.viewMode==="share")guideShow("flow");   /* 배포용 가이드 = 절차 */
   document.querySelectorAll("nav button").forEach(x=>x.classList.remove("on"));b.classList.add("on");
   document.querySelectorAll(".tabpage").forEach(p=>p.classList.remove("active"));
   document.getElementById("page-"+b.dataset.tab).classList.add("active");
@@ -2551,10 +2571,19 @@ document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
   if(b.dataset.tab==="rules"&&!window._flowRendered){window._flowRendered=1;renderFlows();}
   window.scrollTo(0,0);
 });
+function guideShow(g){
+  const pb=document.querySelector('#guide-pills button[data-g="'+g+'"]');
+  document.querySelectorAll("#guide-pills button").forEach(x=>x.classList.toggle("on",x===pb));
+  document.querySelectorAll(".gsec").forEach(s=>s.style.display="none");
+  const sec=document.getElementById("g-"+g);if(sec)sec.style.display="";
+  if(g==="tips")renderTierTable();
+  if(g==="flow"&&!window._flowRendered){window._flowRendered=1;renderFlows();}
+  if(g==="know"&&!window._knowRendered){window._knowRendered=1;renderKnow();}
+}
 document.querySelectorAll("#guide-pills button").forEach(b=>b.onclick=()=>{
   document.querySelectorAll("#guide-pills button").forEach(x=>x.classList.remove("on"));b.classList.add("on");
   document.querySelectorAll(".gsec").forEach(s=>s.style.display="none");
-  document.getElementById("g-"+b.dataset.g).style.display="block";
+  document.getElementById("g-"+b.dataset.g).style.display="";
   if(b.dataset.g==="tips")renderTierTable();
   /* 무거운 가이드 콘텐츠는 해당 서브탭을 처음 열 때 렌더 (초기 로딩 가속) */
   if(b.dataset.g==="flow"&&!window._flowRendered){window._flowRendered=1;renderFlows();}
@@ -3343,6 +3372,7 @@ function gapsHtml(ds,evs){
 }
 function gapAdviceHtml(ds,gs,ge){
   if(ge-gs<45)return"";
+  if(document.body.classList.contains("share-mode"))return `<div class="gap">⏳ <b>${min2hm(gs)}–${min2hm(ge)}</b> <span class="hint">${Math.round((ge-gs)/6)/10}h 비어요 — OCS 당일 뷰에서 들어갈 진료를 찾아보세요</span></div>`;
   const ses=gs<720?"오전":"오후";
   /* 빈 시간대 = 사다리 가능 구간. 과 추천만 짧게 (전략 문구·슬롯 통계는 과함 → 제거) */
   const er=engineRank(ds,ses);
@@ -4099,11 +4129,12 @@ function renderTomorrowBrief(){
   const er=engineRank(ds,"오전"),ep=engineRank(ds,"오후");
   let free="";
   if(!evs.length)free=`<div class="gap">내일 통비움 → 오전: ${er?er.rows.slice(0,2).map(r=>r.dep).join("·"):"—"} / 오후: ${ep?ep.rows.slice(0,2).map(r=>r.dep).join("·"):"—"} <span class="hint">(플랜>내일 상세)</span></div>`;
+  if(!evs.length&&document.body.classList.contains("share-mode"))free=`<div class="gap">내일 일정 통비움 — OCS 당일 뷰에서 내일 진료를 미리 훑어보세요</div>`;
   document.getElementById("tomorrow-brief").innerHTML=
     `<b style="font-size:13px">${d.getMonth()+1}/${d.getDate()} (${["일","월","화","수","목","금","토"][d.getDay()]})</b> · ${evs.length?evs.map(e=>`${e.time||"?"} [${e.dept}]${esc(e.title)}`).join(" · "):"일정 없음"}
      ${prep.length?`<div style="margin-top:6px">${prep.map(p=>`<div class="rt" style="padding:5px 0"><div class="chk" style="width:18px;height:18px;font-size:11px"></div><div class="tx" style="font-size:12.5px">${p}</div></div>`).join("")}</div>`:""}
      ${free}
-     <button class="btn small ghost" style="margin-top:7px" onclick="goPlan('tmr')">플랜>내일 →</button>`
+     <button class="btn small ghost personal-only" style="margin-top:7px" onclick="goPlan('tmr')">플랜>내일 →</button>`
 ;   /* 노티는 상단 '📣 토탈 노티' 카드에서 일괄 표시 */
 }
 function goPlan(p){
@@ -6166,6 +6197,11 @@ let ocsHideResv=true;    /* 🔒 교수님·예약제(회색) 줄 숨김 — 기
 function applyViewMode(){
   const share=S.viewMode==="share";
   document.body.classList.toggle("share-mode",share);
+  /* 배포용 저장 탭: '데이터 지키기'를 맨 위로 (공유판과 같은 순서) — 개인용이면 원래 자리로 */
+  try{const gs=document.getElementById("g-set"),kp=gs&&gs.querySelector(".sv-keep");
+    if(kp){if(!window.__svKeepMark){window.__svKeepMark=document.createComment("sv-keep");kp.parentNode.insertBefore(window.__svKeepMark,kp);}
+      if(share){if(gs.firstElementChild!==kp)gs.insertBefore(kp,gs.firstChild);}
+      else if(window.__svKeepMark.parentNode)window.__svKeepMark.parentNode.insertBefore(kp,window.__svKeepMark.nextSibling);}}catch(e){}
   const vt=document.getElementById("view-tag");
   if(vt)vt.textContent=share?"👥 배포용":"🔧 개인용";
   const sub=document.querySelector("header .sub");
@@ -6182,6 +6218,8 @@ function toggleViewMode(){
   setTimeout(()=>{try{const od=document.getElementById("o-day");if(od&&od.style.display!=="none")renderOcsDay();}catch(e){}},0);
   S.viewMode=(S.viewMode==="share")?"personal":"share";
   save(true);applyViewMode();
+  try{renderToday();}catch(e){}
+  try{const cur=document.querySelector("nav button.on");if(cur&&cur.dataset.tab==="rules"&&S.viewMode==="share")guideShow("flow");}catch(e){}
   /* 전환 알림은 표시하지 않음 — 화면 자체(뱃지)로 상태를 알 수 있음 */
 }
 /* 진료줄 고유키 — 하이라이트 식별용 */
