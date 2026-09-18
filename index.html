@@ -328,7 +328,7 @@ td.fullcell.is-holi{background:#2E3A34}
 #ocs-pills button{padding:5px 10px;font-size:12px;white-space:nowrap}
 #ocs-pills .pill-br{flex-basis:100%;height:0}
 /* 쌤별·시간대 공용 행: 시간 | 이름(번호) | 진료내역 | (담당쌤) | 🖍️ */
-.odtbl td.t{font-weight:800;font-size:10.5px;white-space:nowrap;color:var(--ink)}
+.odtbl td.t{font-weight:800;font-size:10.5px;white-space:nowrap;color:var(--ink);font-variant-numeric:tabular-nums}
 .odtbl tr.g td{padding-left:2px}
 .oddr{display:inline-grid;grid-template-columns:auto auto;column-gap:4px;row-gap:1px;align-items:baseline;line-height:1.3;padding:5px 13px 4px;font-size:12px}
 .oddr .nm2{grid-column:1;grid-row:1;white-space:nowrap}
@@ -352,6 +352,15 @@ td.fullcell.is-holi{background:#2E3A34}
 .tvsum .my{font-size:10.5px;font-weight:700;color:var(--sub);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1 1 0}
 .tvdep{margin:3px 0 5px 2px}
 .tvdep>summary{font-size:12px;font-weight:800;cursor:pointer;padding:2px 0}
+/* 오늘 뭐 열리나 글씨체 (기기별 선택 · 기본 Pretendard) */
+body.odf-pre #o-day,body.odf-pre .odprobe{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
+body.odf-nsr #o-day,body.odf-nsr .odprobe{font-family:"NanumSquareRound","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
+body.odf-pre #o-day button,body.odf-nsr #o-day button{font-family:inherit}
+.odfont{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:3px 8px;font-size:11.5px;font-weight:800;color:var(--sub);cursor:pointer;line-height:1.3}
+.odfont-pop{position:fixed;z-index:9999;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 22px rgba(35,42,51,.22);padding:5px;display:flex;flex-direction:column;gap:3px;min-width:170px}
+.odfont-pop button{border:1.5px solid transparent;background:transparent;border-radius:9px;padding:7px 10px;text-align:left;cursor:pointer;font-size:13.5px;color:var(--ink)}
+.odfont-pop button.on{border-color:var(--coral);background:#FFF4F2}
+.odfont-pop small{display:block;font-size:10.5px;color:var(--sub);margin-top:1px}
 /* OCS 탭: 연속 탭(더블탭) 확대 방지 — 핀치 확대는 그대로 */
 html,body,button,a,input,select,textarea,summary,label{touch-action:manipulation}   /* 앱 전체: 더블탭 확대 방지(핀치 확대는 유지) */
 /* ── OCS '오늘 뭐 열리나' 상단 바 · 과별 목록 ── */
@@ -393,7 +402,7 @@ html,body,button,a,input,select,textarea,summary,label{touch-action:manipulation
 .odtbl td.h{text-align:center;white-space:nowrap}
 .odtbl td.p{white-space:nowrap;line-height:1.12;overflow:hidden}
 .odtbl td.p .nm{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11.5px;font-weight:700;color:#5E6B66}
-.odtbl td.p .no{display:block;font-size:8.5px;font-weight:600;color:#9AA5A0;letter-spacing:-.3px;white-space:nowrap;overflow:hidden}
+.odtbl td.p .no{display:block;font-size:8.5px;font-weight:600;color:#9AA5A0;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;font-variant-numeric:tabular-nums}
 .odtbl td.r{white-space:nowrap;text-align:right;color:var(--ink);font-weight:600;font-size:10.5px;overflow:hidden;text-overflow:ellipsis}
 .odtbl tr.g td{border-bottom:1.5px solid var(--line);padding:6px 3px 2px;font-size:11.5px;font-weight:900;color:var(--ink);background:transparent}
 .odtbl tr.g td small{font-size:10px;color:var(--sub);font-weight:700;margin-left:4px}
@@ -683,6 +692,7 @@ select,textarea{font-size:16px !important}
         <button type="button" id="ocs-nav-title" onclick="ocsReset()" title="탭하면 오늘로">오늘</button>
         <button type="button" onclick="ocsMove(1)" aria-label="다음 날">›</button>
       </div>
+      <button type="button" class="odfont" id="od-font" onclick="odFontMenu(this)" title="글씨체 바꾸기">Aa</button>
       <div class="odseg personal-only" id="od-seg">
         <button type="button" data-m="time" onclick="odSetMode('time')">⏱ 시간대별 전체</button>
         <button type="button" data-m="dep" onclick="odSetMode('dep')">🗂 과별로 보기</button>
@@ -1177,7 +1187,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-09-19", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260919-288";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260919-289";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화),
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -7017,21 +7027,58 @@ const OD_COLS_TM=`<colgroup><col style="width:var(--od-h,19px)"><col style="widt
 window.addEventListener("resize",()=>{clearTimeout(window.__tvFitT);window.__tvFitT=setTimeout(()=>{try{tvFitChips();}catch(e){}},150);});
 function odMeasureCols(){
   try{
-    const box=document.createElement("div");box.style.cssText="position:absolute;left:-9999px;top:0;visibility:hidden;white-space:nowrap";
+    const box=document.createElement("div");box.className="odprobe";box.style.cssText="position:absolute;left:-9999px;top:0;visibility:hidden;white-space:nowrap";
     box.innerHTML=`<table class="odtbl"><tr><td class="h"><button style="border:none;background:transparent;font-size:12px;padding:0">🖍️</button></td><td class="t"><span id="odm-t">00:00</span></td><td class="p"><span class="nm" id="odm-n" style="display:inline">홍길동</span><br><span class="no" id="odm-o" style="display:inline">00000000</span></td><td class="r"><span id="odm-r">김수연B</span></td></tr></table>`;
     document.body.appendChild(box);
     const w=id=>Math.ceil(box.querySelector("#"+id).getBoundingClientRect().width);
     const bw=Math.ceil(box.querySelector("button").getBoundingClientRect().width);
     const R=document.documentElement.style;
     if(bw>0){R.setProperty("--od-h",(bw+3)+"px");
-      R.setProperty("--od-t",(w("odm-t")+4)+"px");
-      R.setProperty("--od-p",(Math.max(w("odm-n"),w("odm-o"))+7)+"px");
+      R.setProperty("--od-t",(w("odm-t")+3)+"px");
+      R.setProperty("--od-p",(Math.max(w("odm-n"),w("odm-o"))+4)+"px");
       R.setProperty("--od-r",(w("odm-r")+4)+"px");}
     box.remove();
   }catch(e){}
+  try{tvFitChips();}catch(e){}
 }
 try{if(document.readyState!=="loading")odMeasureCols();else document.addEventListener("DOMContentLoaded",odMeasureCols);
     if(document.fonts&&document.fonts.ready)document.fonts.ready.then(odMeasureCols);}catch(e){}
+/* ═══ 오늘 뭐 열리나 글씨체 — 기기별 저장, 웹폰트는 고를 때만 불러옴 ═══ */
+const OD_FONTS={
+  pre:{nm:"프리텐다드",sub:"부드럽고 산뜻한 기본",css:"https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css",fam:"Pretendard",ff:'Pretendard,sans-serif'},
+  nsr:{nm:"나눔스퀘어라운드",sub:"둥글고 편안한 느낌",css:"https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css",fam:"NanumSquareRound",ff:"NanumSquareRound,sans-serif"},
+  sys:{nm:"기본 (애플 고딕)",sub:"예전 글씨체",css:null,fam:null,ff:'"Apple SD Gothic Neo","Noto Sans KR",sans-serif'}
+};
+function odFontGet(){try{const v=localStorage.getItem("wonnae_odfont");return OD_FONTS[v]?v:"pre";}catch(e){return "pre";}}
+function odFontApply(k){
+  const f=OD_FONTS[k]||OD_FONTS.pre;
+  document.body.classList.remove("odf-pre","odf-nsr");
+  if(k!=="sys")document.body.classList.add("odf-"+k);
+  if(f.css&&!document.querySelector('link[data-odf="'+k+'"]')){
+    const l=document.createElement("link");l.rel="stylesheet";l.href=f.css;l.setAttribute("data-odf",k);
+    l.onload=()=>{try{if(document.fonts)Promise.all([document.fonts.load('700 12px '+f.fam,"가나다0"),document.fonts.load('400 12px '+f.fam,"가나다0")]).then(()=>{odMeasureCols();});}catch(e){}};
+    document.head.appendChild(l);
+  }
+  odMeasureCols();
+  try{if(document.fonts&&f.fam)document.fonts.load('600 12px '+f.fam,"가나다0").then(()=>odMeasureCols());}catch(e){}
+}
+function odFontMenu(btn){
+  document.querySelectorAll(".odfont-pop").forEach(e=>e.remove());
+  const cur=odFontGet();
+  const pop=document.createElement("div");pop.className="odfont-pop";
+  pop.innerHTML=Object.entries(OD_FONTS).map(([k,f])=>`<button type="button" data-k="${k}" class="${k===cur?"on":""}" style="font-family:${f.ff.replace(/"/g,"&quot;")}">${f.nm}<small>${f.sub}</small></button>`).join("");
+  document.body.appendChild(pop);
+  Object.keys(OD_FONTS).forEach(k=>{const f=OD_FONTS[k];if(f.css&&!document.querySelector('link[data-odf="'+k+'"]')){const l=document.createElement("link");l.rel="stylesheet";l.href=f.css;l.setAttribute("data-odf",k);document.head.appendChild(l);}});   /* 미리보기용 */
+  const r=btn.getBoundingClientRect();
+  pop.style.left=Math.max(8,Math.min(window.innerWidth-pop.offsetWidth-8,r.left))+"px";
+  pop.style.top=(r.bottom+6)+"px";
+  pop.querySelectorAll("button").forEach(b=>b.onclick=ev=>{ev.stopPropagation();
+    const k=b.dataset.k;try{localStorage.setItem("wonnae_odfont",k);}catch(e){}
+    odFontApply(k);pop.remove();toast("글씨체: "+OD_FONTS[k].nm);
+    setTimeout(()=>{try{renderOcsDay();}catch(e){}},60);});
+  setTimeout(()=>{const close=e=>{if(!pop.contains(e.target)){pop.remove();document.removeEventListener("click",close);}};document.addEventListener("click",close);},0);
+}
+try{if(document.readyState!=="loading")odFontApply(odFontGet());else document.addEventListener("DOMContentLoaded",()=>odFontApply(odFontGet()));}catch(e){}
 function tvFitChips(){
   requestAnimationFrame(()=>{document.querySelectorAll("#ocs-myday .tvchips").forEach(c=>{
     c.classList.remove("tight","tighter");
