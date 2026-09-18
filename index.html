@@ -369,6 +369,26 @@ td.fullcell.is-holi{background:#2E3A34}
 .tvsum .my{font-size:10.5px;font-weight:700;color:var(--sub);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1 1 0}
 .tvdep{margin:3px 0 5px 2px}
 .tvdep>summary{font-size:12px;font-weight:800;cursor:pointer;padding:2px 0}
+/* 묶음 제목: 건수는 살짝 띄우고 진하게 · 지금/지난 표시 · 오후 구분 · 이동 버튼 */
+.odtbl tr.g td small{margin-left:9px !important;color:var(--ink) !important;font-size:10.5px !important;font-weight:700 !important}
+.odtbl tr.g .gnx{font-size:9px;font-weight:900;color:var(--coral);margin-left:6px;letter-spacing:.08em;vertical-align:1px}
+.odtbl tr.g .gps{font-size:9.5px;font-weight:700;color:var(--sub);margin-left:6px;opacity:.7}
+.odtbl tr.g.past .gl{color:#9AA3A0}
+.odtbl tr.g.next .gl{color:var(--coral)}
+.odtbl tr.was td{opacity:.5}
+.odtbl tr.gdiv td{padding:11px 2px 1px;border-bottom:none;font-size:10.5px;font-weight:800;color:var(--sub);letter-spacing:.04em}
+.odjump{margin-left:auto;display:inline-flex;gap:3px}
+.odjump button{border:1px solid var(--line);background:#fff;color:var(--sub);font-size:10.5px;font-weight:800;padding:3px 7px;white-space:nowrap;border-radius:99px;cursor:pointer;font-family:inherit}
+.odjump button.now{border-color:var(--coral);color:var(--coral)}
+.odctl .lock{padding:3px 8px;font-size:12px}
+/* 배포용 = 공유판 모양: 묶음 제목은 알약, 건수 숫자 없음 */
+body.share-mode .odtbl tr.g td small{display:none}
+body.share-mode .odtbl tr.g .gl{display:inline-block;font-size:12px;font-weight:900;color:var(--ink);background:#EEF2EF;border-radius:99px;padding:2px 10px;letter-spacing:.01em}
+body.share-mode .odtbl tr.g .gl.dr{background:#F1EFF7;color:#4A3F6B}
+body.share-mode .odtbl tr.g.next .gl{background:var(--coral);color:#fff;box-shadow:0 2px 8px rgba(255,107,90,.35)}
+body.share-mode .odtbl tr.g.past .gl{background:#F3F4F3;color:#9AA3A0}
+body.share-mode .odtbl tr.g td{padding-top:9px}
+body.share-mode .odtbl.bydr td.r{visibility:hidden}   /* 공유판처럼 쌤별 줄엔 담당쌤 반복 없음 */
 /* 오늘 뭐 열리나 글씨체 (기기별 선택 · 기본 Pretendard) */
 body.odf-pre #o-day,body.odf-pre .odprobe{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
 /* 프리텐다드는 같은 굵기여도 진해 보여서 한 단계(100)씩 가볍게 — 오늘 뭐 열리나 안에서만 */
@@ -1231,7 +1251,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-09-19", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260919-296";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260919-297";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화),
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -7049,6 +7069,7 @@ function odSave(){try{localStorage.setItem(OD_KEY,JSON.stringify({mode:odV.mode,
 function odSetMode(m){odV.mode=m;if(m==="dep"){odV.sort="dr";odV.dr=null;}odSave();renderOcsDay();}
 function odPickDep(d){odV.dep=d;odV.dr=null;odSave();renderOcsDay();}
 function odSetSort(s){odV.sort=s;odV.dr=null;odSave();renderOcsDay();}
+function odJump(id){const el=document.getElementById(id);if(!el)return;const y=el.getBoundingClientRect().top+window.scrollY-10;window.scrollTo({top:y,behavior:"smooth"});}
 function odPickDr(k){odV.dr=(odV.dr===k?null:k);renderOcsDay();}
 /* 담당의 → 쌤별 묶음 키 (A/B 동명이인 구분 유지 · [과]일반=신환) */
 function odDrKey(u){
@@ -7178,8 +7199,15 @@ function odDepHtml(ds,raw,MSg,hvMap){
   h+=`<div class="odhead"><span class="dept-tag" style="background:${c};color:${txtOn(c)}">${dep}</span><span class="n">${base.length}건</span>
     <span class="s">오전 ${am} · 오후 ${pm}${lockN?` · 🔒${lockN}`:""}${newN?` · 🌱${newN}`:""}${hvN?`<span class="personal-only"> · 💎${hvN}</span>`:""}${mineN?` · <b style="color:var(--purple)">◇${mineN}</b>`:""}</span>
     ${allLock?`<span class="s" style="color:var(--red)">${dep==="외과"?"전부 달신 — 참고만":dep==="원진실"?"동기 프랙 — 참고":"예약제 — 참고만"}</span>`:dep==="교정"?`<span class="s" style="color:var(--brand)">교수님 포함</span>`:""}</div>`;
+  /* 시간순 이동 버튼용: 오늘이면 '지금' 다음 시각, 오후 시작 지점 */
+  const odIsToday=ds===ymd(new Date());
+  const odNowM=(()=>{const n=new Date();return n.getHours()*60+n.getMinutes();})();
+  const odTM=t=>/^\d{1,2}:\d{2}$/.test(t||"")?hm2min(t):-1;
+  const odNext=odIsToday?(vis.map(u=>u.t||"").find(t=>odTM(t)>=odNowM)||null):null;
+  const odHasPM=vis.some(u=>odTM(u.t)>750);
+  const jumps=(odV.sort!=="dr"&&vis.length)?`<span class="odjump">${odNext?`<button type="button" class="now" onclick="odJump('odt-${odNext.replace(":","")}')">⏰ 지금</button>`:""}<button type="button" onclick="odJump('od-list-top')">☀️ 오전</button>${odHasPM?`<button type="button" onclick="odJump('od-pm')">🌙 오후</button>`:""}</span>`:"";
   h+=`<div class="odctl"><span class="seg"><button type="button" class="${odV.sort==="time"?"on":""}" onclick="odSetSort('time')">🕘 시간</button><button type="button" class="${odV.sort==="dr"?"on":""}" onclick="odSetSort('dr')">👨‍⚕️ 쌤별</button></span>
-    ${lockN?`<button type="button" class="lock${ocsHideResv?" on":""}" onclick="ocsToggleResv()">🔒 교수님 숨김 ${ocsHideResv?"ON":"OFF"} (${lockN})</button>`:""}</div>`;
+    ${lockN?`<button type="button" class="lock${ocsHideResv?" on":""}" onclick="ocsToggleResv()" title="교수님 진료 ${ocsHideResv?"숨김 중 — 탭하면 보기":"보는 중 — 탭하면 숨김"} (${lockN}건)">${ocsHideResv?"🔒":"🔓"}</button>`:""}${jumps}</div><span id="od-list-top"></span>`;
   if(!vis.length){return h+`<p class="hint" style="margin:6px 0 2px">${L.length?"교수님 진료만 있어요 — 🔒 버튼으로 볼 수 있어요.":"이 날 이 과 예약이 없어요."}</p></div>`;}
   let rows="";
   if(odV.sort==="dr"){
@@ -7195,16 +7223,23 @@ function odDepHtml(ds,raw,MSg,hvMap){
     h+=`<div class="oddrs">${keys.map(k=>{const A=half(G[k],"am"),P=half(G[k],"pm");const ha=hvc(A),hp=hvc(P);const key=(dep+"|"+k).replace(/'/g,"");
       return `<button type="button" class="oddr${k===sel?" on":""}${isProfK(k)?" prof":""}" style="--c:${c}" onclick="odPickDr('${key}')"><span class="nm2">${esc(k)}</span><span class="n1">${A.length}/${P.length}</span><span class="dm personal-only${ha||hp?"":" z"}">💎</span><span class="n2 personal-only${ha||hp?"":" z"}">${ha}/${hp}</span></button>`;}).join("")}</div>`;
     if(raw.length&&raw[0].hist)h+=`<p class="hint" style="margin:0 0 5px">📜 지난 날짜라 담당쌤 정보가 없어요.</p>`;
-    const grp=(label,arr)=>`<tr class="g"><td colspan="5">${label}<small>${arr.length}건${hvc(arr)?`<span class="personal-only"> · 💎${hvc(arr)}</span>`:""}</small></td></tr>`+arr.map(u=>odRowT(u,MSg,hvMap,true)).join("");
+    const grp=(label,arr)=>`<tr class="g"><td colspan="5"><span class="gl dr">${label}</span><small>${arr.length}건${hvc(arr)?`<span class="personal-only"> · 💎${hvc(arr)}</span>`:""}</small></td></tr>`+arr.map(u=>odRowT(u,MSg,hvMap,true)).join("");
     const show=sel?[sel]:keys;
-    show.forEach(k=>{const A=half(G[k],"am"),P=half(G[k],"pm");
+    if(document.body.classList.contains("share-mode")){
+      /* 배포용(공유판과 같게): 쌤 한 명당 한 묶음, 가나다순 */
+      keys.slice().sort((a,b)=>rank(a)-rank(b)||a.localeCompare(b,"ko")).forEach(k=>{rows+=grp(esc(k),G[k]);});
+    }else show.forEach(k=>{const A=half(G[k],"am"),P=half(G[k],"pm");
       if(A.length)rows+=grp(`${esc(k)} – 오전`,A);
       if(P.length)rows+=grp(`${esc(k)} – 오후`,P);});
-    return h+`<table class="odtbl">${OD_COLS_DR}${rows}</table></div>`;
+    return h+`<table class="odtbl bydr">${OD_COLS_DR}${rows}</table></div>`;
   }else{
     /* ── 🕘 시간순: 시각별 묶음 ── */
-    let cur=null,buf=[];
-    const flush=()=>{if(!buf.length)return;const hvn=buf.filter(u=>hvMap.has(u)).length;rows+=`<tr class="g"><td colspan="4">${cur||"시간 미정"}<small>${buf.length}건${hvn?`<span class="personal-only"> · 💎${hvn}</span>`:""}</small></td></tr>`+buf.map(u=>odRow(u,esc(drLabel(u)),MSg,hvMap)).join("");buf=[];};
+    let cur=null,buf=[],pmMark=false;
+    const flush=()=>{if(!buf.length)return;const hvn=buf.filter(u=>hvMap.has(u)).length;
+      const m=odTM(cur),past=odIsToday&&m>=0&&m<odNowM-30,nx=cur===odNext;
+      if(!pmMark&&m>750){pmMark=true;rows+=`<tr class="gdiv" id="od-pm"><td colspan="4">🌙 오후</td></tr>`;}
+      rows+=`<tr class="g${past?" past":""}${nx?" next":""}" id="odt-${String(cur||"").replace(":","")}"><td colspan="4"><span class="gl">${cur||"시간 미정"}</span>${nx?`<span class="gnx">NEXT</span>`:""}${past?`<span class="gps">지남</span>`:""}<small>${buf.length}건${hvn?`<span class="personal-only"> · 💎${hvn}</span>`:""}</small></td></tr>`
+        +buf.map(u=>odRow(u,esc(drLabel(u)),MSg,hvMap).replace('<tr class="',past?'<tr class="was ':'<tr class="')).join("");buf=[];};
     vis.forEach(u=>{if((u.t||"")!==cur){flush();cur=u.t||"";}buf.push(u);});flush();
   }
   return h+`<table class="odtbl">${OD_COLS_TM}${rows}</table></div>`;
