@@ -330,7 +330,7 @@ td.fullcell.is-holi{background:#2E3A34}
 /* 쌤별·시간대 공용 행: 시간 | 이름(번호) | 진료내역 | (담당쌤) | 🖍️ */
 .odtbl td.t{font-weight:800;font-size:10.5px;white-space:nowrap;color:var(--ink)}
 .odtbl tr.g td{padding-left:2px}
-.oddr{display:inline-grid;grid-template-columns:auto auto;column-gap:3px;align-items:baseline;line-height:1.18;padding:3px 10px 2px;font-size:12px}
+.oddr{display:inline-grid;grid-template-columns:auto auto;column-gap:4px;row-gap:1px;align-items:baseline;line-height:1.3;padding:5px 13px 4px;font-size:12px}
 .oddr .nm2{grid-column:1;grid-row:1;white-space:nowrap}
 .oddr .n1{grid-column:2;grid-row:1;font-size:11px;color:var(--sub);font-weight:700;text-align:left;white-space:nowrap}
 .oddr .dm{grid-column:1;grid-row:2;justify-self:end;font-size:8.5px;line-height:1.1}
@@ -375,14 +375,14 @@ html,body,button,a,input,select,textarea,summary,label{touch-action:manipulation
 .odhead .dept-tag{font-size:12px}
 .odhead .n{font-size:17px;font-weight:900}
 .odhead .s{font-size:11.5px;color:var(--sub);font-weight:700}
-.odctl{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin:0 0 5px}
+.odctl{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin:0 0 10px}
 .odctl .pen{display:flex;align-items:center;gap:3px;border:1.5px solid var(--line);border-radius:999px;padding:2px 6px;background:#fff}
 .odctl .seg{display:flex;border:1.5px solid var(--line);border-radius:999px;overflow:hidden;background:#fff}
 .odctl .seg button{border:none;background:transparent;cursor:pointer;font-size:11px;font-weight:800;color:var(--sub);padding:3px 9px}
 .odctl .seg button.on{background:var(--ink);color:#fff}
 .odctl .lock{border:1.5px solid var(--line);background:#fff;color:var(--sub);border-radius:999px;padding:3px 9px;font-size:11px;font-weight:800;cursor:pointer}
 .odctl .lock.on{background:#EEF1F0;color:var(--ink)}
-.oddrs{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 7px}
+.oddrs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 9px}
 .oddr{border:1.3px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:2px 8px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap}
 .oddr small{font-size:10px;color:var(--sub);font-weight:700;margin-left:3px}
 .oddr.on{background:var(--c);border-color:var(--c);color:#fff}
@@ -394,7 +394,7 @@ html,body,button,a,input,select,textarea,summary,label{touch-action:manipulation
 .odtbl td.p{white-space:nowrap;line-height:1.12;overflow:hidden}
 .odtbl td.p .nm{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11.5px;font-weight:700;color:#5E6B66}
 .odtbl td.p .no{display:block;font-size:8.5px;font-weight:600;color:#9AA5A0;letter-spacing:-.3px;white-space:nowrap;overflow:hidden}
-.odtbl td.r{white-space:nowrap;text-align:right;color:var(--ink);font-weight:800;font-size:11px;overflow:hidden;text-overflow:ellipsis}
+.odtbl td.r{white-space:nowrap;text-align:right;color:var(--ink);font-weight:600;font-size:10.5px;overflow:hidden;text-overflow:ellipsis}
 .odtbl tr.g td{border-bottom:1.5px solid var(--line);padding:6px 3px 2px;font-size:11.5px;font-weight:900;color:var(--ink);background:transparent}
 .odtbl tr.g td small{font-size:10px;color:var(--sub);font-weight:700;margin-left:4px}
 .odtbl tr.lk td{font-size:10px;color:var(--sub)}
@@ -1177,7 +1177,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-09-19", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260919-286";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260919-288";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화),
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -6739,7 +6739,7 @@ function hvRow(x,ds,MSg,slotIdxOf){
     </div>
     <div onclick="hvJump(${idx})" style="display:flex;gap:5px;align-items:flex-start;margin-top:1px;cursor:pointer;padding-left:var(--hvind,20px)">
       <div style="flex:1;min-width:0;font-size:11px;color:#2E3F38;word-break:break-word">${esc(u.cat||"—")}</div>
-      <div style="flex:0 0 auto;font-size:11px;color:var(--ink);font-weight:800;text-align:right;max-width:34%;word-break:break-word">${esc(u.dr||"")}${tierBadge(u.dep,u.dr)}${busy?" 🔒":""}</div>
+      <div style="flex:0 0 auto;font-size:10.5px;color:var(--ink);font-weight:600;text-align:right;max-width:34%;word-break:break-word">${esc(u.dr||"")}${tierBadge(u.dep,u.dr)}${busy?" 🔒":""}</div>
     </div>
   </div>`;
 }
