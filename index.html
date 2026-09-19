@@ -642,6 +642,8 @@ body.odf-pre #o-day .odhead .odh-dep{font-weight:800}
 .mbar span{display:block;height:100%;background:var(--amber);border-radius:2px}
 .mrow.ok .mbar span{background:#5DB07F}
 .msub{font-size:10.5px;color:var(--sub);margin-top:3px}
+.mst{font-variant-numeric:tabular-nums}
+.mst b{color:var(--ink);font-weight:800}
 .mlink{color:var(--sub);text-decoration:underline dotted;cursor:pointer}
 .mtag{display:inline-block;font-size:9.5px;font-weight:800;color:#6B5BA8;background:#F1EFF7;border-radius:5px;padding:0 5px;margin-left:5px;vertical-align:1px}
 .mnote{display:inline-block;font-size:10px;font-weight:700;color:var(--sub);margin-left:5px}
@@ -1354,7 +1356,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-09-19", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260919-306";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260919-308";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화),
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -2764,6 +2766,32 @@ document.querySelectorAll("#plan-pills button").forEach(b=>b.onclick=()=>{
   document.querySelectorAll(".psec").forEach(s=>s.style.display="none");
   document.getElementById("p-"+b.dataset.p).style.display="block";renderPlan();
 });
+/* ═══ 토탈 환자 OCS ↔ 내 일정 연결 (1:1 · 누락·덮어쓰기 없음) ═══
+   ① 토탈에서 만든 일정(fromTotal)은 그 토탈의 OCS 진료를 직접 연결
+   ② 나머지는 일정 메모의 환자번호 → 환자 이름 → 같은 시각+담당쌤 → 같은 시각(비어 있는 손 일정) 순
+   ③ 끝까지 짝이 없는 토탈 OCS는 rest (별도 표시)  */
+function totLink(evList,day){
+  const byEv=new Map(),used=new Set();
+  const MS=matchSet();
+  const tRows=upOn(day).filter(u=>MS.has(u));
+  const nNo=v=>String(v||"").replace(/\D/g,"").replace(/^0+/,"");
+  const add=(e,u)=>{if(!byEv.has(e))byEv.set(e,[]);byEv.get(e).push(u);used.add(u);};
+  evList.forEach(e=>{(e.fromTotal||[]).forEach(f=>{
+    const t=(S.totals||[]).find(x=>x&&x.id===f.id);if(!t)return;
+    const cand=upMatch(t).filter(u=>u.d===day&&!used.has(u)&&tRows.includes(u));
+    if(!cand.length)return;add(e,cand.find(x=>x.t===e.time)||cand[0]);});});
+  const free=e=>!byEv.has(e);
+  const tryM=(u,test)=>{const e=evList.find(x=>free(x)&&test(x));if(e){add(e,u);return true;}return false;};
+  tRows.filter(u=>!used.has(u)).forEach(u=>{
+    const no=nNo(u.no),memo=e=>String(e.memo||"");
+    if(no&&tryM(u,e=>memo(e).replace(/\D+/g," ").split(" ").some(x=>x&&nNo(x)===no)))return;
+    if(u.pt&&u.pt.length>=2&&tryM(u,e=>memo(e).includes(u.pt)||String(e.title||"").includes(u.pt)))return;
+    const drn=String(u.dr||"").replace(/[AB]$/,"").trim();
+    if(u.t&&drn.length>=2&&tryM(u,e=>e.time===u.t&&String(e.title||"").includes(drn)))return;
+    if(u.t)tryM(u,e=>e.time===u.t&&!(e.fromTotal&&e.fromTotal.length));
+  });
+  return {byEv,rest:tRows.filter(u=>!used.has(u))};
+}
 /* 상단 타임라인 = 오늘 내 일정 + 자동 할 일 */
 function timelineItems(){
   const now=new Date();
@@ -2774,22 +2802,12 @@ function timelineItems(){
   const evList=(S.events||[]).filter(e=>e.date===today&&e.status!=="cancel");
   evList.forEach(e=>{
     items.push({t:e.time||(e.span==="full"?"하루":e.span==="am"?"오전":e.span==="pm"?"오후":"시간?"),sk:skOf(e.time,e.span),l:e.title.slice(0,14),c:DEPT_COLOR[e.dept]||"#888",un:!e.time&&!e.span,_ev:e});});
-  const _MS=matchSet();
-  upOn(today).filter(u=>_MS.has(u)).forEach(u=>{
-    /* ── 같은 진료 중복 방지 ──
-       환자명이 같거나, 같은 시각(±0분)에 이미 일정이 있으면 그 칩에 토탈 정보를 얹어 하나로 합침 */
-    const sameName=evList.find(e=>e.title.includes(u.pt));
-    const sameTime=u.t?evList.find(e=>e.time===u.t):null;
-    const host=sameName||sameTime;
-    if(host){
-      const it=items.find(x=>x._ev===host);
-      if(it){                       /* 일정 제목은 그대로 두고, 토탈 정보는 아랫줄에 덧붙임 */
-        it.sub="◇"+u.pt+(u.no?" #"+String(u.no).slice(-4):"")+(u.cat?" "+u.cat:"");
-        it.c=DEPT_COLOR[u.dep]||it.c;
-        it.tot=1;
-      }
-      return;
-    }
+  /* 토탈 환자 OCS ↔ 내 일정 연결 (공용 totLink) */
+  const _TL=totLink(evList,today);
+  evList.forEach(e=>{const L=_TL.byEv.get(e);if(!L||!L.length)return;const it=items.find(x=>x._ev===e);if(!it)return;
+    it.sub=L.map(u=>"◇"+u.pt+(u.no?" #"+String(u.no).slice(-4):"")+(u.cat?" "+u.cat:"")+(u.t&&e.time&&u.t!==e.time?` (${u.t})`:"")).join(" / ");
+    it.c=DEPT_COLOR[L[0].dep]||it.c;it.tot=1;});
+  _TL.rest.forEach(u=>{
     items.push({t:u.t||"시간?",sk:skOf(u.t,null),l:"◇"+u.pt+(u.no?" #"+String(u.no).slice(-4):"")+(u.cat?" "+u.cat:""),c:DEPT_COLOR[u.dep]||"#888",un:!u.t,tot:1});});
   /* 내일 기반 오늘 할 일 */
   const tmrEv=(S.events||[]).filter(e=>e.date===tmrs&&e.status!=="cancel");
@@ -3905,13 +3923,13 @@ function renderToday(){
   document.getElementById("today-count").textContent=evs.length+"건";
   const skOf=e=>e.time?hm2min(e.time):(e.span==="full"?540:e.span==="am"?540:e.span==="pm"?780:2000);
   const ordered=evs.slice().sort((a,b)=>skOf(a)-skOf(b));
-  const _MS2=matchSet();
-  const ups=upOn(today).filter(u=>_MS2.has(u)&&!evs.some(e=>e.title.includes(u.pt)));
+  const _TL2=totLink(evs,today);
+  const ups=_TL2.rest;   /* 일정에 연결 안 된 토탈 OCS만 따로 (중복 카드 방지) */
   let html="";const de0=1020;let cur=540;
   const gapH=(a,b)=>gapAdviceHtml(today,a,b);
   const blkOf=e=>e.span==="full"?{s:540,e:1020}:e.span==="am"?{s:540,e:720}:e.span==="pm"?{s:780,e:1020}:e.time?{s:hm2min(e.time),e:hm2min(e.time)+(e.dur||120)}:null;
   const evCard=e=>`<div class="ev"><div class="dt" style="background:${DEPT_COLOR[e.dept]}1A"><div class="d" style="color:${DEPT_COLOR[e.dept]}">${e.span==="full"?"하루":e.span==="am"?"오전":e.span==="pm"?"오후":(e.time||"시간?")}</div><div class="t" style="color:${DEPT_COLOR[e.dept]}">${e.span?"통짜":e.dept}</div></div>
-    <div class="body"><div class="title">${esc(e.title)}</div>${e.memo?`<div class="memo">${esc(e.memo)}</div>`:""}${(!e.time&&!e.span)?'<div class="memo" style="color:var(--red);font-weight:700">시간 미정 — 확인해서 입력!</div>':""}
+    <div class="body"><div class="title">${esc(e.title)}</div>${e.memo?`<div class="memo">${esc(e.memo)}</div>`:""}${(_TL2.byEv.get(e)||[]).map(u=>`<div class="memo" style="color:var(--purple);font-weight:700">◇ OCS ${esc(u.t||"")}${u.t&&e.time&&u.t!==e.time?' <span style="color:var(--red)">(시간 다름!)</span>':""} · ${esc(u.dr||"")} · ${esc(u.cat||"—")}</div>`).join("")}${(!e.time&&!e.span)?'<div class="memo" style="color:var(--red);font-weight:700">시간 미정 — 확인해서 입력!</div>':""}
     ${protoBlock(e)}</div></div>`;
   if(!ordered.length){html=`<div class="empty">고정 일정 없음 — 사다리 풀가동!</div>`+gapH(540,720)+gapH(780,de0);}
   else{
@@ -4506,7 +4524,10 @@ function miniEval(){
       else{c=hit.reduce((a,x)=>a+val(x),0);pd=it.u==="cnt"?hit.reduce((a,x)=>a+(x.pd||0),0):hit.reduce((a,x)=>a+(x.pd||0),0);}
       const manual=!hit.length&&S.miniManual&&S.miniManual[it.id]!=null;
       if(manual)c=+S.miniManual[it.id]||0;
-      return Object.assign({},it,{c:+(+c).toFixed(2),pd,found:hit.length>0,manual,src:hit.map(x=>x.n)});
+      const sum=k=>hit.reduce((a,x)=>a+(+x[k]||0),0);
+      const scN=hit.filter(x=>x.sc!=null).length;
+      return Object.assign({},it,{c:+(+c).toFixed(2),pd,found:hit.length>0,manual,src:hit.map(x=>x.n),
+        st:{ap:sum("ap"),pd:sum("pd"),pt:sum("pt"),sc:scN?+sum("sc").toFixed(2):null,unset:hit.length>0&&!scN&&hit.some(x=>x.scRaw==="미설정")}});
     });
     return {d:g.d,rows};
   });
@@ -4559,7 +4580,9 @@ function renderMiniOff(){
     const unit=r.u==="pt"?"점":"";
     const tags=`${r.yr?'<span class="mtag">연간</span>':""}${r.note?`<span class="mnote${/⚠️/.test(r.note)?" warn":""}">${esc(r.note)}</span>`:""}`;
     const sub=[];
-    if(!r.done&&r.pd>0)sub.push(`<span style="color:#B7791F;font-weight:700">승인대기 ${r.pd}건</span>`);
+    /* 유폴리오 원자료: 승인 · 대기 · 환자 · 점수 (여러 항목 합산 목표면 합계) */
+    if(r.found&&r.st){const s=r.st;
+      sub.push(`<span class="mst">승인 <b>${s.ap}</b> · <span style="${s.pd>0?"color:#B7791F;font-weight:800":""}">대기 ${s.pd}</span> · 환자 ${s.pt} · 점수 ${s.sc==null?(s.unset?"미설정":"—"):fmt(s.sc)}</span>`);}
     if(!r.found&&!r.agg)sub.push(`<span class="mlink" onclick="miniManualEdit('${r.id}')">${r.manual?"✎ 직접 입력값":"유폴리오 항목 없음 · ✎ 직접 입력"}</span>`);
     return `<div class="mrow${r.done?" ok":""}">
       <div class="mline"><span class="mlbl">${esc(r.l)}${tags}</span>
