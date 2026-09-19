@@ -648,6 +648,12 @@ body.odf-pre #o-day .odhead .odh-dep{font-weight:800}
 .mtag{display:inline-block;font-size:9.5px;font-weight:800;color:#6B5BA8;background:#F1EFF7;border-radius:5px;padding:0 5px;margin-left:5px;vertical-align:1px}
 .mnote{display:inline-block;font-size:10px;font-weight:700;color:var(--sub);margin-left:5px}
 .mnote.warn{color:var(--red)}
+
+/* 상단 일정 칩 (#309): 같은 폭 · 2줄 고정(제목 / 토탈 OCS 진료내역) */
+.tl-item{width:132px !important;min-width:132px !important;max-width:132px !important;box-sizing:border-box;padding:8px 11px !important}
+.tl-item .l,.tl-item .l2{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-item .l2{min-height:1.3em;font-size:10px !important;opacity:.7 !important;margin-top:2px}
+.tl-item.next .l2{opacity:.8 !important}
 </style>
 </head>
 <body>
@@ -1356,7 +1362,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-09-19", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260919-308";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260919-309";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화),
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -2801,14 +2807,16 @@ function timelineItems(){
   const skOf=(time,span)=>time?hm2min(time):(span==="full"?1:span==="am"?540:span==="pm"?780:1440);
   const evList=(S.events||[]).filter(e=>e.date===today&&e.status!=="cancel");
   evList.forEach(e=>{
-    items.push({t:e.time||(e.span==="full"?"하루":e.span==="am"?"오전":e.span==="pm"?"오후":"시간?"),sk:skOf(e.time,e.span),l:e.title.slice(0,14),c:DEPT_COLOR[e.dept]||"#888",un:!e.time&&!e.span,_ev:e});});
+    items.push({t:e.time||(e.span==="full"?"하루":e.span==="am"?"오전":e.span==="pm"?"오후":"시간?"),sk:skOf(e.time,e.span),l:(e.title.replace(/^\s*\d{3,4}\s+/,"")||e.title),   /* 위에 시각이 있으니 제목 앞 'HHMM '은 생략 */c:DEPT_COLOR[e.dept]||"#888",un:!e.time&&!e.span,_ev:e});});
   /* 토탈 환자 OCS ↔ 내 일정 연결 (공용 totLink) */
   const _TL=totLink(evList,today);
   evList.forEach(e=>{const L=_TL.byEv.get(e);if(!L||!L.length)return;const it=items.find(x=>x._ev===e);if(!it)return;
-    it.sub=L.map(u=>"◇"+u.pt+(u.no?" #"+String(u.no).slice(-4):"")+(u.cat?" "+u.cat:"")+(u.t&&e.time&&u.t!==e.time?` (${u.t})`:"")).join(" / ");
+    /* 2째 줄 = 토탈 환자 · OCS 진료내역 (OCS 시각이 다르면 괄호) */
+    it.sub=L.map(u=>"◇"+u.pt+" · "+(u.cat||"내역 없음")+(u.t&&e.time&&u.t!==e.time?` (${u.t})`:"")).join(" / ");
     it.c=DEPT_COLOR[L[0].dep]||it.c;it.tot=1;});
   _TL.rest.forEach(u=>{
-    items.push({t:u.t||"시간?",sk:skOf(u.t,null),l:"◇"+u.pt+(u.no?" #"+String(u.no).slice(-4):"")+(u.cat?" "+u.cat:""),c:DEPT_COLOR[u.dep]||"#888",un:!u.t,tot:1});});
+    /* 일정에 없는 토탈 OCS: 1째 줄 = 환자, 2째 줄 = 진료내역 */
+    items.push({t:u.t||"시간?",sk:skOf(u.t,null),l:"◇"+u.pt+(u.no?" #"+String(u.no).slice(-4):""),sub:u.cat||"",c:DEPT_COLOR[u.dep]||"#888",un:!u.t,tot:1});});
   /* 내일 기반 오늘 할 일 */
   const tmrEv=(S.events||[]).filter(e=>e.date===tmrs&&e.status!=="cancel");
   const tmrTot=(S.totals||[]).some(t=>!t.done&&(t.next===tmrs||upMatch(t).some(u=>u.d===tmrs)));
@@ -2819,6 +2827,7 @@ function timelineItems(){
   return items;
 }
 let lastMin=null;
+function refreshStrip(){lastMin=null;try{tick();}catch(e){}}
 function tick(){
   const now=new Date();const hm=now.toTimeString().slice(0,5);
   document.getElementById("now-clock").textContent=hm+":"+String(now.getSeconds()).padStart(2,"0");
@@ -2831,7 +2840,7 @@ function tick(){
       const nowM=hm2min(hm);
       let ni=items.findIndex(x=>!x.un&&x.sk>=nowM);
       strip.innerHTML=items.map((x,i)=>`<div class="tl-item ${x.duty?"duty":""} ${x.tot?"tot":""} ${!x.un&&x.sk<nowM?"past":""} ${i===ni?"next":""}">
-        <div class="t">${x.t}</div><div class="l">${x.c?`<span class="dot" style="background:${x.c}"></span>`:""}${x.duty?"☑ ":""}${esc(x.l)}</div>${x.sub?`<div class="l2">${esc(x.sub)}</div>`:""}</div>`).join("");
+        <div class="t">${x.t}</div><div class="l">${x.c?`<span class="dot" style="background:${x.c}"></span>`:""}${x.duty?"☑ ":""}${esc(x.l)}</div><div class="l2">${x.sub?esc(x.sub):"&nbsp;"}</div></div>`).join("");
       const nx=strip.querySelector(".next");if(nx&&!strip.dataset.s){nx.scrollIntoView({inline:"start",block:"nearest"});strip.dataset.s=1;}
     }
   }
@@ -3943,6 +3952,7 @@ function renderToday(){
   }
   if(ups.length)html+=ups.map(u=>`<div class="ev" style="opacity:.85"><div class="dt" style="background:${DEPT_COLOR[u.dep]}12;border:1.5px dashed ${DEPT_COLOR[u.dep]}"><div class="d" style="color:${DEPT_COLOR[u.dep]}">${u.t||"?"}</div><div class="t" style="color:${DEPT_COLOR[u.dep]}">${u.dep}</div></div><div class="body"><div class="title">◇ ${esc(u.pt)} ${esc(u.cat||"")} <span class="hint">(OCS 예약)</span></div><div class="memo">${esc(u.dr||"")} — 내 일정으로 만들려면 빠른추가</div></div></div>`).join("");
   document.getElementById("today-events").innerHTML=html;
+  refreshStrip();   /* 일정·토탈·OCS가 바뀌면 상단 칩도 바로 */
   /* ══ 알림 — 실제 오늘 기준 · 긴급도 순 정렬 + 그룹화 ══ */
   const rt=realToday;
   const tmr=new Date();tmr.setDate(tmr.getDate()+1);const tmrs=ymd(tmr);
