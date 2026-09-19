@@ -618,6 +618,34 @@ select,textarea{font-size:16px !important}
 .odhead .odh-dot{font-size:15px;font-weight:700;color:var(--sub);margin:0 -3px}
 body.odf-pre #o-day .odhead .odh-n{font-weight:800}
 body.odf-pre #o-day .odhead .odh-dep{font-weight:800}
+
+/* 미니 현황 (#306) */
+.mdept{border:1px solid var(--line);border-radius:12px;margin:0 0 8px;padding:0 10px;background:#fff}
+.mdept>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:7px;padding:9px 0;font-size:14px}
+.mdept>summary::-webkit-details-marker{display:none}
+.mdot{width:8px;height:8px;border-radius:3px;flex:0 0 auto}
+.mcnt{font-size:11.5px;font-weight:800;color:var(--red);font-variant-numeric:tabular-nums}
+.mcnt.ok{color:#2F8F5B}
+.mmini{flex:1;height:4px;background:var(--line);border-radius:2px;overflow:hidden;margin-left:4px;max-width:120px}
+.mmini span{display:block;height:100%;border-radius:2px}
+.mrow{padding:6px 0 5px;border-top:1px solid var(--line)}
+.mline{display:flex;align-items:baseline;gap:6px}
+.mlbl{flex:1;min-width:0;font-size:12.5px;font-weight:600;color:var(--ink)}
+.mval{flex:0 0 auto;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mval b{font-size:14px;font-weight:900;color:var(--red)}
+.mval i{font-style:normal;font-size:11px;color:var(--sub);margin-left:2px}
+.mval em{font-style:normal;font-size:11px;font-weight:800;color:var(--red);margin-left:6px}
+.mval em.ok{color:#2F8F5B}
+.mrow.ok .mval b{color:#2F8F5B}
+.mrow.ok .mlbl{color:var(--sub)}
+.mbar{height:4px;background:var(--line);border-radius:2px;margin-top:4px;overflow:hidden}
+.mbar span{display:block;height:100%;background:var(--amber);border-radius:2px}
+.mrow.ok .mbar span{background:#5DB07F}
+.msub{font-size:10.5px;color:var(--sub);margin-top:3px}
+.mlink{color:var(--sub);text-decoration:underline dotted;cursor:pointer}
+.mtag{display:inline-block;font-size:9.5px;font-weight:800;color:#6B5BA8;background:#F1EFF7;border-radius:5px;padding:0 5px;margin-left:5px;vertical-align:1px}
+.mnote{display:inline-block;font-size:10px;font-weight:700;color:var(--sub);margin-left:5px}
+.mnote.warn{color:var(--red)}
 </style>
 </head>
 <body>
@@ -750,18 +778,15 @@ body.odf-pre #o-day .odhead .odh-dep{font-weight:800}
   </div>
   <div class="psec" id="p-tmr" style="display:none"></div>
   <div class="psec" id="p-mini">
-    <p class="hint" style="margin-bottom:10px"><b>유폴리오 임상실습 2 미니 현황</b> — 유폴리오 점수 수집기와 같은 기준(외과·보철 지정 항목만 · 치주 기타 수술/단타 Assist 제외)으로 가져와요. 항목마다 <b>승인·대기·환자·점수</b>를 함께 보여주고, <b>미니</b> 표시는 최소 요구량이에요.</p>
+    <p class="hint" style="margin-bottom:10px"><b>과별 미니 현황</b> — <b>점</b>이 붙은 건 유폴리오 <b>점수</b>, 숫자만 있는 건 <b>승인 개수</b> 기준이에요. <span class="mtag">연간</span>은 학년 기준.</p>
     <div class="card">
       <h2>🦷 유폴리오 미니 현황 <span class="badge" id="mff-badge"></span></h2>
       <p class="hint" style="margin:2px 0 8px"><b id="mff-upd"></b></p>
       <div id="mff-filter" style="display:flex;gap:5px;margin:0 0 8px;flex-wrap:wrap">
         <button type="button" data-mf="miss" onclick="mffFilter('miss')" class="on">미달만</button>
-        <button type="button" data-mf="mini" onclick="mffFilter('mini')">미니 전체</button>
-        <button type="button" data-mf="all" onclick="mffFilter('all')">모두</button>
+        <button type="button" data-mf="mini" onclick="mffFilter('mini')">전체</button>
+        <button type="button" data-mf="all" onclick="mffFilter('all')">+ 기타 항목</button>
       </div>
-      <div id="mff-basis" style="display:flex;gap:5px;margin:0 0 8px;align-items:center;flex-wrap:wrap"><span class="hint" style="font-size:11px">미니 기준</span>
-        <button type="button" data-b="score" onclick="mffBasis('score')">점수</button><button type="button" data-b="approved" onclick="mffBasis('approved')">승인</button><button type="button" data-b="patient" onclick="mffBasis('patient')">환자수</button>
-        <span class="hint" style="font-size:10px">· 점수 안 쓰는 항목은 항상 승인</span></div>
       <div id="mini-off-list"></div>
       <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
         <button class="btn small" style="background:var(--brand);color:#fff" onclick="ufolioImportOpen()">📥 유폴리오에서 가져오기</button>
@@ -1329,7 +1354,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-09-19", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20260919-305";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20260919-306";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화),
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -4365,6 +4390,135 @@ function renderMini(){
   renderMiniOff();
 }
 
+/* ═════════ 미니 목표표 (#306 · 사용자 정리본 기준) ═════════
+   u: "pt"=점수 기준(유폴리오 점수) · "cnt"=개수 기준(유폴리오 승인 수)
+   m: 유폴리오 항목명 매칭(정규식 문자열, 대소문자 무시) · menu: 구분 제한(선택)
+   agg: 기본=합계 · "distinct"=1건 이상인 항목 수 · "all"=그 과 전체 점수 합
+   yr: 연간(학년) 기준 · note: 짧은 주의 */
+const MINI_GOALS=[
+ {d:"보철",items:[
+  {id:"pr-chart",l:"신환 차팅 (진토 포함)",t:10,u:"cnt",m:["^22\\.?\\s*charting"]},
+  {id:"pr-dx",l:"진단 토탈",t:2,u:"cnt",m:["charting and treatment planning"]},
+  {id:"pr-gp",l:"교픽",t:50,u:"pt",m:["^02\\.?\\s*observation"]},
+  {id:"pr-dt",l:"단타",t:150,u:"pt",m:["^01\\.?\\s*student evaluation"]},
+  {id:"pr-sum",l:"교픽+단타 총합",t:250,u:"pt",m:["^02\\.?\\s*observation","^01\\.?\\s*student evaluation"]},
+  {id:"pr-imc",l:"임플 수술 어시",t:2,u:"cnt",m:["implant assist"]},
+  {id:"pr-imp",l:"임플 수술 점수",t:18,u:"pt",m:["implant assist"]},
+  {id:"pr-tr",l:"토탈 가철",t:2,u:"cnt",m:["total case evaluation\\s*\\(가철"]},
+  {id:"pr-tf",l:"토탈 고정",t:5,u:"cnt",m:["total case evaluation\\s*\\(고정"]},
+  {id:"pr-ti",l:"토탈 임플",t:5,u:"cnt",m:["total case evaluation\\s*\\(implant"]},
+  {id:"pr-lab",l:"기공 가·고·임 각 1",t:3,u:"cnt",agg:"distinct",m:["laboratory case evaluation"]},
+  {id:"pr-labp",l:"기공 합",t:15,u:"pt",m:["laboratory case evaluation"]},
+  {id:"pr-crown",l:"크라운 practice",t:1,u:"cnt",yr:1,m:["crown practice"]}]},
+ {d:"치주",items:[
+  {id:"pe-flap",l:"Flap 어시",t:15,u:"cnt",yr:1,m:["flap assist"]},
+  {id:"pe-impl",l:"Implant 어시",t:15,u:"cnt",yr:1,m:["implant assist"]},
+  {id:"pe-oe",l:"Practice OE",t:5,u:"cnt",m:["\\boe\\b","oral exam"]},
+  {id:"pe-sc",l:"Practice SC",t:6,u:"cnt",m:["\\bsc\\b","scaling"]},
+  {id:"pe-rp",l:"Practice RP",t:6,u:"cnt",m:["\\brp\\b","root planing"]},
+  {id:"pe-pci",l:"Practice PCI",t:5,u:"cnt",m:["\\bpci\\b","plaque control"]},
+  {id:"pe-psum",l:"Practice 총합",t:22,u:"cnt",note:"연 70↑",m:["\\boe\\b","oral exam","\\bsc\\b","scaling","\\brp\\b","root planing","\\bpci\\b","plaque control"]},
+  {id:"pe-adv",l:"포폴 Advanced",t:1,u:"cnt",yr:1,m:["advanced.*portfolio"]},
+  {id:"pe-bas",l:"포폴 Basic total",t:1,u:"cnt",yr:1,m:["basic.*portfolio"]}]},
+ {d:"보존",items:[
+  {id:"co-oop",l:"Obs Operative",t:20,u:"pt",m:["observation\\s*\\(operative"]},
+  {id:"co-oen",l:"Obs Endo",t:20,u:"pt",m:["observation\\s*\\(endodontic"]},
+  {id:"co-osu",l:"Obs Surgery",t:8,u:"pt",m:["observation\\s*\\(surgery"]},
+  {id:"co-pop",l:"Practice Operative",t:10,u:"pt",m:["practice.*operative","operative.*practice"]},
+  {id:"co-pen",l:"Practice 근관치료",t:5,u:"pt",m:["practice.*(endo|근관)","근관치료"]},
+  {id:"co-ch",l:"신환차팅",t:2,u:"pt",m:["charting","차팅"]},
+  {id:"co-tot",l:"학기 총점",t:65,u:"pt",agg:"all",note:"⚠️ 미달 시 F"}]},
+ {d:"외과",items:[
+  {id:"os-mal",l:"수술실 Obs 말리컨",t:1,u:"cnt",m:["수술실-malignant"]},
+  {id:"os-orth",l:"수술실 Obs 양악",t:1,u:"cnt",m:["수술실-maxillofacial"]},
+  {id:"os-sext",l:"수술실 Obs Surgical ext",t:2,u:"cnt",m:["수술실-surgical extraction"]},
+  {id:"os-cyst",l:"수술실 Obs Cyst",t:2,u:"cnt",m:["수술실-cyst"]},
+  {id:"os-tmj",l:"수술실 Obs TMJ",t:1,u:"cnt",m:["턱관절","tmj"]},
+  {id:"os-ext",l:"마이너 발치 어시",t:20,u:"cnt",m:["^extraction_\\[a\\]"]},
+  {id:"os-simp",l:"발치 practice simple",t:2,u:"cnt",m:["extraction_\\[p\\]_simple"]},
+  {id:"os-id",l:"I&D 어시",t:1,u:"cnt",menu:"증례별",m:["^i\\s*&\\s*d$"]},
+  {id:"os-idf",l:"I&D F/U",t:1,u:"cnt",m:["follow-up\\(i&d\\)"]},
+  {id:"os-bx",l:"Biopsy 어시",t:1,u:"cnt",menu:"증례별",m:["^biopsy$"]},
+  {id:"os-bxf",l:"Biopsy F/U",t:1,u:"cnt",m:["follow-up\\(biopsy\\)"]},
+  {id:"os-imp",l:"임플 1st 어시 (3개↑ 식립)",t:3,u:"cnt",m:["implant 1st op\\s*\\(3개"]},
+  {id:"os-rcM",l:"외래 major R/C",t:3,u:"cnt",m:["recall check major"]},
+  {id:"os-rcm",l:"외래 minor R/C",t:100,u:"cnt",m:["recall check minor"]},
+  {id:"os-new",l:"외래 신환차팅",t:20,u:"cnt",m:["신환 차팅"]},
+  {id:"os-model",l:"모델 푸어링 (악궁)",t:2,u:"cnt",m:["모델 제작"]},
+  {id:"os-ward",l:"병동",t:450,u:"pt",yr:1,note:"max",m:["병동"]}]},
+ {d:"소치",items:[
+  {id:"pd-ch",l:"차팅 (자율턴 포함)",t:30,u:"cnt",m:["차팅","charting"]},
+  {id:"pd-tot",l:"토탈 (신환 3회 F/U)",t:1,u:"cnt",menu:"total",m:["."]},
+  {id:"pd-sum",l:"총점 (교픽·단타·GSP)",t:1000,u:"pt",agg:"all"},
+  {id:"pd-q",l:"Q-ray 케이스",t:4,u:"cnt",m:["q-?\\s*ray"]},
+  {id:"pd-pr",l:"Practice (B↑)",t:1,u:"cnt",m:["practice"]},
+  {id:"pd-pf",l:"포트폴리오 토탈",t:1,u:"cnt",yr:1,m:["포트폴리오","portfolio"]}]},
+ {d:"교정",items:[
+  {id:"or-bond",l:"토탈 본딩",t:3,u:"cnt",m:["total case\\s*\\(신환"]},
+  {id:"or-old",l:"토탈 구환",t:6,u:"cnt",m:["total case\\s*\\(구환"]},
+  {id:"or-dx",l:"토탈 진단 F/U",t:6,u:"cnt",m:["analysis\\s*&\\s*diagnosis"]},
+  {id:"or-b",l:"단타 Bonding",t:40,u:"pt",m:["assist case\\s*-\\s*bonding"]},
+  {id:"or-la",l:"단타 L&A",t:50,u:"pt",m:["assist case\\s*-\\s*leveling"]},
+  {id:"or-sc",l:"단타 SC",t:50,u:"pt",m:["assist case\\s*-\\s*space closure"]},
+  {id:"or-fin",l:"단타 Finishing",t:40,u:"pt",m:["assist case\\s*-\\s*finishing"]},
+  {id:"or-etc",l:"단타 Etc",t:30,u:"pt",m:["assist case\\s*-\\s*etc"]},
+  {id:"or-lab",l:"기공 5종 각 1",t:5,u:"cnt",agg:"distinct",menu:"기공",m:["."],note:"⚠️ 한 달 1개"},
+  {id:"or-tot",l:"총점",t:1370,u:"pt",agg:"all",note:"A 2600 · B 2100 · C 1600"}]},
+ {d:"내과",items:[
+  {id:"om-ch",l:"차팅",t:20,u:"cnt",m:["^charting$"]},
+  {id:"om-tch",l:"TMD 차팅",t:10,u:"cnt",m:["^tmd charting"]},
+  {id:"om-pt",l:"물치실 (8시간)",t:64,u:"pt",m:["physical therapy"]},
+  {id:"om-imp",l:"내푸 Impression",t:2,u:"cnt",m:["impression taking"]},
+  {id:"om-spl",l:"내푸 Splint",t:1,u:"cnt",m:["splint fabrication"]},
+  {id:"om-med",l:"MED",t:2,u:"cnt",m:["medical certificate"]},
+  {id:"om-lab",l:"LAB",t:2,u:"cnt",m:["lab reading"]},
+  {id:"om-oth",l:"OTHERS",t:5,u:"cnt",m:["^others"]},
+  {id:"om-tmdo",l:"TMD 옵저",t:20,u:"cnt",m:["orofacial pain"]},
+  {id:"om-stlo",l:"연조직 옵저",t:3,u:"cnt",m:["soft tissue lesion observation"]},
+  {id:"om-stlt",l:"연조직 토탈",t:2,u:"cnt",m:["soft tissue lesion total"]},
+  {id:"om-tmdt",l:"TMD 토탈 (티토)",t:2,u:"cnt",yr:1,m:["tmd total"]},
+  {id:"om-hal",l:"Halitosis 옵저",t:1,u:"cnt",yr:1,m:["halitosis"]},
+  {id:"om-snr",l:"Snoring 옵저",t:1,u:"cnt",yr:1,m:["snoring"]}]},
+ {d:"영상",items:[
+  {id:"ra-fix",l:"판독 Fix",t:4,u:"cnt",yr:1,m:["판독 토론","\\bfix\\b"]},
+  {id:"ra-quiz",l:"Quiz",t:4,u:"cnt",yr:1,m:["quiz","퀴즈"]},
+  {id:"ra-io",l:"IO 촬영 (매)",t:40,u:"cnt",yr:1,m:["구내 촬영","\\bio\\b"]},
+  {id:"ra-hw",l:"실습 과제",t:1,u:"cnt",yr:1,m:["과제"]},
+  {id:"ra-sia",l:"Sialography",t:1,u:"cnt",yr:1,m:["sialography"]}]},
+ {d:"병리",items:[
+  {id:"pa-dx",l:"진단 참여",t:1,u:"cnt",yr:1,note:"11월 말까지",m:["육안","진단"]}]}
+];
+/* 원자료(S.ufItems) → 목표별 현재값 */
+function miniEval(){
+  const items=S.ufItems||[];
+  const rxc={};const rx=s=>rxc[s]||(rxc[s]=new RegExp(s,"i"));
+  const used=new Set();
+  const out=MINI_GOALS.map(g=>{
+    const pool=items.filter(it=>it.dept===g.d);
+    const rows=g.items.map(it=>{
+      let hit=pool;
+      if(it.menu)hit=hit.filter(x=>rx(it.menu).test(x.menu||""));
+      if(it.agg!=="all")hit=hit.filter(x=>(it.m||[]).some(p=>rx(p).test(x.n)));
+      hit.forEach(x=>used.add(x));
+      const val=x=>it.u==="pt"?(x.sc||0):(x.ap||0);
+      let c,pd=0;
+      if(it.agg==="distinct"){c=hit.filter(x=>(x.ap||0)>=1).length;}
+      else{c=hit.reduce((a,x)=>a+val(x),0);pd=it.u==="cnt"?hit.reduce((a,x)=>a+(x.pd||0),0):hit.reduce((a,x)=>a+(x.pd||0),0);}
+      const manual=!hit.length&&S.miniManual&&S.miniManual[it.id]!=null;
+      if(manual)c=+S.miniManual[it.id]||0;
+      return Object.assign({},it,{c:+(+c).toFixed(2),pd,found:hit.length>0,manual,src:hit.map(x=>x.n)});
+    });
+    return {d:g.d,rows};
+  });
+  const extra=items.filter(x=>!used.has(x)&&((x.ap||0)>0||(x.sc||0)>0));
+  return {depts:out,extra};
+}
+function miniManualEdit(id){
+  let g=null;MINI_GOALS.forEach(d=>d.items.forEach(it=>{if(it.id===id)g=it;}));if(!g)return;
+  askInput(`${g.l} — 직접 입력`,[{label:`유폴리오에서 자동으로 못 찾는 항목이라 직접 적어둘 수 있어요 (${g.u==="pt"?"점수":"개수"})`,type:"number",val:(S.miniManual&&S.miniManual[id])||0}],(v)=>{
+    S.miniManual=S.miniManual||{};S.miniManual[id]=Math.max(0,+v[0]||0);save();renderMiniOff();},"저장");
+}
+
 /* 유폴리오 공식 미니 현황 렌더 — 과별 그룹, 미달 강조, 카테고리 표시 */
 function mffBasis(f){
   S.miniOffField=f;
@@ -4380,79 +4534,56 @@ function mffFilter(mode){
 function renderMiniOff(){
   const box=document.getElementById("mini-off-list");
   if(!box)return;
-  ensureMiniOff();normOrthoKinds();
   const mode=S.mffMode||"miss";
   document.querySelectorAll("#mff-filter button").forEach(b=>b.classList.toggle("on",b.dataset.mf===mode));
-  if(!S.miniOff||!S.miniOff.length){box.innerHTML='<p class="hint">데이터 없음 — [📥 유폴리오에서 가져오기]를 눌러주세요</p>';return;}
-  /* 배지는 필터와 무관하게 전체 기준 */
+  /* 예전 방식(v1)으로만 가져온 적 있으면 그 값으로 임시 표시 */
+  let legacy=false;
+  if(!(S.ufItems&&S.ufItems.length)&&S.miniOff&&S.miniOff.some(d=>d.items.some(i=>i.c>0))){
+    legacy=true;const f=S.miniOffField||"score";
+    S.ufItems=[];S.miniOff.forEach(d=>d.items.forEach(i=>S.ufItems.push({dept:d.dept,menu:i.cat||"",n:i.n,ap:f==="approved"?i.c:0,pd:0,pt:0,sc:f==="score"?i.c:null})));
+  }
+  const has=S.ufItems&&S.ufItems.length;
+  const ev=miniEval();
+  if(legacy)S.ufItems=null;
+  const upd=document.getElementById("mff-upd");
+  const pend=has&&!legacy?(S.ufItems||[]).reduce((a,x)=>a+(x.pd||0),0):0;
+  const st=S.ufStudent;
+  if(upd)upd.innerHTML=has?`갱신 ${esc(S.miniOffUpd||"—")}${st&&st.name?` · ${esc(st.name)}`:""}${legacy?' · <span style="color:var(--red)">이전 방식 자료 — 다시 가져오면 정확해져요</span>':` · 승인대기 <span style="color:#B7791F">${pend}건</span>`}`:"";
+  if(!has){box.innerHTML='<p class="hint" style="padding:6px 0">아직 가져온 자료가 없어요 — 아래 <b>🔖 북마클릿</b>으로 유폴리오에서 복사한 뒤 <b>📥 가져오기</b>를 눌러주세요.</p>';const b=document.getElementById("mff-badge");if(b)b.textContent="";return;}
+  const fmt=x=>Number.isInteger(+x)?+x:(+x).toFixed(2).replace(/0+$/,"").replace(/\.$/,"");
   let totMiss=0,totDone=0;
-  S.miniOff.forEach(d=>d.items.forEach(it=>{
-    if(it.mini>0){ it.c>=it.mini?totDone++:totMiss++; }
-  }));
-  const html=S.miniOff.map(d=>{
-    /* 필터: 미달만 / 미니 전체 / 모두 */
-    let pool=d.items;
-    if(mode==="miss")      pool=d.items.filter(it=>it.mini>0&&it.c<it.mini);
-    else if(mode==="mini") pool=d.items.filter(it=>it.mini>0);
-    /* 메인: 미니가 있거나 점수가 있는 항목. 접힘: 미니도 없고 점수도 0 */
-    const main=pool.filter(it=>it.mini>0||it.c>0);
-    const zero=(mode==="all")?pool.filter(it=>!(it.mini>0||it.c>0)):[];
-    const rowHtml=it=>{
-      const hasGoal=it.mini>0;
-      const done=hasGoal&&it.c>=it.mini;
-      const need=hasGoal?Math.max(0,+(it.mini-it.c).toFixed(2)):0;
-      const pct=hasGoal?Math.min(100,Math.round(it.c/it.mini*100)):0;
-      const maxTxt=it.max?` · 맥스 ${it.max}`:"";
-      const v2=it.ap!==undefined;
-      const fmt=x=>Number.isInteger(+x)?+x:(+x).toFixed(2).replace(/0+$/,"").replace(/\.$/,"");
-      /* 승인대기가 모두 승인되면 달성 가능한지 (승인 기준일 때만 정확히 계산 가능) */
-      const pendHelps=v2&&hasGoal&&!done&&it.pd>0&&it.basis==="승인"&&it.ap+it.pd>=it.mini;
-      const stat=v2?`<div style="display:flex;gap:9px;font-size:10.5px;color:var(--sub);margin-top:2px;flex-wrap:wrap">
-          <span>승인 <b style="color:var(--ink)">${it.ap}</b></span>
-          <span style="${it.pd>0?"color:#B7791F;font-weight:700":""}">대기 ${it.pd}</span>
-          <span>환자 ${it.pt}</span>
-          <span>점수 ${it.ns?'<i style="font-style:normal;opacity:.7">안씀</i>':(it.sc==null?(it.scRaw==="미설정"?"미설정":"—"):fmt(it.sc))}</span>
-          ${it.absent?'<span style="color:var(--red)">유폴리오에 아직 없음</span>':""}
-          ${pendHelps?'<span style="color:#B7791F;font-weight:800">⏳ 대기분 승인되면 달성</span>':""}
-        </div>`:"";
-      return `<div style="padding:6px 0;border-bottom:1px solid var(--line)">
-        <div style="display:flex;align-items:center;gap:6px;font-size:12.5px">
-          <span style="flex:1;min-width:0">${esc(it.n)}${it.cat?` <span class="hint" style="font-size:10px">${esc(it.cat)}</span>`:""}</span>
-          <b style="color:${hasGoal?(done?"var(--brand)":"var(--red)"):"var(--ink)"}">${fmt(it.c)}</b>${v2&&it.basis?`<span class="hint" style="font-size:9.5px">${it.basis}</span>`:""}
-          ${hasGoal
-            ?`<span style="font-size:10px;font-weight:800;padding:1px 5px;border-radius:5px;background:${done?"var(--brand)":"var(--red)"};color:#fff">미니 ${it.mini}</span><span class="hint" style="font-size:10.5px">${maxTxt}</span>${done?'<span style="color:var(--brand);font-weight:800">✓</span>':`<span style="color:var(--red);font-size:11px;font-weight:800">−${fmt(need)}</span>`}`
-            :'<span class="hint" style="font-size:10px">기록</span>'}
-        </div>
-        ${hasGoal?`<div style="height:4px;background:var(--line);border-radius:2px;margin-top:3px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${done?"var(--brand)":"var(--amber)"}"></div></div>`:""}
-        ${stat}
-      </div>`;
-    };
-    /* 미달(미니O) → 달성(미니O) → 점수만 있는 기록 순 */
-    const sorted=main.slice().sort((a,b)=>{
-      const rank=x=>x.mini>0?(x.c<x.mini?0:1):2;
-      const r=rank(a)-rank(b); if(r)return r;
-      return a.n.localeCompare(b.n,"ko");
-    });
-    const mainRows=sorted.map(rowHtml).join("");
-    const zeroRows=zero.map(rowHtml).join("");
-    const goals=main.filter(it=>it.mini>0);
-    const miss=goals.filter(it=>it.c<it.mini).length;
-    if(!main.length&&!zero.length)return "";
-    return `<details style="margin-bottom:6px"${miss?" open":""}>
-      <summary style="cursor:pointer;font-weight:800;padding:5px 0;color:${DEPT_COLOR[d.dept]||"#333"}">${esc(d.dept)}
-        <span class="hint" style="font-weight:400;font-size:11px">${goals.length?`미니 ${goals.length-miss}/${goals.length}`:""}${main.length-goals.length?` · 기록 ${main.length-goals.length}`:""}</span></summary>
-      ${mainRows||'<p class="hint" style="padding:4px 0">항목 없음</p>'}
-      ${zeroRows?`<details style="margin:4px 0 0 0"><summary style="cursor:pointer;font-size:11.5px;color:var(--sub);padding:4px 0">아직 0인 항목 ${zero.length}개 보기</summary>${zeroRows}</details>`:""}
+  ev.depts.forEach(d=>d.rows.forEach(r=>{r.done=r.c>=r.t;r.done?totDone++:totMiss++;}));
+  const rowHtml=r=>{
+    const pct=Math.min(100,Math.round(r.c/r.t*100));
+    const need=Math.max(0,+(r.t-r.c).toFixed(2));
+    const unit=r.u==="pt"?"점":"";
+    const tags=`${r.yr?'<span class="mtag">연간</span>':""}${r.note?`<span class="mnote${/⚠️/.test(r.note)?" warn":""}">${esc(r.note)}</span>`:""}`;
+    const sub=[];
+    if(!r.done&&r.pd>0)sub.push(`<span style="color:#B7791F;font-weight:700">승인대기 ${r.pd}건</span>`);
+    if(!r.found&&!r.agg)sub.push(`<span class="mlink" onclick="miniManualEdit('${r.id}')">${r.manual?"✎ 직접 입력값":"유폴리오 항목 없음 · ✎ 직접 입력"}</span>`);
+    return `<div class="mrow${r.done?" ok":""}">
+      <div class="mline"><span class="mlbl">${esc(r.l)}${tags}</span>
+        <span class="mval"><b>${fmt(r.c)}</b><i>/ ${fmt(r.t)}${unit}</i>${r.done?'<em class="ok">✓</em>':`<em>−${fmt(need)}</em>`}</span></div>
+      <div class="mbar"><span style="width:${pct}%"></span></div>
+      ${sub.length?`<div class="msub">${sub.join(" · ")}</div>`:""}
+    </div>`;
+  };
+  const html=ev.depts.map(d=>{
+    const rows=mode==="miss"?d.rows.filter(r=>!r.done):d.rows;
+    const done=d.rows.filter(r=>r.done).length,all=d.rows.length;
+    if(!rows.length&&mode==="miss")return "";
+    const c=DEPT_COLOR[d.d]||"#666";
+    return `<details class="mdept"${(mode!=="miss"&&done===all)?"":" open"}>
+      <summary><span class="mdot" style="background:${c}"></span><b style="color:${c}">${d.d}</b>
+        <span class="mcnt${done===all?" ok":""}">${done}/${all}</span>
+        <span class="mmini"><span style="width:${Math.round(done/all*100)}%;background:${c}"></span></span></summary>
+      ${rows.map(rowHtml).join("")}
     </details>`;
   }).join("");
-  box.innerHTML=html||`<p class="hint" style="padding:8px 0">${mode==="miss"?"미달 항목이 없어요 🎉 (다른 필터로 전체를 볼 수 있어요)":"표시할 항목이 없어요"}</p>`;
+  const extra=(mode==="all"&&ev.extra.length)?`<details class="mdept"><summary><b style="color:var(--sub)">미니 없는 유폴리오 항목 ${ev.extra.length}개</b></summary>${ev.extra.map(x=>`<div class="mrow"><div class="mline"><span class="mlbl">${esc(x.dept)} · ${esc(x.n)}</span><span class="mval" style="font-size:11px;color:var(--sub)">승인 ${x.ap||0}${x.sc!=null?` · ${fmt(x.sc)}점`:""}</span></div></div>`).join("")}</details>`:"";
+  box.innerHTML=(html||`<p class="hint" style="padding:8px 0">${mode==="miss"?"미달 항목이 없어요 🎉":"표시할 항목이 없어요"}</p>`)+extra;
   const badge=document.getElementById("mff-badge");
   if(badge)badge.textContent=`미달 ${totMiss} · 달성 ${totDone}`;
-  const upd=document.getElementById("mff-upd");
-  const pend=(S.ufItems||[]).reduce((a,x)=>a+(x.pd||0),0);
-  const st=S.ufStudent;
-  if(upd)upd.innerHTML=`갱신 ${esc(S.miniOffUpd||"—")}${st&&st.name?` · ${esc(st.name)}`:""}${S.ufItems?` · 승인대기 <span style="color:#B7791F">${pend}건</span>`:""}`;
-  document.querySelectorAll("#mff-basis button").forEach(b=>b.classList.toggle("on",b.dataset.b===(S.miniOffField||"score")));
 }
 
 /* ═════════ 유폴리오 미니 v2 — ufolio 수집기(ufolio-rho.vercel.app)와 같은 기준 ═════════
@@ -4531,7 +4662,8 @@ function ufBmRuntime(ONLY,EXCL,NOSCORE){(async function(){
   }catch(e){show('<b style="color:#b42318">오류:</b> '+E(e.message));}
 })();}
 function ufBookmarkletCode(){
-  return "javascript:"+encodeURIComponent("("+ufBmRuntime.toString()+")("+JSON.stringify(UF_ONLY)+","+JSON.stringify(UF_EXCL)+","+JSON.stringify(UF_NOSCORE)+");void 0;");
+  /* 정리본 미니(크라운 practice·임수 점수 등)는 수집기 지정 항목보다 넓어서, 임상실습 2 항목은 전부 가져온다 */
+  return "javascript:"+encodeURIComponent("("+ufBmRuntime.toString()+")({},{},"+JSON.stringify(UF_NOSCORE)+");void 0;");
 }
 function ufolioBookmarklet(){
   const code=ufBookmarkletCode();
@@ -4540,15 +4672,14 @@ function ufolioBookmarklet(){
     2️⃣ <b>u-folio 로그인 → <a href="${UF_SUMMARY_URL}" target="_blank" rel="noreferrer">임상실습요약표</a></b> 열기<br><br>
     3️⃣ 즐겨찾기에서 <b>"미니 가져오기"</b> 실행 → 뜨는 창에서 <b>📋 복사</b><br><br>
     4️⃣ 이 앱 › 플랜 › 미니달성 › <b>📥 유폴리오에서 가져오기</b> → 붙여넣기<br><br>
-    <span class="hint">가져오는 기준은 유폴리오 점수 수집기와 같아요: 임상실습 2 · 외과/보철은 지정 항목만 · 치주 기타 수술/단타 Assist 제외 · 비밀번호·쿠키는 어디에도 보내지 않고 복사만 해요.</span>`,()=>{},"확인");
+    <span class="hint">임상실습 2 항목의 승인·승인대기·환자·점수를 가져와요. 비밀번호·쿠키는 어디에도 보내지 않고 복사만 해요.</span>`,()=>{},"확인");
   (navigator.clipboard?navigator.clipboard.writeText(code):Promise.reject()).then(()=>{toast("🔖 북마클릿 복사됨");done();})
     .catch(()=>{askInput("북마클릿 코드 (길게 눌러 전체 복사)",[{label:"아래 전체를 복사해 즐겨찾기 URL에 붙여넣기",type:"textarea",val:code}],()=>{},"닫기");});
 }
 function ufolioImportOpen(){
   askInput("유폴리오 미니 붙여넣기",[
-    {label:"u-folio에서 [📋 복사]한 내용을 붙여넣으세요",type:"textarea",val:"",ph:'{"src":"ufolio","v":2,...}'},
-    {label:"미니 판정 기준 (점수를 안 쓰는 항목은 자동으로 승인 개수)",type:"seg",val:(S.miniOffField||"score"),opts:[{v:"score",lb:"점수"},{v:"approved",lb:"승인"},{v:"patient",lb:"환자수"}]}
-  ],(vals)=>{ufolioApply(vals[0],vals[1]);},"가져오기");
+    {label:"u-folio에서 [📋 복사]한 내용을 붙여넣으세요",type:"textarea",val:"",ph:'{"src":"ufolio","v":2,...}'}
+  ],(vals)=>{ufolioApply(vals[0]);},"가져오기");
 }
 /* 붙여넣은 JSON → S.ufItems(원자료) → S.miniOff(미니 표) */
 function ufolioApply(raw,valField){
@@ -4577,12 +4708,12 @@ function ufolioApply(raw,valField){
   S.miniOffField=valField;
   S.miniOffUpd=new Date(data.ts||Date.now()).toISOString().slice(0,16).replace("T"," ");
   ufBuildMini();save();renderMiniOff();
-  const g=S.miniOff.reduce((a,d)=>a+d.items.filter(i=>i.mini>0).length,0);
-  toast(`✅ 임상실습 2 · ${items.length}개 항목 반영 · 미니 목표 ${g}개${skipped?` (실습1 등 ${skipped}개 제외)`:""}`);
+  const ev=miniEval();const g=ev.depts.reduce((a,d)=>a+d.rows.filter(r=>r.found).length,0),all=ev.depts.reduce((a,d)=>a+d.rows.length,0);
+  toast(`✅ 임상실습 2 · ${items.length}개 항목 반영 · 미니 ${all}개 중 ${g}개 자동 연결${skipped?` (실습1 등 ${skipped}개 제외)`:""}`);
 }
 /* S.ufItems + 공식 미니표 → 과별 미니 현황 */
 function ufBuildMini(){
-  const f=S.miniOffField||"score";
+  const f="approved";   /* 내부 조회용(토탈 다이얼로그) — 개수 기준 */
   const goal={};
   officialMini().forEach(d=>d.items.forEach(it=>{goal[d.dept+"|"+ufNorm(it.n)]=it;}));
   const valOf=it=>(it.ns||f==="approved")?it.ap:(f==="patient"?it.pt:(it.sc==null?0:it.sc));
