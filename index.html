@@ -482,6 +482,15 @@ html,body,button,a,input,select,textarea,summary,label{touch-action:manipulation
 .sesstbl{width:100%;border-collapse:collapse;table-layout:fixed}
 .sesstbl td,.sesstbl th{padding:3px 2px;border-bottom:1px dashed var(--line);text-align:center;font-variant-numeric:tabular-nums}
 .sesstbl th{font-size:10.5px}
+/* 오늘 뭐 열리나 3탭 (#358): ⏱ 시간대별 전체(넓게) · 🕘 시간별 · 👨‍⚕️ 쌤별 — 색 선택은 오전·오후 버튼 오른쪽에 작게 */
+#od-seg button[data-m="time"]{flex:1.7 1 0}
+#od-seg button[data-m="dep"],#od-seg button[data-m="dr"]{flex:1 1 0}
+#ocs-booked .ocl-jump{align-items:center}
+#ocs-booked .ocl-jump button{flex:1 1 0;min-width:0;padding:2px 4px}
+.ocl-jump .odpen2,.odhalf .odpen2{flex:0 0 auto;margin-left:auto;display:flex;gap:3px;align-items:center;padding:2px 5px;border:1px solid var(--line);border-radius:99px;background:#fff;box-sizing:border-box;height:24px}
+.odpen2>span{display:none}
+.odpen2 button{width:16px !important;height:16px !important;font-size:9px !important}
+.odhalf{align-items:center}
 .card.tpcard{padding-top:11px;padding-bottom:11px}.card.tpcard h2{margin-bottom:0;flex-wrap:wrap;row-gap:6px}
 .hint.tsa{margin:0;font-size:10.5px}.hint.tsa:has(#tot-scan-at:empty){display:none}   /* 토탈 탭: 설명 없이 스캔 시각만 (#355) */
 /* 원진실 내 예약 목록 (#354·#355) — 날짜·시간 붙여서, 환자 이름/번호는 오른쪽 두 줄 */
@@ -1016,7 +1025,8 @@ details[id^="gslot-"].flash>summary{animation:tvFlash 1.6s ease-out}
       <input type="file" id="ocs-up" accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" style="display:none" onchange="ocsUpRun(this)">
       <div class="odseg personal-only" id="od-seg">
         <button type="button" data-m="time" onclick="odSetMode('time')">⏱ 시간대별<span class="lg"> 전체</span></button>
-        <button type="button" data-m="dep" onclick="odSetMode('dep')">🗂 과별<span class="lg">로 보기</span></button>
+        <button type="button" data-m="dep" onclick="odSetMode('dep')">🕘 시간별</button>
+        <button type="button" data-m="dr" onclick="odSetMode('dr')">👨‍⚕️ 쌤별</button>
       </div>
     </div>
     <div id="ocs-myday"></div>
@@ -1515,7 +1525,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-09-21", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20261020-357";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20261020-358";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화),
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -7931,7 +7941,7 @@ const OD_KEY="wonnae_odview";
 var odV=(function(){const d={mode:"time",dep:null,sort:"time",dr:null};
   try{const s=JSON.parse(localStorage.getItem(OD_KEY)||"{}");return Object.assign(d,s,{dr:null});}catch(e){return d;}})();
 function odSave(){try{localStorage.setItem(OD_KEY,JSON.stringify({mode:odV.mode,dep:odV.dep,sort:odV.sort,half:odV.half||"all"}));}catch(e){}}
-function odSetMode(m){odV.mode=m;if(m==="dep"){odV.sort="time";odV.dr=null;}odSave();renderOcsDay();}   /* 과별 들어가면 시간순이 기본 */
+function odSetMode(m){if(m==="dr"){odV.mode="dep";odV.sort="dr";}else if(m==="dep"){odV.mode="dep";odV.sort="time";}else odV.mode="time";odV.dr=null;odSave();renderOcsDay();}   /* 3탭: 시간대별 전체 · 시간별(과별 시간순) · 쌤별 (#358) */
 function odPickDep(d){odV.dep=d;odV.dr=null;odSave();renderOcsDay();}
 function odSetSort(s){odV.sort=s;odV.dr=null;odSave();renderOcsDay();}
 function odSetHalf(v){odV.half=v;try{odSave();}catch(e){}renderOcsDay();}
@@ -8087,10 +8097,12 @@ function odDepHtml(ds,raw,MSg,hvMap){
   const odTM=t=>/^\d{1,2}:\d{2}$/.test(t||"")?hm2min(t):-1;
   const odNext=odIsToday?(vis.map(u=>u.t||"").find(t=>odTM(t)>=odNowM)||null):null;
   const odHasPM=vis.some(u=>odTM(u.t)>750);
-  const jumps=(odV.sort!=="dr"&&vis.length)?`<div class="ocl-jump"><button type="button" class="now" onclick="odJumpNow()" title="오늘 지금 시각의 진료로 이동">⏰ 지금</button><button type="button" onclick="odJump('od-list-top')">☀️ 오전</button>${odHasPM?`<button type="button" onclick="odJump('od-pm')">🌙 오후</button>`:""}</div>`:"";
-  h+=`<div class="ocl-tools"><div class="hi-pen ohpen">${penDotsHtml()}</div>
-    <div class="ocl-seg"><button type="button" class="${odV.sort==="time"?"on":""}" onclick="odSetSort('time')">시간순</button><button type="button" class="${odV.sort==="dr"?"on":""}" onclick="odSetSort('dr')">쌤별</button></div></div>
-    ${jumps}<span id="od-list-top"></span>`;
+  const _shm=document.body.classList.contains("share-mode");
+  const pen2=_shm?"":`<span class="ohpen odpen2">${penDotsHtml()}</span>`;   /* 색 선택 = 오전·오후 버튼 오른쪽에 작게 (#358) */
+  const jumps=(odV.sort!=="dr"&&vis.length)?`<div class="ocl-jump"><button type="button" class="now" onclick="odJumpNow()" title="오늘 지금 시각의 진료로 이동">⏰ 지금</button><button type="button" onclick="odJump('od-list-top')">☀️ 오전</button>${odHasPM?`<button type="button" onclick="odJump('od-pm')">🌙 오후</button>`:""}${pen2}</div>`:"";
+  h+=(_shm?`<div class="ocl-tools"><div class="hi-pen ohpen">${penDotsHtml()}</div>
+    <div class="ocl-seg"><button type="button" class="${odV.sort==="time"?"on":""}" onclick="odSetSort('time')">시간순</button><button type="button" class="${odV.sort==="dr"?"on":""}" onclick="odSetSort('dr')">쌤별</button></div></div>`:"")
+    +`${jumps}<span id="od-list-top"></span>`;
   if(!vis.length){return h+`<p class="hint" style="margin:6px 0 2px">${L.length?"교수님 진료만 있어요 — 🔒 버튼으로 볼 수 있어요.":"이 날 이 과 예약이 없어요."}</p></div>`;}
   let rows="";
   if(odV.sort==="dr"){
@@ -8108,7 +8120,7 @@ function odDepHtml(ds,raw,MSg,hvMap){
     /* 오전/오후 나눠 보기 토글 (쌤 칩 아래) */
     const hf=odV.half||"all";
     const nA=vis.filter(u=>odHalf(u)==="am").length,nP=vis.length-nA;
-    h+=`<div class="odhalf personal-only"><button type="button" class="${hf==="all"?"on":""}" onclick="odSetHalf('all')">전체</button><button type="button" class="${hf==="am"?"on":""}" onclick="odSetHalf('am')">☀️ 오전 ${nA}</button><button type="button" class="${hf==="pm"?"on":""}" onclick="odSetHalf('pm')">🌙 오후 ${nP}</button></div>`;
+    h+=`<div class="odhalf personal-only"><button type="button" class="${hf==="all"?"on":""}" onclick="odSetHalf('all')">전체</button><button type="button" class="${hf==="am"?"on":""}" onclick="odSetHalf('am')">☀️ 오전 ${nA}</button><button type="button" class="${hf==="pm"?"on":""}" onclick="odSetHalf('pm')">🌙 오후 ${nP}</button>${pen2}</div>`;
     if(raw.length&&raw[0].hist)h+=`<p class="hint" style="margin:0 0 5px">📜 지난 날짜라 담당쌤 정보가 없어요.</p>`;
     const grp=(label,arr)=>`<tr class="g"><td colspan="5"><span class="gl dr">${label}</span><small>${arr.length}건${hvc(arr)?`<span class="personal-only"> · 💎${hvc(arr)}</span>`:""}</small></td></tr>`+arr.map(u=>odRowT(u,MSg,hvMap,true)).join("");
     const show=sel?[sel]:keys;
@@ -8145,7 +8157,7 @@ function renderOcsDay(){
    tEl.textContent=`${d.getMonth()+1}/${d.getDate()} (${dows[day]})`;tEl.style.color=isT?"var(--coral)":"";tEl.title=isT?"오늘":"탭하면 오늘로";}   /* 오늘이면 코랄색 (글자 늘려 줄바꿈 안 생기게) */
   const share=document.body.classList.contains("share-mode");
   const mode=share?"dep":(odV.mode==="dep"?"dep":"time");
-  document.querySelectorAll("#od-seg button").forEach(b=>b.classList.toggle("on",b.dataset.m===mode));
+  {const k=mode==="time"?"time":(odV.sort==="dr"?"dr":"dep");document.querySelectorAll("#od-seg button").forEach(b=>b.classList.toggle("on",b.dataset.m===k));}
   /* 하이라이트 색: 오늘 뭐 열리나에서는 전역 줄 대신 — 시간대별은 날짜 옆, 과별은 목록 위 */
   {const hp=document.getElementById("hi-pen");if(hp)hp.style.display="none";
    const hb=document.getElementById("hi-pen-bar");if(hb){hb.dataset.on="0";hb.innerHTML="";}}   /* 색 선택은 두 보기 모두 목록 바로 위(ohpen) */   /* 과별은 과 목록 바로 아래(공유판과 같은 자리) */
