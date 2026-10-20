@@ -495,8 +495,8 @@ html,body,button,a,input,select,textarea,summary,label{touch-action:manipulation
 @media (max-width:385px){.nailbar .nnav{padding:4px 6px}.ndeps .nchip{font-size:10.5px}.nailbar .odpen button{width:15px !important;height:15px !important}}
 .nail-sec{font-size:12px;font-weight:900;margin:12px 0 6px;padding-top:8px;border-top:1px dashed var(--line)}
 .nail-sec span{font-size:10.5px;font-weight:600;color:var(--sub);margin-left:4px}
-details.nailrun{border:1.5px solid color-mix(in srgb,var(--c) 35%,transparent);border-radius:12px;margin:5px 0;background:#fff;overflow:hidden}
-details.nailrun summary{list-style:none;cursor:pointer;padding:7px 9px;background:color-mix(in srgb,var(--c) 6%,#fff)}
+details.nailrun{margin:6px 0 !important;border:1.5px solid color-mix(in srgb,var(--c) 35%,transparent);border-radius:12px;margin:5px 0;background:#fff;overflow:hidden}
+details.nailrun summary{list-style:none;cursor:pointer;background:color-mix(in srgb,var(--c) 6%,#fff)}
 details.nailrun summary::-webkit-details-marker{display:none}
 .nr1{display:flex;gap:5px;align-items:center;min-width:0}
 .nr1 .nrk{flex:0 0 auto;width:18px;height:18px;border-radius:50%;background:var(--c);color:#fff;font-size:10.5px;display:inline-flex;align-items:center;justify-content:center}
@@ -509,19 +509,23 @@ details.nailrun summary::-webkit-details-marker{display:none}
 .nb{display:inline-block;font-size:9.5px;font-weight:800;border-radius:99px;padding:1px 7px;margin-left:3px;vertical-align:1px}
 .nb.live{background:var(--coral);color:#fff}.nb.past{background:#EEF0EF;color:var(--sub)}
 .nb.part{background:#FFF3DC;color:#8A5A00}
-.nrlist{padding:0 8px 6px}
-.nrrow{display:flex;gap:6px;align-items:center;font-size:11.5px;padding:4px 2px;border-top:1px solid #EEF2EF;border-radius:6px}
+.nailcard{padding-left:10px !important;padding-right:10px !important}
+details.nailrun summary{padding:7px 8px}
+.nrlist{padding:0 4px 5px}
+.nrrow{display:flex;gap:4px;align-items:center;font-size:11.5px;padding:4px 1px;border-top:1px solid #EEF2EF;border-radius:6px}
+.nrrow .nhi{flex:0 0 16px;border:none;background:transparent;padding:0;font-size:11px;line-height:1;cursor:pointer;text-align:center}
+.nrgap{font-size:9.5px;color:var(--sub);font-weight:700;padding:1px 0 1px 54px;border-top:1px dashed #E3E8E5}
 .nrrow.bz{opacity:.4}
 .nrrow.blk{background:#F3F4F3;color:var(--sub)}
 .nrrow.blk .tk{font-style:normal;font-size:9px;font-weight:800;background:#E3E6E4;border-radius:4px;padding:0 4px;color:#5E6B66}
-.nrrow>b{flex:0 0 38px}
+.nrrow>b{flex:0 0 34px;font-size:11.5px}
 .nrrow .nrc{flex:1;min-width:0;word-break:break-word}
 .nrrow .nrc i{font-style:normal;font-size:9.5px;font-weight:800;color:#8A6A00}
 .nrrow .nrc i.bzt{color:#B42318}
-.nrrow .nrp{flex:0 0 auto;max-width:76px;text-align:right;overflow:hidden;line-height:1.2}
+.nrrow .nrp{flex:0 0 auto;max-width:58px;text-align:right;overflow:hidden;line-height:1.15}
 .nrrow .nrp b{display:block;font-weight:700;color:#3E4B46;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nrrow .nrp b em{font-style:normal;color:var(--purple)}
-.nrrow .nrp small{display:block;font-size:9px;color:var(--sub);font-weight:600}
+.nrrow .nrp small{display:block;font-size:8.5px;color:var(--sub);font-weight:600;letter-spacing:-.2px}
 .ntl{margin-top:2px}
 .ntl-row{display:flex;align-items:center;gap:6px;min-height:28px;border-bottom:1px solid #EEF2EF}
 .ntl-head{min-height:16px;border-bottom:none}
@@ -1032,8 +1036,8 @@ details[id^="gslot-"].flash>summary{animation:tvFlash 1.6s ease-out}
 <section class="tabpage" id="page-ocs">
   <div class="slotpick" id="ocs-pills">
     <button data-o="day" class="on"><span class="personal-inl">오늘 뭐 열리나</span><span class="share-inl">당일 뷰</span></button>
-    <button data-o="gold" class="personal-only">⚡고밸류</button>
     <button data-o="new" class="personal-only">📌알박기</button>
+    <button data-o="gold" class="personal-only">⚡고밸류</button>
     <button data-o="hl" data-golddir="hl">🖍️하이라이트</button>
     <span class="pill-br" aria-hidden="true"></span>
     <button data-o="total">토탈</button>
@@ -1580,7 +1584,7 @@ const VAC_AGG={"days":[{"d": "2026-07-06", "tot": 1081, "ok": 295, "hv": 89, "by
 const NAIL_AGG={"n": 25, "upd": "2026-09-21", "drs": [{"dep": "치주", "dr": "한만진", "days": 22, "runs": 31, "maxLen": 9, "hv": 41, "big": 41}, {"dep": "치주", "dr": "고은서", "days": 20, "runs": 33, "maxLen": 9, "hv": 20, "big": 8}, {"dep": "치주", "dr": "황재혁", "days": 19, "runs": 33, "maxLen": 8, "hv": 11, "big": 8}, {"dep": "치주", "dr": "수련의", "days": 19, "runs": 29, "maxLen": 11, "hv": 2, "big": 8}, {"dep": "치주", "dr": "박진영", "days": 15, "runs": 20, "maxLen": 12, "hv": 6, "big": 5}, {"dep": "치주", "dr": "김세연", "days": 15, "runs": 18, "maxLen": 8, "hv": 17, "big": 3}, {"dep": "치주", "dr": "이요섭", "days": 14, "runs": 26, "maxLen": 10, "hv": 28, "big": 27}, {"dep": "보철", "dr": "이가영", "days": 14, "runs": 20, "maxLen": 6, "hv": 20, "big": 10}, {"dep": "보철", "dr": "안세홍", "days": 14, "runs": 17, "maxLen": 5, "hv": 15, "big": 7}, {"dep": "치주", "dr": "임지해", "days": 14, "runs": 17, "maxLen": 4, "hv": 3, "big": 6}, {"dep": "보철", "dr": "김형준", "days": 13, "runs": 20, "maxLen": 7, "hv": 28, "big": 4}, {"dep": "보철", "dr": "이지훈", "days": 13, "runs": 18, "maxLen": 6, "hv": 38, "big": 30}, {"dep": "치주", "dr": "강소연", "days": 13, "runs": 18, "maxLen": 6, "hv": 30, "big": 8}, {"dep": "치주", "dr": "김현경", "days": 13, "runs": 15, "maxLen": 3, "hv": 9, "big": 6}, {"dep": "치주", "dr": "안성락", "days": 12, "runs": 17, "maxLen": 8, "hv": 6, "big": 5}, {"dep": "치주", "dr": "강예진", "days": 12, "runs": 15, "maxLen": 6, "hv": 19, "big": 1}, {"dep": "치주", "dr": "박승진", "days": 12, "runs": 12, "maxLen": 8, "hv": 12, "big": 4}, {"dep": "보철", "dr": "최병훈", "days": 11, "runs": 11, "maxLen": 4, "hv": 12, "big": 7}, {"dep": "치주", "dr": "김수아", "days": 11, "runs": 10, "maxLen": 4, "hv": 2, "big": 3}, {"dep": "보철", "dr": "정택준", "days": 9, "runs": 13, "maxLen": 5, "hv": 30, "big": 4}, {"dep": "보철", "dr": "김하람", "days": 9, "runs": 8, "maxLen": 3, "hv": 7, "big": 5}, {"dep": "보철", "dr": "송창열", "days": 9, "runs": 7, "maxLen": 4, "hv": 5, "big": 5}, {"dep": "보철", "dr": "김민경", "days": 8, "runs": 10, "maxLen": 4, "hv": 15, "big": 3}, {"dep": "보철", "dr": "김승완", "days": 8, "runs": 7, "maxLen": 4, "hv": 12, "big": 11}, {"dep": "보철", "dr": "안유진", "days": 7, "runs": 5, "maxLen": 2, "hv": 6, "big": 4}, {"dep": "치주", "dr": "노관휘", "days": 6, "runs": 7, "maxLen": 6, "hv": 2, "big": 2}, {"dep": "보철", "dr": "차영석", "days": 6, "runs": 6, "maxLen": 3, "hv": 8, "big": 7}, {"dep": "보철", "dr": "이영빈", "days": 6, "runs": 6, "maxLen": 3, "hv": 7, "big": 7}, {"dep": "보철", "dr": "차채령", "days": 5, "runs": 7, "maxLen": 4, "hv": 3, "big": 0}, {"dep": "보철", "dr": "김상헌", "days": 5, "runs": 5, "maxLen": 4, "hv": 10, "big": 0}, {"dep": "보철", "dr": "김동학", "days": 3, "runs": 2, "maxLen": 2, "hv": 1, "big": 1}, {"dep": "보철", "dr": "수련의", "days": 2, "runs": 0, "maxLen": 1, "hv": 0, "big": 2}, {"dep": "치주", "dr": "창에서", "days": 1, "runs": 0, "maxLen": 1, "hv": 0, "big": 1}]};
 const DEPT_COLOR={"소치":"#EE7A1A","내과":"#C29B00","교정":"#2E9E44","치주":"#12A5B0","보존":"#3D7BE0","보철":"#23408F","외과":"#A8262A","영상":"#4F7FA8","병리":"#B0637C","원진실":"#9A5FD6","관악":"#6B2D8F","공통":"#5C6B73","기타":"#8A938D"};
 const KEY="wonnae-v3";
-const BUILD_ID="20261020-361";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
+const BUILD_ID="20261021-362";   /* 배포 빌드 — Claude가 새 파일 줄 때마다 끝번호 올라감 */
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 /* 저장 어댑터: 클로드 앱/웹에서 열면 계정 저장소(폰·PC 자동 동기화),
    파일을 따로 브라우저로 열면 그 기기 localStorage(비동기화)로 폴백 */
@@ -7483,7 +7487,6 @@ const HV_RULES=[
  {dep:"보철",re:/부러|파절|fract|치료\s?계획|(tx|치료)\s?plan|상담|consult|cbct|\bC\.?T\b/i,ex:/결과\s?상담/i,lb:"토탈씨앗🌱",w:4.2},   /* 케전: 파절·틀니불편·상담 = 토탈 배정 노리기 */
  {dep:"보철",re:/신환|초진|C N [MF]|I N [MF]/,lb:"신환차팅",w:4.4},
  {dep:"보철",re:/prep|형성/i,lb:"prep",w:4.5},
- {dep:"보철",re:/\bdel\b|셋팅|세팅|접착|cementa|set\b/i,lb:"세팅·del",w:4},
  {dep:"보철",re:/impla|임플|fixture|abut|\d\s?i\b|ISQ/i,lb:"임플체크",w:3.5},
  {dep:"보철",re:/denture|의치|틀니|RPD|\bCD\b|wax ?rim|이장|relin/i,lb:"의치",w:4},
  {dep:"보철",re:/crown|\bcr\b|브릿지|bridge|inlay|온레이|onlay/i,lb:"Cr·Br",w:3.5},
@@ -7816,6 +7819,7 @@ const NEW_DEPS=["소치","내과","보존","보철","교정"];
    · 토탈 진료 바로 뒤 진료는 '직전 토탈 진료' 표시 (그 학생이 이어서 할 수 있음)
    · 순위 = 실제로 볼 수 있는 진료 수(내 일정 겹침 제외) + 쌤 티어·직급 + 💎 + 시간 */
 const NAIL_DEPS=["치주","보철"];
+const NAIL_GAP=90;   /* 같은 쌤 다음 진료가 90분 안에 시작하면 이어서 (보철은 1시간~1시간 반 진료가 흔함) (#362) */
 const PR_BLOCK_RE=/\bimp\b|impression|인상|\bdel\b|delivery|딜리버리/i;
 const PE_BLOCK_RE=/flap|플랩|판막|\b(1st|2nd)\b|식립|임플\s*수술|implant\s*(op|surgery)/i;
 /* 토탈 진료(그 학생 몫): 보철 imp·del · 치주 flap·임플 1st/2nd op */
@@ -7828,9 +7832,10 @@ function nailBusy(ds,m){
     return b&&m>=b[0]&&m<b[1];});
 }
 function nailRuns(ds){
-  const isProf=u=>{const dr=(u.dr||"").replace(/\(.*?\)/g,"").replace(/[AB]$/,"").replace(/[0-9A-Za-z]/g,"").trim();return (PROFS[u.dep]||[]).includes(dr);};
-  const rows=upOn(ds).filter(u=>NAIL_DEPS.includes(u.dep)&&u.t&&(u.dr||"").trim()&&!/^\s*\[/.test(u.dr||"")&&!isProf(u)&&!(u.dep==="치주"&&/수련의/.test(u.dr||"")));
-  const by={};rows.forEach(u=>{const k=u.dep+"|"+String(u.dr).trim();(by[k]=by[k]||[]).push(u);});
+  const key=u=>odDrKey(u);   /* 쌤별 탭과 같은 이름 기준 (#362) */
+  const rows=upOn(ds).filter(u=>{if(!NAIL_DEPS.includes(u.dep)||!u.t)return false;const k=key(u);
+    return k!=="미지정"&&k!=="🌱신환"&&!odIsProf(u)&&!(u.dep==="치주"&&/수련의/.test(u.dr||""));});
+  const by={};rows.forEach(u=>{const k=u.dep+"|"+key(u);(by[k]=by[k]||[]).push(u);});
   const out=[],blocks=[];
   Object.entries(by).forEach(([k,L])=>{const [dep,dr]=k.split("|");
     L.sort((a,b)=>hm2min(a.t)-hm2min(b.t));
@@ -7839,12 +7844,12 @@ function nailRuns(ds){
     const flush=cut=>{if(!run.length){return;}
       const st=hm2min(run[0].t);const ts=[...new Set(run.map(u=>hm2min(u.t)))];
       const gaps=ts.slice(1).map((m,i)=>m-ts[i]);const step=gaps.length?((gaps.reduce((a,b)=>a+b,0)/gaps.length)>=45?60:30):(dep==="보철"?60:30);   /* 한 진료 길이 추정: 30분 또는 60분 */
-      out.push({dep,dr,run:run.slice(),st,en:Math.min(ts[ts.length-1]+step,cut||9999,st<750?750:1080),n:run.length,half:st<750?"am":"pm",after});run=[];after=null;};
+      out.push({dep,dr,run:run.slice(),st,en:Math.min(ts[ts.length-1]+step,cut||9999,st<=750?780:1080),n:run.length,half:st<=750?"am":"pm",after});run=[];after=null;};
     L.forEach(u=>{const m=hm2min(u.t);
       const blk=prBlocked(u)&&!isMineRow(u);
-      if(run.length){const pm=hm2min(run[run.length-1].t);if(m-pm>60||(pm<750)!==(m<750))flush();}
+      if(run.length){const pm=hm2min(run[run.length-1].t);if(m-pm>NAIL_GAP||(pm<=750)!==(m<=750))flush();}
       if(blk){flush(m);blocks.push({dep,dr,u,m});lastBlk=u;return;}
-      if(!run.length){after=(lastBlk&&m-hm2min(lastBlk.t)<=60&&(hm2min(lastBlk.t)<750)===(m<750))?lastBlk:null;}
+      if(!run.length){after=(lastBlk&&m-hm2min(lastBlk.t)<=NAIL_GAP&&(hm2min(lastBlk.t)<=750)===(m<=750))?lastBlk:null;}
       run.push(u);lastBlk=null;});
     flush();
   });
@@ -7857,7 +7862,7 @@ function renderOcsNew(){
   const ds=ocsDate||ymd(new Date());const today=ymd(new Date());const isToday=ds===today;
   const now=new Date(),nowM=now.getHours()*60+now.getMinutes();
   const F=Object.assign({dep:"",half:""},window.nailF||{});
-  if(!F.half)F.half=(isToday&&nowM>=720)?"pm":"am";
+  if(!F.half)F.half=(isToday&&nowM>750)?"pm":"am";
   const MSg=matchSet();
   const all=nailRuns(ds);const BL=nailRuns.__blocks||[];
   const hvN=u=>{try{return !!hvOf(u);}catch(e){return false;}};
@@ -7894,20 +7899,20 @@ function renderOcsNew(){
       const c=DEPT_COLOR[r.dep]||"#666";const dur=r.en-r.st;
       const state=r.past?`<span class="nb past">지남</span>`:r.live?`<span class="nb live">▶ 지금 합류 · 남은 ${r.eff}명</span>`:"";
       const lock=r.busyN?`<span class="nb part">🔒 내 일정 ${r.busyN}건 겹침</span>`:"";
-      const aft=r.after?`<div class="nr3">⚠ 직전 ${r.after.t} <b>${esc(r.after.cat||"")}</b> = 토탈 진료 — 그 학생이 이어서 할 수 있어요</div>`:"";
+      const aft=r.after?`<div class="nr3">⚠ 직전 ${r.after.t} <b>${esc(r.after.cat||"")}</b> = 토탈 진료</div>`:"";
       h+=`<details class="nailrun" style="--c:${c}"${i===0&&!r.past?" open":""}>
         <summary>
           <div class="nr1"><b class="nrk">${i+1}</b><span class="dept-tag" style="background:${c};font-size:9.5px">${r.dep}</span><b class="nrdr">${esc(r.dr)}쌤</b>${r.rank?`<span class="nrr">${r.rank}</span>`:""}${tierBadge(r.dep,r.dr)}<span style="flex:1"></span><b class="nrn">${r.eff}명</b>${r.eff!==r.n?`<span class="nrh">/${r.n}</span>`:""}<span class="nrh">${Math.floor(dur/60)?Math.floor(dur/60)+"시간":""}${dur%60?" "+dur%60+"분":""}</span></div>
           <div class="nr2">⏰ <b>${tm(r.st-10)}</b> 도착 → <b>${tm(r.st)}~${tm(r.en)}</b> 쭉${r.hv?` · <b style="color:var(--amber)">💎${r.hv}</b>`:""}${r.mine?` · <b style="color:var(--purple)">◇${r.mine}</b>`:""} ${state}${lock}</div>${aft}
         </summary>
-        <div class="nrlist">${r.after?`<div class="nrrow blk"><span class="ocl-hi">🚫</span><b>${r.after.t}</b><span class="nrc">${esc(r.after.cat||"")} <i class="tk">토탈 진료</i></span><span class="nrp"><b>${esc(r.after.pt)}</b><small>${esc(r.after.no||"")}</small></span></div>`:""}${r.run.map((u,j)=>{const hv=(()=>{try{return hvOf(u);}catch(e){return null;}})();const k=ocsKey(u);
-          return `<div class="nrrow${r.busy[j]?" bz":""}" style="${hiStyle(k)}"><button type="button" class="ocl-hi" data-k="${k}" onclick="event.stopPropagation();ocsHiByKey('${k}')">${hiIcon(k)}</button><b>${u.t}</b><span class="nrc">${esc(u.cat||"—")}${hv?` <i>💎${esc(hv.lb)}</i>`:""}${r.busy[j]?` <i class="bzt">🔒 내 일정</i>`:""}</span><span class="nrp"><b>${esc(u.pt)}${MSg.has(u)?' <em>◇</em>':""}</b><small>${esc(u.no||"")}</small></span></div>`;}).join("")}</div>
+        <div class="nrlist">${r.after?`<div class="nrrow blk"><span class="nhi">🚫</span><b>${r.after.t}</b><span class="nrc">${esc(r.after.cat||"")} <i class="tk">토탈 진료</i></span><span class="nrp"><b>${esc(r.after.pt)}</b><small>${esc(r.after.no||"")}</small></span></div>`:""}${r.run.map((u,j)=>{const gp=j?hm2min(u.t)-hm2min(r.run[j-1].t):0;const gap=gp>60?`<div class="nrgap">⏸ ${gp}분 뒤</div>`:"";const hv=(()=>{try{return hvOf(u);}catch(e){return null;}})();const k=ocsKey(u);
+          return gap+`<div class="nrrow${r.busy[j]?" bz":""}" style="${hiStyle(k)}"><button type="button" class="nhi" data-k="${k}" onclick="event.stopPropagation();ocsHiByKey('${k}')">${hiIcon(k)}</button><b>${u.t}</b><span class="nrc">${esc(u.cat||"—")}${hv?` <i>💎${esc(hv.lb)}</i>`:""}${r.busy[j]?` <i class="bzt">🔒 내 일정</i>`:""}</span><span class="nrp"><b>${esc(u.pt)}${MSg.has(u)?' <em>◇</em>':""}</b><small>${esc(u.no||"")}</small></span></div>`;}).join("")}</div>
       </details>`;
     });
     /* 쌤별 타임라인 */
-    const S0=F.half==="am"?540:780,E0=F.half==="am"?750:1050;const W=E0-S0;
+    const S0=F.half==="am"?540:780,E0=F.half==="am"?780:1080;const W=E0-S0;
     const drs={};list.forEach(r=>{const k=r.dep+"|"+r.dr;(drs[k]=drs[k]||[]).push(r);});
-    BL.filter(b=>(!F.dep||b.dep===F.dep)&&((b.m<750)===(F.half==="am"))).forEach(b=>{const k=b.dep+"|"+b.dr;drs[k]=drs[k]||[];});
+    BL.filter(b=>(!F.dep||b.dep===F.dep)&&((b.m<=750)===(F.half==="am"))).forEach(b=>{const k=b.dep+"|"+b.dr;drs[k]=drs[k]||[];});
     const mxOf=k=>Math.max(0,...(drs[k]||[]).map(r=>r.n));
     const keys=Object.keys(drs).sort((a,b)=>mxOf(b)-mxOf(a)||a.localeCompare(b,"ko"));
     if(keys.length){
